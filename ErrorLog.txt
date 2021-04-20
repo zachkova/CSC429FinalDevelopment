@@ -1,0 +1,4 @@
+[4/20/21 6:59 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
+[4/20/21 7:03 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'contactPhone' at row 1>
+[4/20/21 7:11 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/20/21 7:13 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
