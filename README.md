@@ -22,6 +22,12 @@ Clone The Project:
     Click Finish in the bottom right hand corner. 
     This Should Bring you back to project Structure window.
     
+ Add in the DataBase .jar file in a different place on your computer and go back to project structure in IntelliJ:
+  Once in Project Structure click modules on the left hand side.
+  Click the Plus button in the middle left. find the mysql-connector-java-5.1.7-bin.jar. 
+  Click the Check mark next to the mysql-connector-java-5.1.7-bin.jar file and Click Apply in the lower right hand corner.
+  
+    
     
     
     
