@@ -69,3 +69,7 @@
 [4/21/21 4:44 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'fdsafdsadfdsafdsa' in 'where clause'>
 [4/21/21 4:49 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'fdsafdsfdsa' in 'where clause'>
 [4/21/21 4:50 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'dsafdsafdsa' in 'where clause'>
+[4/21/21 7:28 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'dfdafa' in 'where clause'>
+[4/21/21 7:41 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'sadsasa' in 'where clause'>
+[4/21/21 7:42 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'fdsafdsa' in 'where clause'>
+[4/21/21 7:44 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'hunter' in 'where clause'>
