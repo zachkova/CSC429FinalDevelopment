@@ -165,18 +165,18 @@ public class LibrarianView extends View
         clearErrorMessage();
 
         String useridEntered = userid.getText();
+        String passwordEntered = password.getText();
 
-        if ((useridEntered == null) || (useridEntered.length() == 0))
+        if ((useridEntered == null) || (useridEntered.length() == 0) ||
+                (passwordEntered == null) || (passwordEntered.length() == 0))
         {
-            databaseError();
+            databaseErrorEmpty();
             userid.requestFocus();
         }
         else
         {
-            String passwordEntered = password.getText();
             processUserIDAndPassword(useridEntered, passwordEntered);
         }
-
     }
 
     /**
@@ -188,6 +188,7 @@ public class LibrarianView extends View
                                           String passwordString)
     {
         Properties props = new Properties();
+
         props.setProperty("bannerId", useridString);
         props.setProperty("password", passwordString);
 
@@ -195,10 +196,9 @@ public class LibrarianView extends View
         userid.setText("");
         password.setText("");
 
-
         try {
             myModel.stateChangeRequest("Login", props);
-        }catch(Exception z){
+        }catch (Exception x){
             databaseError();
         }
     }
@@ -208,24 +208,21 @@ public class LibrarianView extends View
     {
         // STEP 6: Be sure to finish the end of the 'perturbation'
         // by indicating how the view state gets updated.
-        if (key.equals("LoginError") == true) {
+        // STEP 6: Be sure to finish the end of the 'perturbation'
+        // by indicating how the view state gets updated.
+        if (key.equals("LoginError") == true)
+        {
             // display the passed text
-            //databaseError();
-            //System.out.println("HERE");
-            //displayErrorMessage((String)value);
-        }else if(key.equals("Login") == true){
-            System.out.println("");
+            displayErrorMessage((String)value);
         }
-
     }
-
     /**
      * Display error message
      */
     //----------------------------------------------------------
     public void displayErrorMessage(String message)
     {
-        statusLog.displayErrorMessage(message);
+        databaseError();
     }
 
     /**
@@ -243,7 +240,19 @@ public class LibrarianView extends View
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
         alert.setHeaderText("Ooops, there was an issue finding your account!");
-        alert.setContentText("Please make sure all fields are filled out correctly.");
+
+        String error = (String)myModel.getState("LoginError");
+        alert.setContentText(error);
+
+        alert.showAndWait();
+    }
+
+    public void databaseErrorEmpty(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Ooops, there was an issue finding your account!");
+        alert.setContentText("The User ID and Password fields cannot be empty.");
 
         alert.showAndWait();
     }

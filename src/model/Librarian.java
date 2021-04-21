@@ -162,6 +162,7 @@ public class Librarian implements IView, IModel
         {
             if (value != null)
             {
+
                 loginErrorMessage = "";
 
                 boolean flag = loginWorker((Properties)value);
@@ -364,21 +365,26 @@ public class Librarian implements IView, IModel
     {
         try
         {
+
             String username = props.getProperty("bannerId");
             String password = props.getProperty("password");
+
             worker = new Worker(username, password);
+
             System.out.println("Account Holder: " + worker.getState("firstName") + " successfully logged in");
             return true;
         }
         catch (InvalidPrimaryKeyException ex)
         {
+
             loginErrorMessage = "ERROR: " + ex.getMessage();
+            System.out.println(loginErrorMessage);
             return false;
         }
         catch (PasswordMismatchException exec)
         {
-
             loginErrorMessage = "ERROR: " + exec.getMessage();
+            System.out.println(loginErrorMessage);
             return false;
         }
     }
