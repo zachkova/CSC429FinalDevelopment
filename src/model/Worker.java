@@ -22,16 +22,17 @@ public class Worker extends EntityBase {
         String idToQuery = bannerId;
 
         String query = "SELECT * FROM " + myTableName + " WHERE (bannerId = " + idToQuery + ")";
-
+        System.out.println("Hunter Thomas scr");
         Vector allDataRetrieved =  getSelectQueryResult(query);
 
         // You must get one account at least
         if (allDataRetrieved.isEmpty() == false)
         {
+
             int size = allDataRetrieved.size();
 
             // There should be EXACTLY one account. More than that is an error
-            if (size != 1)
+            if (size > 1)
             {
                 throw new InvalidPrimaryKeyException("Multiple workers matching user bannerId : "
                         + idToQuery + " found.");
@@ -59,6 +60,7 @@ public class Worker extends EntityBase {
         // If no account found for this user name, throw an exception
         else
         {
+            System.out.println("Hunter Thomas");
             throw new InvalidPrimaryKeyException("No worker matching bannerId : "
                     + idToQuery + " found.");
         }
