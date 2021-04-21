@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,6 +24,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+
 
 // project imports
 import impresario.IModel;
@@ -52,7 +55,9 @@ public class TransactionChoiceView extends View
 	private Button delCheck;
 	private Button listCheckBooks;
 	private Button listAvailableBooks;
+	private Button listStudentBooksCheckedOut;
 
+	private ScrollBar scroll;
 
 	private Button cancelButton;
 
@@ -283,62 +288,62 @@ public class TransactionChoiceView extends View
 	// added delinquency button
 		HBox delinCheck = new HBox(10);
 		delinCheck.setAlignment(Pos.CENTER);
-		checkIB = new Button("Delinquency Check");
-		checkIB.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-		checkIB.setOnAction(new EventHandler<ActionEvent>() {
+		delCheck = new Button("Delinquency Check");
+		delCheck.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		delCheck.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		delinCheck.getChildren().add(checkIB);
+		delinCheck.getChildren().add(delCheck);
 		container.getChildren().add(delinCheck);
 		// added List all Checked out books
 
 		HBox listAllBook = new HBox(10);
 		listAllBook.setAlignment(Pos.CENTER);
-		checkIB = new Button("List All Checked Out Books");
-		checkIB.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-		checkIB.setOnAction(new EventHandler<ActionEvent>() {
+		listCheckBooks = new Button("List All Checked Out Books");
+		listCheckBooks.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		listCheckBooks.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		listAllBook.getChildren().add(checkIB);
+		listAllBook.getChildren().add(listCheckBooks);
 		container.getChildren().add(listAllBook);
 		//List all available books
 
 		HBox listAllBookAvail = new HBox(10);
 		listAllBookAvail.setAlignment(Pos.CENTER);
-		checkIB = new Button("List All Available Books");
-		checkIB.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-		checkIB.setOnAction(new EventHandler<ActionEvent>() {
+		listAvailableBooks = new Button("List All Available Books");
+		listAvailableBooks.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		listAvailableBooks.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		listAllBookAvail.getChildren().add(checkIB);
+		listAllBookAvail.getChildren().add(listAvailableBooks);
 		container.getChildren().add(listAllBookAvail);
 
 
 		// List students with Book checked Out
 		HBox listStudentBookOut = new HBox(10);
 		listStudentBookOut.setAlignment(Pos.CENTER);
-		checkIB = new Button("List Students with Book Checked Out");
-		checkIB.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-		checkIB.setOnAction(new EventHandler<ActionEvent>() {
+		listStudentBooksCheckedOut = new Button("List Students with Book Checked Out");
+		listStudentBooksCheckedOut.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		listStudentBooksCheckedOut.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		listStudentBookOut.getChildren().add(checkIB);
+		listStudentBookOut.getChildren().add(listStudentBooksCheckedOut);
 		container.getChildren().add(listStudentBookOut);
 
 
