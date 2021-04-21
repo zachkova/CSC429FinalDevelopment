@@ -22,7 +22,7 @@ public class Worker extends EntityBase {
         String idToQuery = bannerId;
 
         String query = "SELECT * FROM " + myTableName + " WHERE (bannerId = " + idToQuery + ")";
-        System.out.println("Hunter Thomas scr");
+
         Vector allDataRetrieved =  getSelectQueryResult(query);
 
         // You must get one account at least
