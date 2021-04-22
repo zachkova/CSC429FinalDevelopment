@@ -26,7 +26,7 @@ import java.util.Properties;
 public class AddWorkerView extends View{
     // GUI components
     protected TextField bannerId;
-    protected TextField password;
+    protected PasswordField password;
     protected TextField first;
     protected TextField last;
     protected TextField phone;
@@ -121,7 +121,7 @@ public class AddWorkerView extends View{
         workerPass.setTextAlignment(TextAlignment.RIGHT);
         grid.add(workerPass, 0, 2);
 
-        password = new TextField();
+        password = new PasswordField();
         password.setEditable(true);
         grid.add(password, 1, 2);
 
