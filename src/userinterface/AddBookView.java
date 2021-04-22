@@ -291,7 +291,7 @@ public class AddBookView<pubilc> extends View{
                 myModel.stateChangeRequest("CancelTransaction", null);
             }
         });
-
+        // consider using GridPane.setHgap(10); instead of label space
         HBox buttonCont = new HBox(10);
         buttonCont.setAlignment(Pos.CENTER);
         buttonCont.getChildren().add(submitButton);
