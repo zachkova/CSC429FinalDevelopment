@@ -271,12 +271,7 @@ public class AddWorkerView extends View{
         p1.setProperty("dateOfHire", dateHire);
         p1.setProperty("status", stat);
 
-        try {
-            myModel.stateChangeRequest("insertWorker", p1);
-            databaseUpdated();
-        }catch(Exception z){
-            databaseError();
-        }
+        myModel.stateChangeRequest("insertWorker", p1);
 
         bannerId.clear();
         password.clear();
@@ -351,7 +346,6 @@ public class AddWorkerView extends View{
     {
         statusLog.clearErrorMessage();
     }
-
 
     public void databaseUpdated(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
