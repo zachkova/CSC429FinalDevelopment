@@ -17,6 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 
 import java.util.Properties;
@@ -24,7 +26,7 @@ import java.util.Properties;
 public class AddWorkerView extends View{
     // GUI components
     protected TextField bannerId;
-    protected TextField password;
+    protected PasswordField password;
     protected TextField first;
     protected TextField last;
     protected TextField phone;
@@ -119,7 +121,7 @@ public class AddWorkerView extends View{
         workerPass.setTextAlignment(TextAlignment.RIGHT);
         grid.add(workerPass, 0, 2);
 
-        password = new TextField();
+        password = new PasswordField();
         password.setEditable(true);
         grid.add(password, 1, 2);
 
@@ -185,8 +187,12 @@ public class AddWorkerView extends View{
         wCred.setTextAlignment(TextAlignment.RIGHT);
         grid.add(wDOLC, 0, 8);
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+
         dOLC = new TextField();
-        dOLC.setEditable(true);
+        dOLC.setEditable(false);
+        dOLC.setText(dtf.format(now));
         grid.add(dOLC, 1, 8);
 
         Text wDOH = new Text(" Worker's Date of Hire : ");
@@ -196,7 +202,8 @@ public class AddWorkerView extends View{
         grid.add(wDOH, 0, 9);
 
         doh = new TextField();
-        doh.setEditable(true);
+        doh.setEditable(false);
+        doh.setText(dtf.format(now));
         grid.add(doh, 1, 9);
 
         Text wStatus = new Text(" Worker's Status : ");
