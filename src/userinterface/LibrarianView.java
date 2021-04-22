@@ -204,6 +204,7 @@ public class LibrarianView extends View
     }
 
     //---------------------------------------------------------
+
     public void updateState(String key, Object value)
     {
         // STEP 6: Be sure to finish the end of the 'perturbation'
@@ -222,7 +223,12 @@ public class LibrarianView extends View
     //----------------------------------------------------------
     public void displayErrorMessage(String message)
     {
-        databaseError();
+        String mes = message;
+        if (mes != "") {
+            databaseError();
+        }else{
+            System.out.println("");
+        }
     }
 
     /**
