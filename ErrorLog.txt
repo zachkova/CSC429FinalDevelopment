@@ -158,3 +158,29 @@
 [4/21/21 10:48 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
 [4/21/21 10:50 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
 [4/22/21 12:25 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 12:48 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:08 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:08 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:08 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Out of range value for column 'yearOfPublication' at row 1>
+[4/22/21 1:09 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:12 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:13 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:15 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:18 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:22 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:22 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'suggestedPrice' at row 1>
+[4/22/21 1:24 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'suggestedPrice' at row 1>
+[4/22/21 1:25 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'suggestedPrice' at row 1>
+[4/22/21 1:34 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'suggestedPrice' at row 1>
+[4/22/21 1:36 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'suggestedPrice' at row 1>
+[4/22/21 1:39 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'suggestedPrice' at row 1>
+[4/22/21 1:43 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 1:43 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect integer value: '' for column 'yearOfPublication' at row 1>
+[4/22/21 4:03 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect integer value: '' for column 'yearOfPublication' at row 1>
+[4/22/21 4:05 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 4:06 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 4:06 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 4:06 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 4:06 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect integer value: '' for column 'yearOfPublication' at row 1>
+[4/22/21 4:23 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Out of range value for column 'yearOfPublication' at row 1>
+[4/22/21 4:41 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'barcode' at row 1>
