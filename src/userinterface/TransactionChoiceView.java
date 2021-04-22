@@ -4,6 +4,7 @@ package userinterface;
 // system imports
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,20 +17,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.scene.control.ScrollPane;
- import javafx.scene.Group;
 
 
 // project imports
 import impresario.IModel;
+
+import java.awt.*;
 
 /** The class containing the Transaction Choice View  for the ATM application */
 //==============================================================
@@ -60,7 +64,6 @@ public class TransactionChoiceView extends View
 	private Button listStudentBooksCheckedOut;
 
 	private ScrollBar scroll;
-	private double scrolled;
 
 	private Button cancelButton;
 
@@ -78,7 +81,7 @@ public class TransactionChoiceView extends View
 
 		// Add a title for this panel
 		container.getChildren().add(createTitle());
-		
+
 		// how do you add white space?
 		container.getChildren().add(new Label(" "));
 
@@ -98,8 +101,8 @@ public class TransactionChoiceView extends View
 	//-------------------------------------------------------------
 	private VBox createTitle()
 	{
-
 		VBox container = new VBox(10);
+
 		Text titleText = new Text("       Library Transactions          ");
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setWrappingWidth(300);
@@ -122,68 +125,39 @@ public class TransactionChoiceView extends View
 		inquiryText.setFill(Color.BLACK);
 		container.getChildren().add(inquiryText);
 
-
-	
 		return container;
 	}
-private ScrollPane ScrollingView(){
 
-		ScrollPane container = new ScrollPane();
-	Group root = new Group();
-
-	ScrollPane scrollPane = new ScrollPane();
-
-	scrollPane.setPrefSize(595,200);
-	scroll = new ScrollBar();
-
-	root.getChildren().add(scroll);
-
-
-	scroll.setMin(0);
-	scroll.setMax(300);
-	scroll.setValue(150);
-	scroll.setOrientation(Orientation.VERTICAL);
-	scroll.setUnitIncrement(12);
-	scroll.setBlockIncrement(10);
-
-	root.getChildren().addAll(scroll);
-	//scrollPane.fitToWidthProperty().set(true);
-
-
-
-	scroll.valueProperty().addListener(new ChangeListener<Number>() {
-		@Override
-		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-			root.setLayoutY(newValue.doubleValue());
-		}
-	});
-
-		return scrollPane;
-}
 
 	// Create the navigation buttons
 	//-------------------------------------------------------------
-	// changed from private VBox createFormContents(){}
-
 	private VBox createFormContents()
 	{
+		GridPane grid = new GridPane();
 
-		 VBox container = new VBox( 15);
+		VBox container = new VBox(15);
+		//TextAlignment.RIGHT);
+		//grid.add(bcode, 0, 1);
+		HBox buttonCont = new HBox(10);
+		buttonCont.setAlignment(Pos.CENTER);
+
+		Label space = new Label("               ");
+
 
 
 
 		// create the buttons, listen for events, add them to the container
 		HBox dCont = new HBox(10);
-		dCont.setAlignment(Pos.CENTER);
+		dCont.setAlignment(Pos.TOP_LEFT);
 		depositButton = new Button("Add Worker");
 		depositButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		depositButton.setOnAction(new EventHandler<ActionEvent>() {
 
-       		     @Override
-       		     public void handle(ActionEvent e) {
-       		     	myModel.stateChangeRequest("AddWorker", null);
-            	     }
-        	});
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("AddWorker", null);
+			}
+		});
 		dCont.getChildren().add(depositButton);
 
 		container.getChildren().add(dCont);
@@ -194,11 +168,11 @@ private ScrollPane ScrollingView(){
 		withdrawButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		withdrawButton.setOnAction(new EventHandler<ActionEvent>() {
 
-       		     @Override
-       		     public void handle(ActionEvent e) {
-       		     	myModel.stateChangeRequest("AddBook", null);
-            	     }
-        	});
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("AddBook", null);
+			}
+		});
 		wCont.getChildren().add(withdrawButton);
 
 		container.getChildren().add(wCont);
@@ -209,11 +183,11 @@ private ScrollPane ScrollingView(){
 		transferButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		transferButton.setOnAction(new EventHandler<ActionEvent>() {
 
-       		     @Override
-       		     public void handle(ActionEvent e) {
-       		     	myModel.stateChangeRequest("AddStudentBorrower", null);
-            	     }
-        	});
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("AddStudentBorrower", null);
+			}
+		});
 		tCont.getChildren().add(transferButton);
 		container.getChildren().add(tCont);
 
@@ -237,11 +211,11 @@ private ScrollPane ScrollingView(){
 		modBook.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		modBook.setOnAction(new EventHandler<ActionEvent>() {
 
-       		     @Override
-       		     public void handle(ActionEvent e) {
-       		     	myModel.stateChangeRequest("modifyDelete", null);
-       		     }
-        	});
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("modifyDelete", null);
+			}
+		});
 		biCont.getChildren().add(modBook);
 		container.getChildren().add(biCont);
 
@@ -251,11 +225,11 @@ private ScrollPane ScrollingView(){
 		imposeServiceChargeButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		imposeServiceChargeButton.setOnAction(new EventHandler<ActionEvent>() {
 
-       		     @Override
-       		     public void handle(ActionEvent e) {
-       		     	 myModel.stateChangeRequest("SearchStudent", 0);
-            	     }
-        	});
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("SearchStudent", 0);
+			}
+		});
 		iscCont.getChildren().add(imposeServiceChargeButton);
 		container.getChildren().add(iscCont);
 
@@ -328,7 +302,7 @@ private ScrollPane ScrollingView(){
 		});
 		jik.getChildren().add(checkIB);
 		container.getChildren().add(jik);
-	// added delinquency button
+		// added delinquency button
 		HBox delinCheck = new HBox(10);
 		delinCheck.setAlignment(Pos.CENTER);
 		delCheck = new Button("Delinquency Check");
@@ -377,7 +351,7 @@ private ScrollPane ScrollingView(){
 		// List students with Book checked Out
 		HBox listStudentBookOut = new HBox(10);
 		listStudentBookOut.setAlignment(Pos.CENTER);
-		listStudentBooksCheckedOut = new Button("List Students with a Book Checked Out");
+		listStudentBooksCheckedOut = new Button("List Students with Book Checked Out");
 		listStudentBooksCheckedOut.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		listStudentBooksCheckedOut.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -389,21 +363,18 @@ private ScrollPane ScrollingView(){
 		listStudentBookOut.getChildren().add(listStudentBooksCheckedOut);
 		container.getChildren().add(listStudentBookOut);
 
-
-
 		HBox doneCont = new HBox(10);
 		doneCont.setAlignment(Pos.CENTER);
 		cancelButton = new Button("Logout");
 		cancelButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		cancelButton.setOnAction(new EventHandler<ActionEvent>() {
 
-       		     @Override
-       		     public void handle(ActionEvent e) {
-       		     	myModel.stateChangeRequest("Logout", null);    
-            	     }
-        	});
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("Logout", null);
+			}
+		});
 		doneCont.getChildren().add(cancelButton);
-
 		container.getChildren().add(doneCont);
 
 		return container;
@@ -424,7 +395,7 @@ private ScrollPane ScrollingView(){
 	{
 
 	}
-	
+
 
 	//---------------------------------------------------------
 	public void updateState(String key, Object value)
