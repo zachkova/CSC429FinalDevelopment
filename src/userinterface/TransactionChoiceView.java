@@ -2,10 +2,13 @@
 package userinterface;
 
 // system imports
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,17 +16,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.scene.control.ScrollPane;
+ import javafx.scene.Group;
 
 
 // project imports
@@ -58,6 +60,7 @@ public class TransactionChoiceView extends View
 	private Button listStudentBooksCheckedOut;
 
 	private ScrollBar scroll;
+	private double scrolled;
 
 	private Button cancelButton;
 
@@ -95,6 +98,7 @@ public class TransactionChoiceView extends View
 	//-------------------------------------------------------------
 	private VBox createTitle()
 	{
+
 		VBox container = new VBox(10);
 		Text titleText = new Text("       Library Transactions          ");
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -117,17 +121,56 @@ public class TransactionChoiceView extends View
 		inquiryText.setTextAlignment(TextAlignment.CENTER);
 		inquiryText.setFill(Color.BLACK);
 		container.getChildren().add(inquiryText);
+
+
 	
 		return container;
 	}
+private ScrollPane ScrollingView(){
 
+		ScrollPane container = new ScrollPane();
+	Group root = new Group();
+
+	ScrollPane scrollPane = new ScrollPane();
+
+	scrollPane.setPrefSize(595,200);
+	scroll = new ScrollBar();
+
+	root.getChildren().add(scroll);
+
+
+	scroll.setMin(0);
+	scroll.setMax(300);
+	scroll.setValue(150);
+	scroll.setOrientation(Orientation.VERTICAL);
+	scroll.setUnitIncrement(12);
+	scroll.setBlockIncrement(10);
+
+	root.getChildren().addAll(scroll);
+	//scrollPane.fitToWidthProperty().set(true);
+
+
+
+	scroll.valueProperty().addListener(new ChangeListener<Number>() {
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			root.setLayoutY(newValue.doubleValue());
+		}
+	});
+
+		return scrollPane;
+}
 
 	// Create the navigation buttons
 	//-------------------------------------------------------------
+	// changed from private VBox createFormContents(){}
+
 	private VBox createFormContents()
 	{
 
-		VBox container = new VBox(15);
+		 VBox container = new VBox( 15);
+
+
 
 		// create the buttons, listen for events, add them to the container
 		HBox dCont = new HBox(10);
@@ -334,7 +377,7 @@ public class TransactionChoiceView extends View
 		// List students with Book checked Out
 		HBox listStudentBookOut = new HBox(10);
 		listStudentBookOut.setAlignment(Pos.CENTER);
-		listStudentBooksCheckedOut = new Button("List Students with Book Checked Out");
+		listStudentBooksCheckedOut = new Button("List Students with a Book Checked Out");
 		listStudentBooksCheckedOut.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		listStudentBooksCheckedOut.setOnAction(new EventHandler<ActionEvent>() {
 
