@@ -129,12 +129,13 @@ public class TransactionChoiceView extends View
 private ScrollPane ScrollingView(){
 
 		ScrollPane container = new ScrollPane();
-
+	Group root = new Group();
 
 	ScrollPane scrollPane = new ScrollPane();
+
 	scrollPane.setPrefSize(595,200);
 	scroll = new ScrollBar();
-	StackPane root = new StackPane();
+
 	root.getChildren().add(scroll);
 
 
@@ -157,7 +158,7 @@ private ScrollPane ScrollingView(){
 		}
 	});
 
-		return container;
+		return scrollPane;
 }
 
 	// Create the navigation buttons
