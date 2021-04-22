@@ -4,6 +4,7 @@ import exception.InvalidPrimaryKeyException;
 import exception.PasswordMismatchException;
 import impresario.IModel;
 import impresario.IView;
+import javafx.scene.control.Alert;
 
 import java.util.Properties;
 import java.sql.SQLException;
@@ -89,12 +90,18 @@ public class Worker extends EntityBase {
         this.setDependencies();
         String query = "SELECT * FROM " + myTableName + " WHERE (bannerId = " + bannerId + ")";
         Vector allDataFromDB = this.getSelectQueryResult(query);
-        if (allDataFromDB.isEmpty() == false) {
+        System.out.println("HIT HERE0");
+        if (allDataFromDB != null) {
             int dataLen = allDataFromDB.size();
+            System.out.println("HIT HERE1");
             if (dataLen != 1) {
+                System.out.println("HIT HERE2");
                 throw new InvalidPrimaryKeyException("Multiple Workers matching id : " + bannerId + " found.");
-            } else {
+            }
+
+            else {
                 Properties workerIdData = (Properties)allDataFromDB.elementAt(0);
+
                 this.persistentState = new Properties();
                 Enumeration workerKeys = workerIdData.propertyNames();
 
@@ -108,10 +115,7 @@ public class Worker extends EntityBase {
                 exists = true;
 
             }
-        } else {
-            throw new InvalidPrimaryKeyException("No Worker matching id : " + bannerId + " found.");
         }
-
     }
 
     public Worker(Properties props) {
@@ -231,5 +235,4 @@ public class Worker extends EntityBase {
 
         return v;
     }
-
 }

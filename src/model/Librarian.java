@@ -5,6 +5,7 @@ package model;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -272,15 +273,19 @@ public class Librarian implements IView, IModel
             }
         }
         else
-        if (key.equals("insertWorker") == true)
-        {
+        if (key.equals("insertWorker") == true) {
             try {
-                insertWorker((Properties)value);
+                insertWorker((Properties) value);
+                    if(((Properties) value).getProperty("bannerId").equals("")){
+                        databaseError();
+                }else
+                databaseErrorDuplicate();
             } catch (InvalidPrimaryKeyException e) {
-                Worker insertedWorker = new Worker((Properties)value);
+                Worker insertedWorker = new Worker((Properties) value);
+                System.out.println("Hunter Thomas here is the prob");
                 insertedWorker.update();
+                databaseUpdated();
             }
-
         }
         else
         if (key.equals("AddBook") == true)
@@ -304,17 +309,6 @@ public class Librarian implements IView, IModel
             }
         }
         else
-
-        if (key.equals("insertWorker") == true)
-        {
-            try {
-                insertWorker((Properties)value);
-                } catch (InvalidPrimaryKeyException e) {
-                Worker insertedWorker = new Worker((Properties)value);
-                insertedWorker.update();
-            }
-
-        }
         if (key.equals("AddStudent") == true)
         {
         try {
@@ -711,6 +705,7 @@ public class Librarian implements IView, IModel
     }
     public void insertWorker(Properties p) throws InvalidPrimaryKeyException {
         String bannerId = p.getProperty("bannerId");
+        System.out.println(bannerId);
         Worker n = new Worker(bannerId);
     }
 
@@ -722,5 +717,34 @@ public class Librarian implements IView, IModel
     public void insertStudent(Properties p) throws InvalidPrimaryKeyException {
         String bannerId = p.getProperty("bannerId");
         StudentBorrower b = new StudentBorrower(bannerId);
+    }
+
+    public void databaseErrorDuplicate(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Ooops, there is a duplicate.");
+        alert.setContentText("Please try again.");
+
+        alert.showAndWait();
+    }
+
+    public void databaseError(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Ooops, there was an error adding to the database.");
+        alert.setContentText("Please try again.");
+
+        alert.showAndWait();
+    }
+
+    public void databaseUpdated(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Database");
+        alert.setHeaderText(null);
+        alert.setHeaderText("Added to Database");
+
+        alert.showAndWait();
     }
 }

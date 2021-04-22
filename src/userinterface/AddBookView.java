@@ -340,12 +340,9 @@ public class AddBookView<pubilc> extends View{
         p2.setProperty("notes", no);
         p2.setProperty("status", sta);
 
-        try {
+
             myModel.stateChangeRequest("InsertBook", p2);
             databaseUpdated();
-        }catch(Exception z){
-            databaseError();
-        }
 
         barcode.clear();
         title.clear();
