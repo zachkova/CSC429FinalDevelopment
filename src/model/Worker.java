@@ -90,12 +90,9 @@ public class Worker extends EntityBase {
         this.setDependencies();
         String query = "SELECT * FROM " + myTableName + " WHERE (bannerId = " + bannerId + ")";
         Vector allDataFromDB = this.getSelectQueryResult(query);
-        System.out.println("HIT HERE0");
         if (allDataFromDB != null) {
             int dataLen = allDataFromDB.size();
-            System.out.println("HIT HERE1");
             if (dataLen != 1) {
-                System.out.println("HIT HERE2");
                 throw new InvalidPrimaryKeyException("Multiple Workers matching id : " + bannerId + " found.");
             }
 

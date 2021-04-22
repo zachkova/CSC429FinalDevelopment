@@ -724,7 +724,7 @@ public class Librarian implements IView, IModel
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
         alert.setHeaderText("Ooops, there is a duplicate.");
-        alert.setContentText("Please try again.");
+        alert.setContentText("Please try again with a different bannerId.");
 
         alert.showAndWait();
     }
