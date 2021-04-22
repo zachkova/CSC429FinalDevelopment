@@ -176,3 +176,11 @@
 [4/22/21 1:39 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'suggestedPrice' at row 1>
 [4/22/21 1:43 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
 [4/22/21 1:43 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect integer value: '' for column 'yearOfPublication' at row 1>
+[4/22/21 4:03 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect integer value: '' for column 'yearOfPublication' at row 1>
+[4/22/21 4:05 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 4:06 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 4:06 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 4:06 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 4:06 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect integer value: '' for column 'yearOfPublication' at row 1>
+[4/22/21 4:23 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Out of range value for column 'yearOfPublication' at row 1>
+[4/22/21 4:41 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'barcode' at row 1>

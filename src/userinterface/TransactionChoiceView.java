@@ -2,10 +2,14 @@
 package userinterface;
 
 // system imports
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -28,6 +32,8 @@ import javafx.stage.Stage;
 
 // project imports
 import impresario.IModel;
+
+import java.awt.*;
 
 /** The class containing the Transaction Choice View  for the ATM application */
 //==============================================================
@@ -96,6 +102,7 @@ public class TransactionChoiceView extends View
 	private VBox createTitle()
 	{
 		VBox container = new VBox(10);
+
 		Text titleText = new Text("       Library Transactions          ");
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setWrappingWidth(300);
@@ -126,6 +133,12 @@ public class TransactionChoiceView extends View
 	//-------------------------------------------------------------
 	private VBox createFormContents()
 	{
+
+		ScrollBar scroll = new ScrollBar();
+		scroll.setMin(0);
+		scroll.setOrientation(Orientation.VERTICAL);
+		scroll.setPrefHeight(200);
+		scroll.setPrefWidth(20);
 
 		VBox container = new VBox(15);
 
@@ -346,8 +359,6 @@ public class TransactionChoiceView extends View
 		listStudentBookOut.getChildren().add(listStudentBooksCheckedOut);
 		container.getChildren().add(listStudentBookOut);
 
-
-
 		HBox doneCont = new HBox(10);
 		doneCont.setAlignment(Pos.CENTER);
 		cancelButton = new Button("Logout");
@@ -360,7 +371,6 @@ public class TransactionChoiceView extends View
             	     }
         	});
 		doneCont.getChildren().add(cancelButton);
-
 		container.getChildren().add(doneCont);
 
 		return container;
