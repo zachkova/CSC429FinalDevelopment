@@ -18,7 +18,7 @@ public class StudentBorrower extends EntityBase {
         this.setDependencies();
         String query = "SELECT * FROM " + myTableName + " WHERE (bannerId = " + bannerId + ")";
         Vector allDataFromDB = this.getSelectQueryResult(query);
-        if (allDataFromDB.isEmpty() == false) {
+        if (allDataFromDB != null) {
             int dataLen = allDataFromDB.size();
             if (dataLen != 1) {
                 throw new InvalidPrimaryKeyException("Multiple StudentBorrowerIds matching id : " + bannerId + " found.");
@@ -36,8 +36,6 @@ public class StudentBorrower extends EntityBase {
                 }
                 exists = true;
             }
-        } else {
-            throw new InvalidPrimaryKeyException("No StudentBorrower matching id : " + bannerId + " found.");
         }
     }
     public void setExistsTrue(boolean x)

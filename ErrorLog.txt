@@ -184,3 +184,22 @@
 [4/22/21 4:06 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect integer value: '' for column 'yearOfPublication' at row 1>
 [4/22/21 4:23 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Out of range value for column 'yearOfPublication' at row 1>
 [4/22/21 4:41 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'barcode' at row 1>
+[4/22/21 5:51 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:05 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:06 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:06 PM]|StudentBorrower|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect date value: '' for column 'dateOfLatestBorrowerStatus' at row 1>
+[4/22/21 6:06 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:06 PM]|StudentBorrower|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect date value: '' for column 'dateOfLatestBorrowerStatus' at row 1>
+[4/22/21 6:06 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:06 PM]|StudentBorrower|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect date value: '' for column 'dateOfLatestBorrowerStatus' at row 1>
+[4/22/21 6:07 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:07 PM]|StudentBorrower|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect date value: '' for column 'dateOfLatestBorrowerStatus' at row 1>
+[4/22/21 6:07 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:22 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'uuuu' in 'where clause'>
+[4/22/21 6:22 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'uuuuu' in 'where clause'>
+[4/22/21 6:24 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'kkk' in 'where clause'>
+[4/22/21 6:25 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:25 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'bannerId' at row 1>
+[4/22/21 6:25 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'bannerId' at row 1>
+[4/22/21 6:29 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 6:29 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'bannerId' at row 1>

@@ -302,7 +302,6 @@ public class Librarian implements IView, IModel
         {
             try {
                 insertBook((Properties)value);
-                System.out.println("Hunter Thomas was here");
                 if(((Properties) value).getProperty("barcode").equals("")) {
                     databaseError();
                 }
@@ -317,14 +316,19 @@ public class Librarian implements IView, IModel
         else
         if (key.equals("AddStudent") == true)
         {
-        try {
-            insertStudent((Properties)value);
-        } catch (InvalidPrimaryKeyException e) {
-            StudentBorrower insertedStudent = new StudentBorrower((Properties)value);
-            insertedStudent.update();
+            try {
+                insertStudent((Properties)value);
+                if(((Properties) value).getProperty("bannerId").equals("")) {
+                    databaseError();
+                }
+                else
+                    databaseErrorDuplicate();
+            } catch (InvalidPrimaryKeyException e) {
+                StudentBorrower insertedStudent = new StudentBorrower((Properties)value);
+                insertedStudent.update();
+                databaseUpdated();
         }
-
-         }
+        }
         else
         if (key.equals("CancelTransaction") == true)
         {
