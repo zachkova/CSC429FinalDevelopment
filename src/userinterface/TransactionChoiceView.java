@@ -4,7 +4,6 @@ package userinterface;
 // system imports
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,23 +16,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.scene.control.ScrollPane;
+ import javafx.scene.Group;
 
 
 // project imports
 import impresario.IModel;
-
-import java.awt.*;
 
 /** The class containing the Transaction Choice View  for the ATM application */
 //==============================================================
@@ -62,6 +58,9 @@ public class TransactionChoiceView extends View
 	private Button listCheckBooks;
 	private Button listAvailableBooks;
 	private Button listStudentBooksCheckedOut;
+
+	private ScrollBar scroll;
+	private double scrolled;
 
 	private Button cancelButton;
 
@@ -99,8 +98,8 @@ public class TransactionChoiceView extends View
 	//-------------------------------------------------------------
 	private VBox createTitle()
 	{
-		VBox container = new VBox(10);
 
+		VBox container = new VBox(10);
 		Text titleText = new Text("       Library Transactions          ");
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setWrappingWidth(300);
@@ -122,47 +121,290 @@ public class TransactionChoiceView extends View
 		inquiryText.setTextAlignment(TextAlignment.CENTER);
 		inquiryText.setFill(Color.BLACK);
 		container.getChildren().add(inquiryText);
+
+
 	
 		return container;
 	}
+private ScrollPane ScrollingView(){
 
+		ScrollPane container = new ScrollPane();
+	Group root = new Group();
+
+	ScrollPane scrollPane = new ScrollPane();
+
+	scrollPane.setPrefSize(595,200);
+	scroll = new ScrollBar();
+
+	root.getChildren().add(scroll);
+
+
+	scroll.setMin(0);
+	scroll.setMax(300);
+	scroll.setValue(150);
+	scroll.setOrientation(Orientation.VERTICAL);
+	scroll.setUnitIncrement(12);
+	scroll.setBlockIncrement(10);
+
+	root.getChildren().addAll(scroll);
+	//scrollPane.fitToWidthProperty().set(true);
+
+
+
+	scroll.valueProperty().addListener(new ChangeListener<Number>() {
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			root.setLayoutY(newValue.doubleValue());
+		}
+	});
+
+		return scrollPane;
+}
 
 	// Create the navigation buttons
 	//-------------------------------------------------------------
+	// changed from private VBox createFormContents(){}
+
 	private VBox createFormContents()
 	{
 
-		VBox container = new VBox(15);
+		 VBox container = new VBox( 15);
 
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(25, 25, 25, 25));
 
+
+		// create the buttons, listen for events, add them to the container
+		HBox dCont = new HBox(10);
+		dCont.setAlignment(Pos.CENTER);
 		depositButton = new Button("Add Worker");
 		depositButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		depositButton.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("AddWorker", null);
-			}
-		});
-		grid.add(depositButton, 0, 0);
+       		     @Override
+       		     public void handle(ActionEvent e) {
+       		     	myModel.stateChangeRequest("AddWorker", null);
+            	     }
+        	});
+		dCont.getChildren().add(depositButton);
 
+		container.getChildren().add(dCont);
+
+		HBox wCont = new HBox(10);
+		wCont.setAlignment(Pos.CENTER);
 		withdrawButton = new Button("Add Book");
 		withdrawButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		withdrawButton.setOnAction(new EventHandler<ActionEvent>() {
 
+       		     @Override
+       		     public void handle(ActionEvent e) {
+       		     	myModel.stateChangeRequest("AddBook", null);
+            	     }
+        	});
+		wCont.getChildren().add(withdrawButton);
+
+		container.getChildren().add(wCont);
+
+		HBox tCont = new HBox(10);
+		tCont.setAlignment(Pos.CENTER);
+		transferButton = new Button("Add Student Borrower");
+		transferButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		transferButton.setOnAction(new EventHandler<ActionEvent>() {
+
+       		     @Override
+       		     public void handle(ActionEvent e) {
+       		     	myModel.stateChangeRequest("AddStudentBorrower", null);
+            	     }
+        	});
+		tCont.getChildren().add(transferButton);
+		container.getChildren().add(tCont);
+
+		HBox bitCont = new HBox(10);
+		bitCont.setAlignment(Pos.CENTER);
+		balanceInquiryButton = new Button("Delete Book");
+		balanceInquiryButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		balanceInquiryButton.setOnAction(new EventHandler<ActionEvent>() {
+
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("AddBook", null);
+				myModel.stateChangeRequest("modifyDelete", null);
 			}
 		});
-		grid.add(withdrawButton, 1, 0);
+		bitCont.getChildren().add(balanceInquiryButton);
+		container.getChildren().add(bitCont);
 
-		container.getChildren().add(grid);
+		HBox biCont = new HBox(10);
+		biCont.setAlignment(Pos.CENTER);
+		modBook = new Button("Modify Book");
+		modBook.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		modBook.setOnAction(new EventHandler<ActionEvent>() {
+
+       		     @Override
+       		     public void handle(ActionEvent e) {
+       		     	myModel.stateChangeRequest("modifyDelete", null);
+       		     }
+        	});
+		biCont.getChildren().add(modBook);
+		container.getChildren().add(biCont);
+
+		HBox iscCont = new HBox(10);
+		iscCont.setAlignment(Pos.CENTER);
+		imposeServiceChargeButton = new Button("Delete Student");
+		imposeServiceChargeButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		imposeServiceChargeButton.setOnAction(new EventHandler<ActionEvent>() {
+
+       		     @Override
+       		     public void handle(ActionEvent e) {
+       		     	 myModel.stateChangeRequest("SearchStudent", 0);
+            	     }
+        	});
+		iscCont.getChildren().add(imposeServiceChargeButton);
+		container.getChildren().add(iscCont);
+
+		HBox iscConta = new HBox(10);
+		iscConta.setAlignment(Pos.CENTER);
+		modS = new Button("Modify Student");
+		modS.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		modS.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("SearchStudent", 1);
+			}
+		});
+		iscConta.getChildren().add(modS);
+		container.getChildren().add(iscConta);
+
+		HBox iscContasw = new HBox(10);
+		iscContasw.setAlignment(Pos.CENTER);
+		delW = new Button("Delete Worker");
+		delW.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		delW.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("SearchWorker", 0);
+			}
+		});
+		iscContasw.getChildren().add(delW);
+		container.getChildren().add(iscContasw);
+
+		HBox iscContas = new HBox(10);
+		iscContas.setAlignment(Pos.CENTER);
+		modW = new Button("Modify Worker");
+		modW.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		modW.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("SearchWorker", 1);
+			}
+		});
+		iscContas.getChildren().add(modW);
+		container.getChildren().add(iscContas);
+
+		HBox jok = new HBox(10);
+		jok.setAlignment(Pos.CENTER);
+		checkOB = new Button("Check Out Book");
+		checkOB.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		checkOB.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("Change this later", null);
+			}
+		});
+		jok.getChildren().add(checkOB);
+		container.getChildren().add(jok);
+
+		HBox jik = new HBox(10);
+		jik.setAlignment(Pos.CENTER);
+		checkIB = new Button("Check In Book");
+		checkIB.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		checkIB.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("Change This Later", null);
+			}
+		});
+		jik.getChildren().add(checkIB);
+		container.getChildren().add(jik);
+	// added delinquency button
+		HBox delinCheck = new HBox(10);
+		delinCheck.setAlignment(Pos.CENTER);
+		delCheck = new Button("Delinquency Check");
+		delCheck.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		delCheck.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("Change This Later", null);
+			}
+		});
+		delinCheck.getChildren().add(delCheck);
+		container.getChildren().add(delinCheck);
+		// added List all Checked out books
+
+		HBox listAllBook = new HBox(10);
+		listAllBook.setAlignment(Pos.CENTER);
+		listCheckBooks = new Button("List All Checked Out Books");
+		listCheckBooks.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		listCheckBooks.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("Change This Later", null);
+			}
+		});
+		listAllBook.getChildren().add(listCheckBooks);
+		container.getChildren().add(listAllBook);
+		//List all available books
+
+		HBox listAllBookAvail = new HBox(10);
+		listAllBookAvail.setAlignment(Pos.CENTER);
+		listAvailableBooks = new Button("List All Available Books");
+		listAvailableBooks.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		listAvailableBooks.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("Change This Later", null);
+			}
+		});
+		listAllBookAvail.getChildren().add(listAvailableBooks);
+		container.getChildren().add(listAllBookAvail);
+
+
+		// List students with Book checked Out
+		HBox listStudentBookOut = new HBox(10);
+		listStudentBookOut.setAlignment(Pos.CENTER);
+		listStudentBooksCheckedOut = new Button("List Students with a Book Checked Out");
+		listStudentBooksCheckedOut.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		listStudentBooksCheckedOut.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				myModel.stateChangeRequest("Change This Later", null);
+			}
+		});
+		listStudentBookOut.getChildren().add(listStudentBooksCheckedOut);
+		container.getChildren().add(listStudentBookOut);
+
+
+
+		HBox doneCont = new HBox(10);
+		doneCont.setAlignment(Pos.CENTER);
+		cancelButton = new Button("Logout");
+		cancelButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+
+       		     @Override
+       		     public void handle(ActionEvent e) {
+       		     	myModel.stateChangeRequest("Logout", null);    
+            	     }
+        	});
+		doneCont.getChildren().add(cancelButton);
+
+		container.getChildren().add(doneCont);
 
 		return container;
 	}
