@@ -17,17 +17,19 @@ public class Book extends EntityBase {
         this.setDependencies();
         String query = "SELECT * FROM " + myTableName + " WHERE (barcode = " + barcode + ")";
         Vector allDataFromDB = this.getSelectQueryResult(query);
-        if (allDataFromDB.isEmpty() == false) {
+        if (allDataFromDB != null) {
             int dataLen = allDataFromDB.size();
+            System.out.println("Dup hits here1");
             if (dataLen != 1) {
+                System.out.println("Dup hit here 3");
                 throw new InvalidPrimaryKeyException("Multiple books matching id : " + barcode + " found.");
             } else {
-                Properties bookData = (Properties)allDataFromDB.elementAt(0);
+                Properties bookData = (Properties) allDataFromDB.elementAt(0);
                 this.persistentState = new Properties();
                 Enumeration bookKeys = bookData.propertyNames();
 
-                while(bookKeys.hasMoreElements()) {
-                    String nextKey = (String)bookKeys.nextElement();
+                while (bookKeys.hasMoreElements()) {
+                    String nextKey = (String) bookKeys.nextElement();
                     String nextValue = bookData.getProperty(nextKey);
                     if (nextValue != null) {
                         this.persistentState.setProperty(nextKey, nextValue);
@@ -35,9 +37,8 @@ public class Book extends EntityBase {
                 }
 
             }
-        } else {
-            throw new InvalidPrimaryKeyException("No book matching id : " + barcode + " found.");
         }
+        System.out.println("Dup hit here 2");
         exists = true;
     }
 

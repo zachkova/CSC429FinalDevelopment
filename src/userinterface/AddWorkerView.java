@@ -287,8 +287,6 @@ public class AddWorkerView extends View{
         phone.clear();
         email.clear();
         cred.setValue("Ordinary");
-        dOLC.clear();
-        doh.clear();
         status.setValue("Active");
     }
 

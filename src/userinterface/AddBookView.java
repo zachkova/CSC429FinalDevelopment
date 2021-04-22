@@ -247,6 +247,7 @@ public class AddBookView<pubilc> extends View{
         grid.add(sug, 0, 12);
 
         suggestedPrice = new TextField();
+        suggestedPrice.setText("0.00");
         suggestedPrice.setEditable(true);
         grid.add(suggestedPrice, 1, 12);
 
@@ -325,6 +326,7 @@ public class AddBookView<pubilc> extends View{
         String sta = (String)status.getValue();
 
         Properties p2 = new Properties();
+
         p2.setProperty("barcode", bar);
         p2.setProperty("title", titl);
         p2.setProperty("discipline", disi);
@@ -340,9 +342,7 @@ public class AddBookView<pubilc> extends View{
         p2.setProperty("notes", no);
         p2.setProperty("status", sta);
 
-
-            myModel.stateChangeRequest("InsertBook", p2);
-            databaseUpdated();
+        myModel.stateChangeRequest("InsertBook", p2);
 
         barcode.clear();
         title.clear();
@@ -359,6 +359,7 @@ public class AddBookView<pubilc> extends View{
         discipline.setValue("None");
         quality.setValue("Good");
         status.setValue("Active");
+        suggestedPrice.setText("0.00");
 
     }
 

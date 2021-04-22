@@ -282,7 +282,6 @@ public class Librarian implements IView, IModel
                 databaseErrorDuplicate();
             } catch (InvalidPrimaryKeyException e) {
                 Worker insertedWorker = new Worker((Properties) value);
-                System.out.println("Hunter Thomas here is the prob");
                 insertedWorker.update();
                 databaseUpdated();
             }
@@ -303,9 +302,16 @@ public class Librarian implements IView, IModel
         {
             try {
                 insertBook((Properties)value);
+                System.out.println("Hunter Thomas was here");
+                if(((Properties) value).getProperty("barcode").equals("")) {
+                    databaseError();
+                }
+                else
+                    databaseErrorDuplicate();
             } catch (InvalidPrimaryKeyException e) {
                 Book insertedBook = new Book((Properties)value);
                 insertedBook.update();
+                databaseUpdated();
             }
         }
         else
