@@ -274,18 +274,7 @@ public class TransactionChoiceView extends View
 		grid.setHalignment(checkOB, HPos.CENTER);
 		grid.add(checkOB,1,3);
 
-		checkIB = new Button("Check In Book");
-		checkIB.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-		checkIB.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("Change This Later", null);
-			}
-		});
-		//checkIB.setMaxWidth(Double.MAX_VALUE);
-		grid.setHalignment(checkIB, HPos.CENTER);
-		grid.add(checkIB,1,4);
 
 
 		delCheck = new Button("Delinquency Check");
