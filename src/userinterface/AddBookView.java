@@ -343,7 +343,7 @@ public class AddBookView<pubilc> extends View{
         p2.setProperty("status", sta);
 
         if (yeaO == null || yeaO == "" || yeaO.length() == 0 || yeaO.length() > 4 ||
-        bar.length() > 20 || bar.length() == 0 ){
+        bar.length() != 5){
             databaseErrorYear();
         }else {
             myModel.stateChangeRequest("InsertBook", p2);

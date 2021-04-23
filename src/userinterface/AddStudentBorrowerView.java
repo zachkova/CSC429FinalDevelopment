@@ -291,7 +291,7 @@ public class AddStudentBorrowerView extends View
         p2.setProperty("notes", note);
         p2.setProperty("status", stat);
 
-        if (banid.length() > 9 || banid.length() == 0 || banid.equals("null") ){
+        if (banid.length() != 9){
             databaseErrorBarcode();
         }else {
             myModel.stateChangeRequest("AddStudent", p2);

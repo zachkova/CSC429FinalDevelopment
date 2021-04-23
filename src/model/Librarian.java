@@ -346,7 +346,7 @@ public class Librarian implements IView, IModel
             worker = null;
             myViews.remove("TransactionChoiceView");
 
-            createAndShowTellerView();
+            createAndShowLibrarianView();
         }
 
         myRegistry.updateSubscribers(key, this);
@@ -733,7 +733,7 @@ public class Librarian implements IView, IModel
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
-        alert.setHeaderText("Ooops, there is a duplicate.");
+        alert.setHeaderText("Ooops, couldn't add to database.");
         alert.setContentText("Please try again with a different bannerId.");
 
         alert.showAndWait();
