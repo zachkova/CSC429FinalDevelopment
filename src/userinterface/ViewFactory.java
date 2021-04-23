@@ -97,6 +97,7 @@ public class ViewFactory {
 		{
 			return new CheckoutBookScreen(model);
 		}
+
 		else
 			return null;
 	}
