@@ -209,3 +209,4 @@
 [4/22/21 7:27 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'bannerId' at row 1>
 [4/22/21 8:21 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasdasd' in 'where clause'>
 [4/22/21 8:22 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasdasd' in 'where clause'>
+[4/22/21 9:01 PM]|StudentBorrower|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'adsfsdafa' in 'where clause'>
