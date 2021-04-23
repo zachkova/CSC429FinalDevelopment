@@ -97,6 +97,10 @@ public class ViewFactory {
 		{
 			return new CheckoutBookScreen(model);
 		}
+		else if(viewName.equals("CheckInBookView") == true)
+		{
+			return new CheckInBookView(model);
+		}
 		else
 			return null;
 	}
