@@ -282,7 +282,6 @@ public class Librarian implements IView, IModel
                 databaseErrorDuplicate();
             } catch (InvalidPrimaryKeyException e) {
                 Worker insertedWorker = new Worker((Properties) value);
-                System.out.println("Hunter Thomas here is the prob");
                 insertedWorker.update();
                 databaseUpdated();
             }
@@ -298,27 +297,42 @@ public class Librarian implements IView, IModel
             createAndShowAddStudentBorrowerView();
         }
         else
-
+        if (key.equals("BarcodeSearchView") == true)
+        {
+            delmod = (int)value;
+            createAndShowBarcodeSearchView();
+        }
         if (key.equals("InsertBook") == true)
         {
             try {
                 insertBook((Properties)value);
+                if(((Properties) value).getProperty("barcode").equals("")) {
+                    databaseError();
+                }
+                else
+                    databaseErrorDuplicate();
             } catch (InvalidPrimaryKeyException e) {
                 Book insertedBook = new Book((Properties)value);
                 insertedBook.update();
+                databaseUpdated();
             }
         }
         else
         if (key.equals("AddStudent") == true)
         {
-        try {
-            insertStudent((Properties)value);
-        } catch (InvalidPrimaryKeyException e) {
-            StudentBorrower insertedStudent = new StudentBorrower((Properties)value);
-            insertedStudent.update();
+            try {
+                insertStudent((Properties)value);
+                if(((Properties) value).getProperty("bannerId").equals("")) {
+                    databaseError();
+                }
+                else
+                    databaseErrorDuplicate();
+            } catch (InvalidPrimaryKeyException e) {
+                StudentBorrower insertedStudent = new StudentBorrower((Properties)value);
+                insertedStudent.update();
+                databaseUpdated();
         }
-
-         }
+        }
         else
         if (key.equals("CancelTransaction") == true)
         {
@@ -336,7 +350,7 @@ public class Librarian implements IView, IModel
             worker = null;
             myViews.remove("TransactionChoiceView");
 
-            createAndShowTellerView();
+            createAndShowLibrarianView();
         }
 
         myRegistry.updateSubscribers(key, this);
@@ -477,6 +491,7 @@ public class Librarian implements IView, IModel
         swapToView(currentScene);
 
     }
+
 
     private void createAndShowDeleteWorkerView()
     {
@@ -661,6 +676,17 @@ public class Librarian implements IView, IModel
 
     }
 
+    private void createAndShowBarcodeSearchView()
+    {
+        Scene currentScene = null;
+        // create our initial view
+        View newView = ViewFactory.createView("BarcodeSearchView", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+        swapToView(currentScene);
+
+    }
+
 
     /** Register objects to receive state updates. */
     //----------------------------------------------------------
@@ -723,7 +749,7 @@ public class Librarian implements IView, IModel
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
-        alert.setHeaderText("Ooops, there is a duplicate.");
+        alert.setHeaderText("Ooops, couldn't add to database.");
         alert.setContentText("Please try again with a different bannerId.");
 
         alert.showAndWait();

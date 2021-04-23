@@ -73,7 +73,7 @@ public class StudentSearchNameView extends View {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         Text prompt = new Text("First Name:");
-        prompt.setWrappingWidth(400);
+        prompt.setWrappingWidth(80);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
         grid.add(prompt,0,0);
@@ -81,11 +81,10 @@ public class StudentSearchNameView extends View {
 
         fName = new TextField();
         fName.setEditable(true);
-        fName.setAlignment(Pos.CENTER);
         grid.add(fName,1, 0);
 
         Text prompt2 = new Text("Last Name:");
-        prompt2.setWrappingWidth(400);
+        prompt2.setWrappingWidth(80);
         prompt2.setTextAlignment(TextAlignment.CENTER);
         prompt2.setFill(Color.BLACK);
         grid.add(prompt2,0, 1 );
@@ -93,7 +92,6 @@ public class StudentSearchNameView extends View {
 
         lName = new TextField();
         lName.setEditable(true);
-        lName.setAlignment(Pos.CENTER);
         grid.add(lName, 1,1);
 
         submitButton = new Button("Submit");

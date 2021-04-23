@@ -19,10 +19,9 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.Properties;
 
-public class WorkerBannerIdView extends View {
+public class BookSubmitBarcodeScreen extends View {
 
-    protected TextField fName;
-    protected TextField lName;
+    protected TextField bCode;
 
     protected Button cancelButton;
     protected Button submitButton;
@@ -30,8 +29,8 @@ public class WorkerBannerIdView extends View {
     // For showing error message
     protected MessageView statusLog;
 
-    public WorkerBannerIdView(IModel Librarian) {
-        super(Librarian, "WorkerBannerIdView");
+    public BookSubmitBarcodeScreen(IModel Librarian) {
+        super(Librarian, "BarcodeSearchView");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
@@ -51,7 +50,7 @@ public class WorkerBannerIdView extends View {
     private Node createTitle() {
         HBox var1 = new HBox();
         var1.setAlignment(Pos.CENTER);
-        Text var2 = new Text(" Worker Search ");
+        Text var2 = new Text(" Book Search ");
         var2.setFont(Font.font("Arial", FontWeight.BOLD, 20.0D));
         var2.setWrappingWidth(300.0D);
         var2.setTextAlignment(TextAlignment.CENTER);
@@ -72,28 +71,15 @@ public class WorkerBannerIdView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("First Name:");
+        Text prompt = new Text("Barcode:");
         prompt.setWrappingWidth(80);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
-        grid.add(prompt, 0, 0);
+        grid.add(prompt,0,0);
 
-
-        fName = new TextField();
-        fName.setEditable(true);
-        grid.add(fName,1,0);
-
-        Text prompt2 = new Text("Last Name:");
-        prompt2.setWrappingWidth(80);
-        prompt2.setTextAlignment(TextAlignment.CENTER);
-        prompt2.setFill(Color.BLACK);
-        grid.add(prompt2, 0, 2);
-
-
-        lName = new TextField();
-        lName.setEditable(true);
-        lName.setAlignment(Pos.CENTER);
-        grid.add(lName,1,2);
+        bCode = new TextField();
+        bCode.setEditable(true);
+        grid.add(bCode,1, 0);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -177,13 +163,12 @@ public class WorkerBannerIdView extends View {
         clearErrorMessage();
 
         Properties p = new Properties();
-        System.out.println(fName.getText() + " " + lName.getText());
-        p.setProperty("firstName", fName.getText());
-        p.setProperty("lastName", lName.getText());
-        myModel.stateChangeRequest("SelectWorkerView", p);
+        System.out.println(bCode.getText());
+        p.setProperty("barcode", bCode.getText());
 
-        fName.clear();
-        lName.clear();
+        myModel.stateChangeRequest("SelectBookView", p);
+
+        bCode.clear();
     }
 
 }

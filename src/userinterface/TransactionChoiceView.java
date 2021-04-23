@@ -8,6 +8,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -102,7 +103,7 @@ public class TransactionChoiceView extends View
 	private VBox createTitle()
 	{
 		VBox container = new VBox(10);
-		container.setPadding(new Insets(15, 5, 5, 200));
+		//container.setPadding(new Insets(15, 5, 5, 200));
 
 		Text titleText = new Text("       Library Transactions          ");
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -126,6 +127,8 @@ public class TransactionChoiceView extends View
 		inquiryText.setFill(Color.BLACK);
 		container.getChildren().add(inquiryText);
 
+		container.setAlignment(Pos.CENTER);
+
 		return container;
 	}
 
@@ -140,8 +143,6 @@ public class TransactionChoiceView extends View
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 
-		grid.setAlignment(Pos.CENTER);
-
 		depositButton = new Button("Add Worker");
 		depositButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		depositButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -151,7 +152,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("AddWorker", null);
 			}
 		});
-		depositButton.setMaxWidth(Double.MAX_VALUE);
+		//depositButton.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(depositButton, HPos.CENTER);
 		grid.add(depositButton, 0, 0);
 
 		withdrawButton = new Button("Add Book");
@@ -163,10 +165,9 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("AddBook", null);
 			}
 		});
-		withdrawButton.setMaxWidth(Double.MAX_VALUE);
+		//withdrawButton.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(withdrawButton, HPos.CENTER);
 		grid.add(withdrawButton, 1, 0);
-
-
 
 		transferButton = new Button("Add Student Borrower");
 		transferButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
@@ -177,8 +178,9 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("AddStudentBorrower", null);
 			}
 		});
-		transferButton.setMaxWidth(Double.MAX_VALUE);
-			grid.add(transferButton,2,0);
+		//transferButton.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(transferButton, HPos.CENTER);
+		grid.add(transferButton,2,0);
 
 		balanceInquiryButton = new Button("Delete Book");
 		balanceInquiryButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
@@ -186,10 +188,11 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("modifyDelete", null);
+				myModel.stateChangeRequest("BarcodeSearchView", 0);
 			}
 		});
-		balanceInquiryButton.setMaxWidth(Double.MAX_VALUE);
+		//balanceInquiryButton.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(balanceInquiryButton, HPos.CENTER);
 		grid.add(balanceInquiryButton,1,1);
 
 		modBook = new Button("Modify Book");
@@ -198,10 +201,11 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("modifyDelete", null);
+				myModel.stateChangeRequest("BarcodeSearchView", 1);
 			}
 		});
-		modBook.setMaxWidth(Double.MAX_VALUE);
+		//modBook.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(modBook, HPos.CENTER);
 		grid.add(modBook,1,2);
 
 		imposeServiceChargeButton = new Button("Delete Student");
@@ -213,7 +217,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("SearchStudent", 0);
 			}
 		});
-		imposeServiceChargeButton.setMaxWidth(Double.MAX_VALUE);
+		//imposeServiceChargeButton.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(imposeServiceChargeButton, HPos.CENTER);
 		grid.add(imposeServiceChargeButton,2,1);
 
 		modS = new Button("Modify Student");
@@ -225,7 +230,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("SearchStudent", 1);
 			}
 		});
-		modS.setMaxWidth(Double.MAX_VALUE);
+		//modS.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(modS, HPos.CENTER);
 		grid.add(modS,2,2);
 
 		delW = new Button("Delete Worker");
@@ -237,7 +243,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("SearchWorker", 0);
 			}
 		});
-		delW.setMaxWidth(Double.MAX_VALUE);
+		//delW.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(delW, HPos.CENTER);
 		grid.add(delW,0,1);
 
 		modW = new Button("Modify Worker");
@@ -249,7 +256,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("SearchWorker", 1);
 			}
 		});
-		modW.setMaxWidth(Double.MAX_VALUE);
+		//modW.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(modW, HPos.CENTER);
 		grid.add(modW,0,2);
 
 		checkOB = new Button("Check Out Book");
@@ -261,7 +269,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("Change this later", null);
 			}
 		});
-		checkOB.setMaxWidth(Double.MAX_VALUE);
+		//checkOB.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(checkOB, HPos.CENTER);
 		grid.add(checkOB,1,3);
 
 		checkIB = new Button("Check In Book");
@@ -273,7 +282,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		checkIB.setMaxWidth(Double.MAX_VALUE);
+		//checkIB.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(checkIB, HPos.CENTER);
 		grid.add(checkIB,1,4);
 
 
@@ -286,7 +296,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		delCheck.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(delCheck, HPos.CENTER);
+		//delCheck.setMaxWidth(Double.MAX_VALUE);
 		grid.add(delCheck,0,3);
 
 		listCheckBooks = new Button("List All Checked Out Books");
@@ -298,7 +309,8 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		listCheckBooks.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(listCheckBooks, HPos.CENTER);
+		//listCheckBooks.setMaxWidth(Double.MAX_VALUE);
 		grid.add(listCheckBooks,1,5);
 
 		listAvailableBooks = new Button("List All Available Books");
@@ -310,10 +322,11 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		listAvailableBooks.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(listAvailableBooks, HPos.CENTER);
+		//listAvailableBooks.setMaxWidth(Double.MAX_VALUE);
 		grid.add(listAvailableBooks,1,6);
 
-		listStudentBooksCheckedOut = new Button("List Students with Book Checked Out");
+		listStudentBooksCheckedOut = new Button("List Students with \nBook Checked Out");
 		listStudentBooksCheckedOut.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		listStudentBooksCheckedOut.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -322,7 +335,7 @@ public class TransactionChoiceView extends View
 				myModel.stateChangeRequest("Change This Later", null);
 			}
 		});
-		listStudentBooksCheckedOut.setMaxWidth(Double.MAX_VALUE);
+		grid.setHalignment(listStudentBooksCheckedOut, HPos.CENTER);
 		grid.add(listStudentBooksCheckedOut,2,3);
 
 		cancelButton = new Button("Logout");
@@ -335,8 +348,7 @@ public class TransactionChoiceView extends View
 			}
 		});
 		grid.add(cancelButton,1,10);
-
-
+		grid.setHalignment(cancelButton, HPos.CENTER);
 
 		container.getChildren().add(grid);
 
