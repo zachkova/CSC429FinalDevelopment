@@ -349,11 +349,7 @@ public class Librarian implements IView, IModel
 
                 createAndShowCheckOutBookView();
         }
-            else
-            if(key.equals("CheckInBookView")){
 
-                createAddShowCheckInBookView();
-            }
         else
         if (key.equals("Logout") == true)
         {
@@ -486,36 +482,8 @@ public class Librarian implements IView, IModel
         swapToView(currentScene);
 
     }
-    private void createAndShowCheckOutBookView()
-    {
-        Scene currentScene = (Scene)myViews.get("CheckoutBookScreen");
 
-        if (currentScene == null)
-        {
-            // create our initial view
-            View newView = ViewFactory.createView("CheckoutBookScreen", this); // USE VIEW FACTORY
-            currentScene = new Scene(newView);
-            myViews.put("CheckoutBookScreen", currentScene);
-        }
-        // make the view visible by installing it into the frame
-        swapToView(currentScene);
 
-    }
-    private void createAddShowCheckInBookView()
-    {
-        Scene currentScene = (Scene)myViews.get("CheckInBookView");
-
-        if (currentScene == null)
-        {
-            // create our initial view
-            View newView = ViewFactory.createView("CheckInBookView", this); // USE VIEW FACTORY
-            currentScene = new Scene(newView);
-            myViews.put("CheckInBookView", currentScene);
-        }
-        // make the view visible by installing it into the frame
-        swapToView(currentScene);
-
-    }
 
     private void createAndShowLibrarianView(){
         Scene currentScene = (Scene)myViews.get("LibrarianView");
