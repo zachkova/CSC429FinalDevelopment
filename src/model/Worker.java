@@ -110,7 +110,6 @@ public class Worker extends EntityBase {
                     }
                 }
                 exists = true;
-
             }
         }
     }
