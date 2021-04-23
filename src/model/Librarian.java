@@ -345,6 +345,11 @@ public class Librarian implements IView, IModel
             createAndShowStudentSearchNameView();
         }
         else
+            if(key.equals("CheckoutBookScreen")){
+
+                createAndShowCheckOutBookView();
+        }
+        else
         if (key.equals("Logout") == true)
         {
             worker = null;
@@ -471,6 +476,21 @@ public class Librarian implements IView, IModel
             View newView = ViewFactory.createView("AddStudentBorrowerView", this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
             myViews.put("AddStudentBorrowerView", currentScene);
+        }
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
+
+    }
+    private void createAndShowCheckOutBookView()
+    {
+        Scene currentScene = (Scene)myViews.get("CheckoutBookScreen");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("CheckoutBookScreen", this); // USE VIEW FACTORY
+            currentScene = new Scene(newView);
+            myViews.put("CheckoutBookScreen", currentScene);
         }
         // make the view visible by installing it into the frame
         swapToView(currentScene);
