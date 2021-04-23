@@ -20,6 +20,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 // project imports
@@ -179,6 +181,9 @@ public class AddStudentBorrowerView extends View
         borrowerStatus.setValue("Good Standing");
         grid.add(borrowerStatus, 1, 6);
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+
         Text dateOfLate = new Text(" Students Date Of Latest Borrowing Status : ");
         dateOfLate.setFont(myFont);
         dateOfLate.setWrappingWidth(150);
@@ -186,7 +191,8 @@ public class AddStudentBorrowerView extends View
         grid.add(dateOfLate, 0, 7);
 
         dateOfLatestBorrowerStatus = new TextField();
-        dateOfLatestBorrowerStatus.setEditable(true);
+        dateOfLatestBorrowerStatus.setEditable(false);
+        dateOfLatestBorrowerStatus.setText(dtf.format(now));
         grid.add(dateOfLatestBorrowerStatus, 1, 7);
 
         Text dateOfReg = new Text(" Students Date Of Registration : ");
@@ -196,7 +202,8 @@ public class AddStudentBorrowerView extends View
         grid.add(dateOfReg, 0, 8);
 
         dateOfRegistration = new TextField();
-        dateOfRegistration.setEditable(true);
+        dateOfRegistration.setEditable(false);
+        dateOfRegistration.setText(dtf.format(now));
         grid.add(dateOfRegistration, 1, 8);
 
         Text not = new Text(" Notes : ");
@@ -272,6 +279,7 @@ public class AddStudentBorrowerView extends View
         String stat = (String)status.getValue();
 
         Properties p2 = new Properties();
+
         p2.setProperty("bannerId",banid);
         p2.setProperty("firstName", first);
         p2.setProperty("lastName", last);
@@ -283,19 +291,17 @@ public class AddStudentBorrowerView extends View
         p2.setProperty("notes", note);
         p2.setProperty("status", stat);
 
-        try {
+        if (banid.length() != 9){
+            databaseErrorBarcode();
+        }else {
             myModel.stateChangeRequest("AddStudent", p2);
-            databaseUpdated();
-        }catch(Exception z){
-            databaseError();
         }
+
         bannerId.clear();
         firstName.clear();
         lastName.clear();
         contactPhone.clear();
         email.clear();
-        dateOfLatestBorrowerStatus.clear();
-        dateOfRegistration.clear();
         notes.clear();
         borrowerStatus.setValue("Good Standing");
         status.setValue("Active");
@@ -374,12 +380,12 @@ public class AddStudentBorrowerView extends View
         alert.showAndWait();
     }
 
-    public void databaseError(){
+    public void databaseErrorBarcode(){
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
         alert.setHeaderText("Ooops, there was an issue adding to the database!");
-        alert.setContentText("Please make sure all fields are filled out correctly.");
+        alert.setContentText("Please make sure the barcode is correct.");
 
         alert.showAndWait();
     }

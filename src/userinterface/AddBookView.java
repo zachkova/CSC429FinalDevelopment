@@ -247,6 +247,7 @@ public class AddBookView<pubilc> extends View{
         grid.add(sug, 0, 12);
 
         suggestedPrice = new TextField();
+        suggestedPrice.setText("0.00");
         suggestedPrice.setEditable(true);
         grid.add(suggestedPrice, 1, 12);
 
@@ -290,7 +291,7 @@ public class AddBookView<pubilc> extends View{
                 myModel.stateChangeRequest("CancelTransaction", null);
             }
         });
-
+        // consider using GridPane.setHgap(10); instead of label space
         HBox buttonCont = new HBox(10);
         buttonCont.setAlignment(Pos.CENTER);
         buttonCont.getChildren().add(submitButton);
@@ -311,7 +312,7 @@ public class AddBookView<pubilc> extends View{
 
         String bar = barcode.getText();
         String titl = title.getText();
-        String disi = (String)discipline.getValue();
+        String disi = (String) discipline.getValue();
         String au1 = author1.getText();
         String au2 = author2.getText();
         String au3 = author3.getText();
@@ -319,12 +320,13 @@ public class AddBookView<pubilc> extends View{
         String publi = publisher.getText();
         String yeaO = yearOfPublication.getText();
         String isb = isbn.getText();
-        String condi = (String)quality.getValue();
+        String condi = (String) quality.getValue();
         String sugPric = suggestedPrice.getText();
         String no = notes.getText();
-        String sta = (String)status.getValue();
+        String sta = (String) status.getValue();
 
         Properties p2 = new Properties();
+
         p2.setProperty("barcode", bar);
         p2.setProperty("title", titl);
         p2.setProperty("discipline", disi);
@@ -340,9 +342,12 @@ public class AddBookView<pubilc> extends View{
         p2.setProperty("notes", no);
         p2.setProperty("status", sta);
 
-
+        if (yeaO == null || yeaO == "" || yeaO.length() == 0 || yeaO.length() > 4 ||
+        bar.length() != 5){
+            databaseErrorYear();
+        }else {
             myModel.stateChangeRequest("InsertBook", p2);
-            databaseUpdated();
+        }
 
         barcode.clear();
         title.clear();
@@ -359,6 +364,7 @@ public class AddBookView<pubilc> extends View{
         discipline.setValue("None");
         quality.setValue("Good");
         status.setValue("Active");
+        suggestedPrice.setText("0.00");
 
     }
 
@@ -434,12 +440,12 @@ public class AddBookView<pubilc> extends View{
         alert.showAndWait();
     }
 
-    public void databaseError(){
+    public void databaseErrorYear(){
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
         alert.setHeaderText("Ooops, there was an issue adding to the database!");
-        alert.setContentText("Please make sure all fields are filled out correctly.");
+        alert.setContentText("Cannot add to database. Check year/barcode.");
 
         alert.showAndWait();
     }

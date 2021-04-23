@@ -89,6 +89,10 @@ public class ViewFactory {
 		{
 			return new TransferReceipt(model);
 		}
+		else if(viewName.equals("BarcodeSearchView") == true)
+		{
+			return new BookSubmitBarcodeScreen(model);
+		}
 		else
 			return null;
 	}
