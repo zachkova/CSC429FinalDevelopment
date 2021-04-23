@@ -266,9 +266,10 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("CheckoutBookScreen", null);
+				myModel.stateChangeRequest("CheckoutBook", null);
 			}
 		});
+
 		//checkOB.setMaxWidth(Double.MAX_VALUE);
 		grid.setHalignment(checkOB, HPos.CENTER);
 		grid.add(checkOB,1,3);
