@@ -24,7 +24,7 @@ public class CheckoutBookScreen extends View {
 
     protected TextField fName;
     protected TextField lName;
-    protected TextField barcode;
+
 
     protected Button cancelButton;
     protected Button submitButton;
@@ -33,24 +33,22 @@ public class CheckoutBookScreen extends View {
     protected MessageView statusLog;
 
     public CheckoutBookScreen(IModel Librarian) {
-        super(Librarian, "CheckoutBookScreen");
+        super(Librarian, "CheckoutBook");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
         container.getChildren().add(createTitle());
-
         // create our GUI components, add them to this Container
         container.getChildren().add(createFormContent());
-
         container.getChildren().add(createStatusLog("             "));
 
         getChildren().add(container);
 
         populateFields();
-
     }
 
     private Node createTitle() {
+
         HBox var1 = new HBox();
         var1.setAlignment(Pos.CENTER);
         Text var2 = new Text(" Checkout Book ");
@@ -65,9 +63,7 @@ public class CheckoutBookScreen extends View {
     private VBox createFormContent() {
 
         VBox vbox = new VBox(10);
-
         GridPane grid = new GridPane();
-
 
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -93,16 +89,6 @@ public class CheckoutBookScreen extends View {
         lName = new TextField();
         lName.setEditable(true);
         grid.add(lName, 1,1);
-
-        Text prompt3 = new Text("Barcode:");
-        prompt3.setWrappingWidth(80);
-        prompt3.setTextAlignment(TextAlignment.CENTER);
-        prompt3.setFill(Color.BLACK);
-        grid.add(prompt3,0, 2 );
-
-        barcode = new TextField();
-        barcode.setEditable(true);
-        grid.add(barcode,1,2);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -196,6 +182,5 @@ public class CheckoutBookScreen extends View {
         fName.clear();
         lName.clear();
     }
-
 }
 
