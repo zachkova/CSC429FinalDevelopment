@@ -346,7 +346,7 @@ public class Librarian implements IView, IModel
             worker = null;
             myViews.remove("TransactionChoiceView");
 
-            createAndShowTellerView();
+            createAndShowLibrarianView();
         }
 
         myRegistry.updateSubscribers(key, this);
