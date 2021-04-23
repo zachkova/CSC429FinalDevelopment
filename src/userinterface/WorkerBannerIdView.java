@@ -72,8 +72,8 @@ public class WorkerBannerIdView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("First Name");
-        prompt.setWrappingWidth(400);
+        Text prompt = new Text("First Name:");
+        prompt.setWrappingWidth(80);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0);
@@ -83,8 +83,8 @@ public class WorkerBannerIdView extends View {
         fName.setEditable(true);
         grid.add(fName,1,0);
 
-        Text prompt2 = new Text("Last Name");
-        prompt2.setWrappingWidth(400);
+        Text prompt2 = new Text("Last Name:");
+        prompt2.setWrappingWidth(80);
         prompt2.setTextAlignment(TextAlignment.CENTER);
         prompt2.setFill(Color.BLACK);
         grid.add(prompt2, 0, 2);
