@@ -139,10 +139,10 @@ public class WorkerSelectionView extends View
         workerBannerIdColumn.setCellValueFactory(
                 new PropertyValueFactory<WorkerTableModel, String>("bannerId"));
 
-        TableColumn passwordColumn = new TableColumn("password") ;
-        passwordColumn.setMinWidth(100);
-        passwordColumn.setCellValueFactory(
-                new PropertyValueFactory<WorkerTableModel, String>("password"));
+        //TableColumn passwordColumn = new TableColumn("password") ;
+        //passwordColumn.setMinWidth(100);
+        //passwordColumn.setCellValueFactory(
+                //new PropertyValueFactory<WorkerTableModel, String>("password"));
 
         TableColumn firstNameColumn = new TableColumn("firstName") ;
         firstNameColumn.setMinWidth(25);
@@ -184,7 +184,7 @@ public class WorkerSelectionView extends View
         statusColumn.setCellValueFactory(
                 new PropertyValueFactory<WorkerTableModel, String>("status"));
 
-        tableOfWorkers.getColumns().addAll(workerBannerIdColumn, passwordColumn, firstNameColumn, lastNameColumn, contactPhoneColumn, emailColumn
+        tableOfWorkers.getColumns().addAll(workerBannerIdColumn, firstNameColumn, lastNameColumn, contactPhoneColumn, emailColumn
                 , credentialsColumn, dOLCSColumn, dOHColumn, statusColumn);
         tableOfWorkers.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

@@ -123,6 +123,11 @@ public class Worker extends EntityBase {
         while (allKeys.hasMoreElements() == true)
         {
             String nextKey = (String)allKeys.nextElement();
+
+            if(nextKey == "password"){
+
+            }
+
             String nextValue = props.getProperty(nextKey);
 
             if (nextValue != null)
