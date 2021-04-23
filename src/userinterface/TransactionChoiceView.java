@@ -188,7 +188,7 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("modifyDelete", null);
+				myModel.stateChangeRequest("BarcodeSearchView", 0);
 			}
 		});
 		//balanceInquiryButton.setMaxWidth(Double.MAX_VALUE);
@@ -201,7 +201,7 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("modifyDelete", null);
+				myModel.stateChangeRequest("BarcodeSearchView", 1);
 			}
 		});
 		//modBook.setMaxWidth(Double.MAX_VALUE);

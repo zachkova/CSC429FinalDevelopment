@@ -297,7 +297,11 @@ public class Librarian implements IView, IModel
             createAndShowAddStudentBorrowerView();
         }
         else
-
+        if (key.equals("BarcodeSearchView") == true)
+        {
+            delmod = (int)value;
+            createAndShowBarcodeSearchView();
+        }
         if (key.equals("InsertBook") == true)
         {
             try {
@@ -488,6 +492,7 @@ public class Librarian implements IView, IModel
 
     }
 
+
     private void createAndShowDeleteWorkerView()
     {
         Scene currentScene = (Scene)myViews.get("DeleteWorkerView");
@@ -665,6 +670,17 @@ public class Librarian implements IView, IModel
         Scene currentScene = null;
             // create our initial view
         View newView = ViewFactory.createView("StudentSearchNameView", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+        swapToView(currentScene);
+
+    }
+
+    private void createAndShowBarcodeSearchView()
+    {
+        Scene currentScene = null;
+        // create our initial view
+        View newView = ViewFactory.createView("BarcodeSearchView", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         swapToView(currentScene);
