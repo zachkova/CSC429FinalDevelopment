@@ -203,3 +203,7 @@
 [4/22/21 6:25 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'bannerId' at row 1>
 [4/22/21 6:29 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
 [4/22/21 6:29 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'bannerId' at row 1>
+[4/22/21 7:25 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/22/21 7:26 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'fdsafds' in 'where clause'>
+[4/22/21 7:27 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'dsfdsa' in 'where clause'>
+[4/22/21 7:27 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'bannerId' at row 1>

@@ -278,7 +278,12 @@ public class AddWorkerView extends View{
         p1.setProperty("dateOfHire", dateHire);
         p1.setProperty("status", stat);
 
-        myModel.stateChangeRequest("insertWorker", p1);
+        if (ban.length() != 9) {
+            databaseErrorBarcode();
+        }else {
+            myModel.stateChangeRequest("insertWorker", p1);
+        }
+
 
         bannerId.clear();
         password.clear();
@@ -367,6 +372,16 @@ public class AddWorkerView extends View{
         alert.setTitle("Database");
         alert.setHeaderText("Ooops, there was an issue adding to the database!");
         alert.setContentText("Please make sure all fields are filled out correctly.");
+
+        alert.showAndWait();
+    }
+
+    public void databaseErrorBarcode(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Ooops, there was an issue adding to the database!");
+        alert.setContentText("Please make sure the bannerId is correct.");
 
         alert.showAndWait();
     }
