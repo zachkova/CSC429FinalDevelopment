@@ -93,6 +93,10 @@ public class ViewFactory {
 		{
 			return new BookSubmitBarcodeScreen(model);
 		}
+		else if(viewName.equals("CheckoutBookScreen") == true)
+		{
+			return new CheckoutBookScreen(model);
+		}
 		else
 			return null;
 	}

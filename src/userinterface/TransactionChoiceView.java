@@ -266,7 +266,7 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("Change this later", null);
+				myModel.stateChangeRequest("CheckoutBookScreen", null);
 			}
 		});
 		//checkOB.setMaxWidth(Double.MAX_VALUE);
