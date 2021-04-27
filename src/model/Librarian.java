@@ -22,6 +22,7 @@ import userinterface.View;
 import userinterface.ViewFactory;
 import userinterface.WindowPosition;
 import model.StudentBorrower;
+import model.CheckOutTransaction;
 
 /** The class containing the Teller  for the ATM application */
 //==============================================================
@@ -53,6 +54,8 @@ public class Librarian implements IView, IModel
 
     private String loginErrorMessage = "";
     private String transactionErrorMessage = "";
+
+    private CheckOutTransaction cOT;
 
 
 
@@ -334,7 +337,7 @@ public class Librarian implements IView, IModel
         }
         }
         else
-        if (key.equals("CancelTransaction") == true)
+        if (key.equals("CancelTransaction") == true || key.equals("CancelCheckout") == true)
         {
             createAndShowTransactionChoiceView();
         }
@@ -343,6 +346,12 @@ public class Librarian implements IView, IModel
         {
             delmod = (int)value;
             createAndShowStudentSearchNameView();
+        }
+        else
+            if(key.equals("CheckoutBook")){
+                cOT = new CheckOutTransaction();
+                cOT.subscribe("CancelTransaction", this);
+                cOT.stateChangeRequest("doYourJob", "");
         }
         else
         if (key.equals("Logout") == true)
@@ -615,15 +624,12 @@ public class Librarian implements IView, IModel
 
     private void createAndShowModifyStudentView()
     {
-        Scene currentScene = (Scene)myViews.get("StudentModificationView");
+        Scene currentScene = null;
 
-        if (currentScene == null)
-        {
             // create our initial view
             View newView = ViewFactory.createView("StudentModificationView", this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
-            myViews.put("StudentModificationView", currentScene);
-        }
+
 
         swapToView(currentScene);
 
