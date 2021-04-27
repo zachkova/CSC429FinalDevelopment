@@ -38,7 +38,7 @@ public class StudentBorrower extends EntityBase {
             }
         }
     }
-    public void setExistsTrue(boolean x)
+    public void setExistsTrue()
     {
         exists = true;
     }
