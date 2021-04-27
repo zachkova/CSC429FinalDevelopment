@@ -146,7 +146,7 @@ public class Worker extends EntityBase {
         exists = false;
     }
 
-    public void setExistsTrue(boolean x){
+    public void setExistsTrue(){
         exists = true;
     }
 

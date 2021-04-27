@@ -217,6 +217,16 @@ public class Librarian implements IView, IModel
             createAndShowModifyStudentView();
         }
         else
+        if (key.equals("StudentSelected") == true && delmod == 0)
+        {
+            try {
+                getStudent((String)value);
+            } catch (InvalidPrimaryKeyException e) {
+                e.printStackTrace();
+            }
+            createAndShowDeleteStudentVerificationView();
+        }
+        else
         if (key.equals("SelectWorkerView") == true && value == null)
         {
             try {
@@ -264,6 +274,7 @@ public class Librarian implements IView, IModel
             try {
                 insertWorkerModification((Properties)value);
             } catch (InvalidPrimaryKeyException e) {
+                System.out.println("This is being hit on delete");
                 e.printStackTrace();
             }
         }
@@ -363,6 +374,17 @@ public class Librarian implements IView, IModel
         }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    private void createAndShowDeleteStudentVerificationView() {
+        Scene currentScene = null;
+        // create our initial view
+        View newView = ViewFactory.createView("DeleteStudentBorrowerVerificationView", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
     }
 
     /** Called via the IView relationship */
@@ -559,13 +581,13 @@ public class Librarian implements IView, IModel
 
     private void insertWorkerModification(Properties p) throws InvalidPrimaryKeyException {
         Worker modWorker = new Worker(p);
-        modWorker.setExistsTrue(true);
+        modWorker.setExistsTrue();
         modWorker.update();
     }
 
     private void insertStudentModification(Properties p) throws InvalidPrimaryKeyException {
         StudentBorrower modStudent = new StudentBorrower(p);
-        modStudent.setExistsTrue(true);
+        modStudent.setExistsTrue();
         modStudent.update();
     }
 

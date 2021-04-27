@@ -70,10 +70,8 @@ public class StudentSelectionView extends View
     {
 
         ObservableList<StudentBorrowerTableModel> tableData = FXCollections.observableArrayList();
-        System.out.println("TTTTTTTTTTHHHHHHHHHOOOOOOMMMMMMMMAAAAAAAASSSSSSSSSSSS");
         try
         {
-            System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUNNNNNNNNNNNNNNNNNNNNNNNNTTTTTTTTTTTTTTTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRR");
             StudentBorrowerCollection studentCollection = (StudentBorrowerCollection)myModel.getState("StudentBorrowerList");
 
             Vector entryList = (Vector)studentCollection.getState("StudentBorrowers");
@@ -88,7 +86,6 @@ public class StudentSelectionView extends View
                 // add this list entry to the list
                 StudentBorrowerTableModel nextTableRowData = new StudentBorrowerTableModel(view);
                 tableData.add(nextTableRowData);
-                System.out.println("ZZZZZZZZZZZZZZZZZZZAAAAAAAAAAAAAAAAAAAA");
             }
 
             tableOfStudents.setItems(tableData);
