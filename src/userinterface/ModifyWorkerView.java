@@ -22,6 +22,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.Worker;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 public class ModifyWorkerView extends View{
@@ -315,11 +317,18 @@ public class ModifyWorkerView extends View{
         phone.setText((String)w.getState("contactPhone"));
         email.setText((String)w.getState("email"));
         cred.setValue((String)w.getState("credentials"));
-        dOLC.setText((String)w.getState("dateOfLatestCredentialsStatus"));
+        //dOLC.setText((String)w.getState("dateOfLatestCredentialsStatus"));
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+
+        dOLC.setEditable(false);
+        dOLC.setText(dtf.format(now));
+
         doh.setText((String)w.getState("dateOfHire"));
+        doh.setEditable(false);
+
         status.setValue((String)w.getState("status"));
-
-
     }
 
     /**
