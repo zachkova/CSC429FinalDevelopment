@@ -23,6 +23,8 @@ import javafx.scene.text.TextAlignment;
 import model.StudentBorrower;
 import model.Worker;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 public class StudentModificationView extends View{
@@ -313,8 +315,17 @@ public class StudentModificationView extends View{
         phone.setText((String)w.getState("contactPhone"));
         email.setText((String)w.getState("email"));
         borStat.setValue((String)w.getState("borrowerStatus"));
-        dOLBS.setText((String)w.getState("dateOfLatestBorrowerStatus"));
+        //dOLBS.setText((String)w.getState("dateOfLatestBorrowerStatus"));
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+
+        dOLBS.setEditable(false);
+        dOLBS.setText(dtf.format(now));
+
         dOR.setText((String)w.getState("dateOfRegistration"));
+        dOR.setEditable(false);
+
         notes.setText((String)w.getState("notes"));
         status.setValue((String)w.getState("status"));
 
