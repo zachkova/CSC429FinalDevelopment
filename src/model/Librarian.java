@@ -156,8 +156,7 @@ public class Librarian implements IView, IModel
     }
 
     //----------------------------------------------------------------
-    public void stateChangeRequest(String key, Object value)
-    {
+    public void stateChangeRequest(String key, Object value)  {
         // STEP 4: Write the sCR method component for the key you
         // just set up dependencies for
         // DEBUG System.out.println("Teller.sCR: key = " + key);
@@ -319,16 +318,30 @@ public class Librarian implements IView, IModel
         if (key.equals("InsertBook") == true)
         {
             try {
+                System.out.println("Hunter Thomas");
                 insertBook((Properties)value);
                 if(((Properties) value).getProperty("barcode").equals("")) {
                     databaseError();
                 }
                 else
                     databaseErrorDuplicate();
-            } catch (InvalidPrimaryKeyException e) {
-                Book insertedBook = new Book((Properties)value);
-                insertedBook.update();
-                databaseUpdated();
+            } catch (InvalidPrimaryKeyException p) {
+                try {
+                    System.out.println("Trying this Hunter");
+                    String prefix = ((Properties) value).getProperty("barcode");
+                    prefix = prefix.substring(0, 3);
+                    BookBarcodePrefix pre = new BookBarcodePrefix(prefix);
+                    prefix = (String) pre.getState("discipline");
+                    Properties prop = (Properties)value;
+                    prop.setProperty("discipline", prefix);
+
+                    Book insertedBook = new Book(prop);
+                    insertedBook.update();
+                    databaseUpdated();
+                }
+                catch (InvalidPrimaryKeyException e) {
+                    databaseErrorPrefix();
+                }
             }
         }
         else
@@ -375,6 +388,8 @@ public class Librarian implements IView, IModel
 
         myRegistry.updateSubscribers(key, this);
     }
+
+
 
     private void createAndShowDeleteStudentVerificationView() {
         Scene currentScene = null;
@@ -737,6 +752,14 @@ public class Librarian implements IView, IModel
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
         alert.setHeaderText("Ooops, there was an error adding to the database.");
+        alert.setContentText("Please try again.");
+
+        alert.showAndWait();
+    }
+    private void databaseErrorPrefix() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Discipline not found, enter different Barcode with correct prefix.");
         alert.setContentText("Please try again.");
 
         alert.showAndWait();
