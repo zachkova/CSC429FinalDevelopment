@@ -38,10 +38,12 @@ public class StudentBorrower extends EntityBase {
             }
         }
     }
+
     public void setExistsTrue()
     {
         exists = true;
     }
+
     public StudentBorrower(Properties props) {
         super(myTableName);
         this.setDependencies();
@@ -82,8 +84,8 @@ public class StudentBorrower extends EntityBase {
     }
 
     public static int compare(StudentBorrower a, StudentBorrower b) {
-        String ba = (String)a.getState("name");
-        String bb = (String)b.getState("name");
+        String ba = (String)a.getState("firstName");
+        String bb = (String)b.getState("firstName");
         return ba.compareTo(bb);
     }
 
