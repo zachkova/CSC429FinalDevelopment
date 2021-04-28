@@ -8,10 +8,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -278,6 +275,8 @@ public class ModifyWorkerView extends View{
         p1.setProperty("dateOfHire", dateHire);
         p1.setProperty("status", stat);
 
+        databaseEdited();
+
         myModel.stateChangeRequest("insertWorkerModification", p1);
 /*
         bannerId.clear();
@@ -372,7 +371,18 @@ public class ModifyWorkerView extends View{
         statusLog.clearErrorMessage();
     }
 
+    public void databaseEdited(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Your request was complete!");
+        alert.setContentText("Your changes were saved and sent to the database.");
+
+        alert.showAndWait();
+    }
+
 }
+
 
 //---------------------------------------------------------------
 //	Revision History:

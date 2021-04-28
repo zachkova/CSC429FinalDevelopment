@@ -8,10 +8,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -277,6 +274,8 @@ public class StudentModificationView extends View{
         p1.setProperty("notes", not);
         p1.setProperty("status", stat);
 
+        databaseEdited();
+
         myModel.stateChangeRequest("insertStudentModification", p1);
 /*
         bannerId.clear();
@@ -371,6 +370,16 @@ public class StudentModificationView extends View{
     public void clearErrorMessage()
     {
         statusLog.clearErrorMessage();
+    }
+
+    public void databaseEdited(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Your request was complete!");
+        alert.setContentText("Your changes were saved and sent to the database.");
+
+        alert.showAndWait();
     }
 
 }

@@ -13,10 +13,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -113,6 +110,7 @@ public class DeleteWorkerVerificationView extends View
 
                 int delmod = (int) myModel.getState("delmod");
                 myModel.stateChangeRequest("SelectWorkerView", null);
+
             }
         });
 
@@ -151,6 +149,7 @@ public class DeleteWorkerVerificationView extends View
     // Make the ActionListeners delegate to this method
     //-------------------------------------------------------------
     public void processAction(Event evt) {
+
         Worker wc = (Worker)myModel.getState("Worker");
         String ban = (String)wc.getState("bannerId");
         String pass = (String)wc.getState("password");
@@ -164,6 +163,7 @@ public class DeleteWorkerVerificationView extends View
         String stat = "Inactive";
 
         Properties p1 = new Properties();
+
         p1.setProperty("bannerId", ban);
         p1.setProperty("password", pass);
         p1.setProperty("firstName", fName);
@@ -174,6 +174,8 @@ public class DeleteWorkerVerificationView extends View
         p1.setProperty("dateOfLatestCredentialsStatus", latestCred);
         p1.setProperty("dateOfHire", dateHire);
         p1.setProperty("status", stat);
+
+        databaseRemoved();
 
         myModel.stateChangeRequest("insertWorkerModification", p1);
     }
@@ -207,6 +209,16 @@ public class DeleteWorkerVerificationView extends View
     @Override
     public void updateState(String key, Object value) {
 
+    }
+
+    public void databaseRemoved(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Your request was complete!");
+        alert.setContentText("Worker was set to 'Inactive' in database.");
+
+        alert.showAndWait();
     }
 }
 
