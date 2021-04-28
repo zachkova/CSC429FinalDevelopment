@@ -128,32 +128,6 @@ public class AddBookView<pubilc> extends View{
         title.setEditable(true);
         grid.add(title, 1, 2);
 
-        Text dis = new Text(" Discipline : ");
-        dis.setFont(myFont);
-        dis.setWrappingWidth(150);
-        dis.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(dis, 0, 3);
-
-        discipline = new ComboBox();
-        discipline.getItems().addAll(
-                "None",
-                "English",
-                "Mathematics",
-                "Physics",
-                "Biology",
-                "History",
-                "Government",
-                "Sociology",
-                "Psychology",
-                "Computer Science",
-                "Chemistry",
-                "Foreign Language",
-                "Art",
-                "Music"
-        );
-        discipline.setEditable(true);
-        discipline.setValue("None");
-        grid.add(discipline, 1, 3);
 
         Text auth1 = new Text(" Author 1 : ");
         auth1.setFont(myFont);
@@ -312,7 +286,7 @@ public class AddBookView<pubilc> extends View{
 
         String bar = barcode.getText();
         String titl = title.getText();
-        String disi = (String) discipline.getValue();
+        String disi = " ";
         String au1 = author1.getText();
         String au2 = author2.getText();
         String au3 = author3.getText();
@@ -343,7 +317,7 @@ public class AddBookView<pubilc> extends View{
         p2.setProperty("status", sta);
 
         if (yeaO == null || yeaO == "" || yeaO.length() == 0 || yeaO.length() > 4 ||
-        bar.length() != 5){
+        bar.length() != 6){
             databaseErrorYear();
         }else {
             myModel.stateChangeRequest("InsertBook", p2);
@@ -361,7 +335,6 @@ public class AddBookView<pubilc> extends View{
         suggestedPrice.clear();
         notes.clear();
 
-        discipline.setValue("None");
         quality.setValue("Good");
         status.setValue("Active");
         suggestedPrice.setText("0.00");
