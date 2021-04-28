@@ -38,10 +38,12 @@ public class StudentBorrower extends EntityBase {
             }
         }
     }
+
     public void setExistsTrue()
     {
         exists = true;
     }
+
     public StudentBorrower(Properties props) {
         super(myTableName);
         this.setDependencies();

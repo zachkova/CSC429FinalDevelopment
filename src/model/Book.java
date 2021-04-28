@@ -59,6 +59,11 @@ public class Book extends EntityBase {
 
     }
 
+    public void setExistsTrue()
+    {
+        exists = true;
+    }
+
     private void setDependencies(){
         this.dependencies = new Properties();
         this.myRegistry.setDependencies(this.dependencies);

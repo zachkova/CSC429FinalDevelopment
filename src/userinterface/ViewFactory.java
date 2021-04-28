@@ -22,6 +22,9 @@ public class ViewFactory {
 		{
 			return new AddBookView(model);
 		}
+		else if(viewName.equals("DeleteBookVerificationView") == true) {
+			return new DeleteBookVerificationView(model);
+		}
 		else if(viewName.equals("TransactionChoiceView") == true)
 		{
 			return new TransactionChoiceView(model);
