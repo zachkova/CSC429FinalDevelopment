@@ -43,6 +43,8 @@ public class Librarian implements IView, IModel
     private StudentBorrower student;
     private StudentBorrowerCollection sc;
 
+    private Book bookSearch;
+
     private int delmod = 1;
     private String fName = "";
     private String lName = "";
@@ -140,6 +142,11 @@ public class Librarian implements IView, IModel
         if (key.equals("Student") == true)
         {
             return studentSearch;
+        }
+        else
+        if (key.equals("Book") == true)
+        {
+            return bookSearch;
         }
         else
         if (key.equals("firstName") == true)
@@ -273,7 +280,7 @@ public class Librarian implements IView, IModel
         if (key.equals("BookModification") == true && delmod == 1)
         {
             try {
-                getWorker((String)value);
+                getBook((String)value);
             } catch (InvalidPrimaryKeyException e) {
                 e.printStackTrace();
             }
@@ -283,11 +290,20 @@ public class Librarian implements IView, IModel
         if (key.equals("BookModification") == true && delmod == 0)
         {
             try {
-                getWorker((String)value);
+                getBook((String)value);
             } catch (InvalidPrimaryKeyException e) {
                 e.printStackTrace();
             }
             createAndShowDeleteBookVerificationView();
+        }
+        if (key.equals("insertBookModification") == true)
+        {
+            try {
+                insertBookModification((Properties)value);
+            } catch (InvalidPrimaryKeyException e) {
+                System.out.println("This is being hit on delete");
+                e.printStackTrace();
+            }
         }
         if (key.equals("insertWorkerModification") == true)
         {
@@ -569,6 +585,10 @@ public class Librarian implements IView, IModel
 
     }
 
+    private void getBook(String id)throws InvalidPrimaryKeyException {
+        bookSearch = new Book(id);
+    }
+
     private void getWorker(String id)throws InvalidPrimaryKeyException {
         workerSearch = new Worker(id);
     }
@@ -620,7 +640,11 @@ public class Librarian implements IView, IModel
     }
 
 
-
+    private void insertBookModification(Properties p) throws InvalidPrimaryKeyException {
+        Book modBook = new Book(p);
+        modBook.setExistsTrue();
+        modBook.update();
+    }
     private void insertWorkerModification(Properties p) throws InvalidPrimaryKeyException {
         Worker modWorker = new Worker(p);
         modWorker.setExistsTrue();

@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.Book;
 import model.Worker;
 
 import java.util.Properties;
@@ -177,31 +178,38 @@ public class DeleteBookVerificationView  extends View{
     // Make the ActionListeners delegate to this method
     //-------------------------------------------------------------
     public void processAction(Event evt) {
-        Worker wc = (Worker)myModel.getState("Worker");
-        String ban = (String)wc.getState("bannerId");
-        String pass = (String)wc.getState("password");
-        String fName = (String)wc.getState("firstName");
-        String lName = (String)wc.getState("lastName");
-        String pho = (String)wc.getState("contactPhone");
-        String eml = (String)wc.getState("email");
-        String credentials = (String)wc.getState("credentials");
-        String latestCred = (String)wc.getState("dateOfLatestCredentialsStatus");
-        String dateHire =(String)wc.getState("dateOfHire");
+        Book wc = (Book)myModel.getState("Book");
+        String bar = (String)wc.getState("barcode");
+        String tit = (String)wc.getState("title");
+        String disc = (String)wc.getState("discipline");
+        String a1 = (String)wc.getState("author1");
+        String a2 = (String)wc.getState("author2");
+        String a3 = (String)wc.getState("author3");
+        String a4 = (String)wc.getState("author4");
+        String pub = (String)wc.getState("publisher");
+        String yop = (String)wc.getState("yearOfPublication");
+        String isbn = (String)wc.getState("isbn");
+        String qual = (String)wc.getState("quality");
+        String sugP =(String)wc.getState("suggestedPrice");
         String stat = "Inactive";
 
+        System.out.println(yop);
         Properties p1 = new Properties();
-        p1.setProperty("bannerId", ban);
-        p1.setProperty("password", pass);
-        p1.setProperty("firstName", fName);
-        p1.setProperty("lastName", lName);
-        p1.setProperty("contactPhone", pho);
-        p1.setProperty("email", eml);
-        p1.setProperty("credentials", credentials);
-        p1.setProperty("dateOfLatestCredentialsStatus", latestCred);
-        p1.setProperty("dateOfHire", dateHire);
+        p1.setProperty("barcode", bar);
+        p1.setProperty("title", tit);
+        p1.setProperty("discipline", disc);
+        p1.setProperty("author1", a1);
+        p1.setProperty("author2", a2);
+        p1.setProperty("author3", a3);
+        p1.setProperty("author4", a4);
+        p1.setProperty("publisher", pub);
+        p1.setProperty("yearOfPublication", yop);
+        p1.setProperty("isbn", isbn);
+        p1.setProperty("quality", qual);
+        p1.setProperty("suggestedPrice", sugP);
         p1.setProperty("status", stat);
 
-        myModel.stateChangeRequest("insertWorkerModification", p1);
+        myModel.stateChangeRequest("insertBookModification", p1);
     }
     /**
      * Process userid and pwd supplied when Submit button is hit.
