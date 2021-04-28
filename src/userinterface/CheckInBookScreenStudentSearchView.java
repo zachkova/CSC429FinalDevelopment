@@ -20,11 +20,9 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.Properties;
 
-public class CheckoutBookScreen extends View {
+public class CheckInBookScreenStudentSearchView extends View {
 
-    protected TextField fName;
-    protected TextField lName;
-
+    protected TextField bCode;
 
     protected Button cancelButton;
     protected Button submitButton;
@@ -32,26 +30,28 @@ public class CheckoutBookScreen extends View {
     // For showing error message
     protected MessageView statusLog;
 
-    public CheckoutBookScreen(IModel Librarian) {
-        super(Librarian, "CheckoutBook");
+    public CheckInBookScreenStudentSearchView(IModel Librarian) {
+        super(Librarian, "CheckInBookScreenStudentSearchView");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
         container.getChildren().add(createTitle());
+
         // create our GUI components, add them to this Container
         container.getChildren().add(createFormContent());
+
         container.getChildren().add(createStatusLog("             "));
 
         getChildren().add(container);
 
         populateFields();
+
     }
 
     private Node createTitle() {
-
         HBox var1 = new HBox();
         var1.setAlignment(Pos.CENTER);
-        Text var2 = new Text(" Checkout Book ");
+        Text var2 = new Text(" Return a Book ");
         var2.setFont(Font.font("Arial", FontWeight.BOLD, 20.0D));
         var2.setWrappingWidth(300.0D);
         var2.setTextAlignment(TextAlignment.CENTER);
@@ -63,32 +63,24 @@ public class CheckoutBookScreen extends View {
     private VBox createFormContent() {
 
         VBox vbox = new VBox(10);
+
         GridPane grid = new GridPane();
+
 
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("First Name:");
+        Text prompt = new Text("Barcode:");
         prompt.setWrappingWidth(80);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
         grid.add(prompt,0,0);
 
-        fName = new TextField();
-        fName.setEditable(true);
-        grid.add(fName,1, 0);
-
-        Text prompt2 = new Text("Last Name:");
-        prompt2.setWrappingWidth(80);
-        prompt2.setTextAlignment(TextAlignment.CENTER);
-        prompt2.setFill(Color.BLACK);
-        grid.add(prompt2,0, 1 );
-
-        lName = new TextField();
-        lName.setEditable(true);
-        grid.add(lName, 1,1);
+        bCode = new TextField();
+        bCode.setEditable(true);
+        grid.add(bCode,1, 0);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -98,8 +90,6 @@ public class CheckoutBookScreen extends View {
                 processAction(e);
             }
         });
-
-
 
         cancelButton = new Button("Back");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -174,13 +164,12 @@ public class CheckoutBookScreen extends View {
         clearErrorMessage();
 
         Properties p = new Properties();
-        System.out.println(fName.getText() + " " + lName.getText());
-        p.setProperty("firstName", fName.getText());
-        p.setProperty("lastName", lName.getText());
-        myModel.stateChangeRequest("SelectStudentView", p);
+        System.out.println(bCode.getText());
+        p.setProperty("barcode", bCode.getText());
 
-        fName.clear();
-        lName.clear();
+        myModel.stateChangeRequest("SelectBookView", p);
+
+        bCode.clear();
     }
-}
 
+}

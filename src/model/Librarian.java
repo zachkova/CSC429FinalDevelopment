@@ -58,6 +58,7 @@ public class Librarian implements IView, IModel
     private String transactionErrorMessage = "";
 
     private CheckOutTransaction cOT;
+    private CheckInTransaction cIT;
 
 
 
@@ -408,10 +409,20 @@ public class Librarian implements IView, IModel
             createAndShowStudentSearchNameView();
         }
         else
-            if(key.equals("CheckoutBook")){
-                cOT = new CheckOutTransaction();
-                cOT.subscribe("CancelTransaction", this);
-                cOT.stateChangeRequest("doYourJob", "");
+        if(key.equals("CheckoutBook")){
+
+            cOT = new CheckOutTransaction();
+            cOT.subscribe("CancelTransaction", this);
+            cOT.stateChangeRequest("doYourJob", "");
+
+        }
+        else
+        if(key.equals("CheckInBook")){
+
+            cIT = new CheckInTransaction();
+            cIT.subscribe("CancelTransaction", this);
+            cIT.stateChangeRequest("doYourJob", "");
+
         }
         else
         if (key.equals("Logout") == true)
