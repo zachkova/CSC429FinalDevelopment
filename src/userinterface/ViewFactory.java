@@ -22,6 +22,9 @@ public class ViewFactory {
 		{
 			return new AddBookView(model);
 		}
+		else if(viewName.equals("DeleteBookVerificationView") == true) {
+			return new DeleteBookVerificationView(model);
+		}
 		else if(viewName.equals("TransactionChoiceView") == true)
 		{
 			return new TransactionChoiceView(model);
@@ -99,7 +102,11 @@ public class ViewFactory {
 		}
 		else if(viewName.equals("CheckoutBook") == true)
 		{
-			return new CheckoutBookScreen(model);
+			return new CheckOutBookScreenStudentSearchView(model);
+		}
+		else if(viewName.equals("CheckInBook") == true)
+		{
+			return new CheckInBookScreenStudentSearchView(model);
 		}
 
 		else

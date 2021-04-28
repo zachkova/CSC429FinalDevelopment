@@ -1,19 +1,15 @@
-
-// specify the package
 package userinterface;
 
-// system imports
-import java.text.NumberFormat;
-import java.util.Properties;
-
-import javafx.event.Event;
+import impresario.IModel;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,16 +18,50 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
+import model.Book;
+import model.Worker;
+
+import java.util.Properties;
+
+
+
+
+// specify the package
+
+
+// system imports
+        import java.text.NumberFormat;
+        import java.util.Properties;
+
+        import javafx.event.Event;
+        import javafx.event.ActionEvent;
+        import javafx.event.EventHandler;
+        import javafx.geometry.Insets;
+        import javafx.geometry.Pos;
+        import javafx.scene.Node;
+        import javafx.scene.Scene;
+        import javafx.scene.control.Button;
+        import javafx.scene.control.Label;
+        import javafx.scene.control.PasswordField;
+        import javafx.scene.control.TextField;
+        import javafx.scene.layout.GridPane;
+        import javafx.scene.layout.HBox;
+        import javafx.scene.layout.VBox;
+        import javafx.scene.paint.Color;
+        import javafx.scene.text.Font;
+        import javafx.scene.text.FontWeight;
+        import javafx.scene.text.Text;
+        import javafx.scene.text.TextAlignment;
+        import javafx.stage.Stage;
 
 // project imports
-import impresario.IModel;
-import model.Worker;
+        import impresario.IModel;
+        import model.Worker;
 
 /** The class containing the Teller View  for the ATM application */
 //==============================================================
-public class DeleteWorkerVerificationView extends View
-{
+public class DeleteBookVerificationView  extends View{
+
 
     // GUI stuff
     private TextField userid;
@@ -44,7 +74,7 @@ public class DeleteWorkerVerificationView extends View
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public DeleteWorkerVerificationView( IModel librarian)
+    public DeleteBookVerificationView( IModel librarian)
     {
 
         super(librarian, "Librarian");
@@ -109,8 +139,7 @@ public class DeleteWorkerVerificationView extends View
             public void handle(ActionEvent e) {
 
                 int delmod = (int) myModel.getState("delmod");
-                myModel.stateChangeRequest("SelectWorkerView", null);
-
+                myModel.stateChangeRequest("BookSubmitBarcodeScreen", delmod);
             }
         });
 
@@ -149,35 +178,38 @@ public class DeleteWorkerVerificationView extends View
     // Make the ActionListeners delegate to this method
     //-------------------------------------------------------------
     public void processAction(Event evt) {
-
-        Worker wc = (Worker)myModel.getState("Worker");
-        String ban = (String)wc.getState("bannerId");
-        String pass = (String)wc.getState("password");
-        String fName = (String)wc.getState("firstName");
-        String lName = (String)wc.getState("lastName");
-        String pho = (String)wc.getState("contactPhone");
-        String eml = (String)wc.getState("email");
-        String credentials = (String)wc.getState("credentials");
-        String latestCred = (String)wc.getState("dateOfLatestCredentialsStatus");
-        String dateHire =(String)wc.getState("dateOfHire");
+        Book wc = (Book)myModel.getState("Book");
+        String bar = (String)wc.getState("barcode");
+        String tit = (String)wc.getState("title");
+        String disc = (String)wc.getState("discipline");
+        String a1 = (String)wc.getState("author1");
+        String a2 = (String)wc.getState("author2");
+        String a3 = (String)wc.getState("author3");
+        String a4 = (String)wc.getState("author4");
+        String pub = (String)wc.getState("publisher");
+        String yop = (String)wc.getState("yearOfPublication");
+        String isbn = (String)wc.getState("isbn");
+        String qual = (String)wc.getState("quality");
+        String sugP =(String)wc.getState("suggestedPrice");
         String stat = "Inactive";
 
+        System.out.println(yop);
         Properties p1 = new Properties();
-
-        p1.setProperty("bannerId", ban);
-        p1.setProperty("password", pass);
-        p1.setProperty("firstName", fName);
-        p1.setProperty("lastName", lName);
-        p1.setProperty("contactPhone", pho);
-        p1.setProperty("email", eml);
-        p1.setProperty("credentials", credentials);
-        p1.setProperty("dateOfLatestCredentialsStatus", latestCred);
-        p1.setProperty("dateOfHire", dateHire);
+        p1.setProperty("barcode", bar);
+        p1.setProperty("title", tit);
+        p1.setProperty("discipline", disc);
+        p1.setProperty("author1", a1);
+        p1.setProperty("author2", a2);
+        p1.setProperty("author3", a3);
+        p1.setProperty("author4", a4);
+        p1.setProperty("publisher", pub);
+        p1.setProperty("yearOfPublication", yop);
+        p1.setProperty("isbn", isbn);
+        p1.setProperty("quality", qual);
+        p1.setProperty("suggestedPrice", sugP);
         p1.setProperty("status", stat);
 
-        databaseRemoved();
-
-        myModel.stateChangeRequest("insertWorkerModification", p1);
+        myModel.stateChangeRequest("insertBookModification", p1);
     }
     /**
      * Process userid and pwd supplied when Submit button is hit.
@@ -210,15 +242,6 @@ public class DeleteWorkerVerificationView extends View
     public void updateState(String key, Object value) {
 
     }
-
-    public void databaseRemoved(){
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Database");
-        alert.setHeaderText("Your request was complete!");
-        alert.setContentText("Worker was set to 'Inactive' in database.");
-
-        alert.showAndWait();
-    }
 }
+
 
