@@ -98,7 +98,7 @@ public class StudentBorrowerCollection   extends EntityBase implements IView
         {
             System.out.println("query is getting results");
             studentBorrowers = new Vector<StudentBorrower>();
-
+            System.out.println("HHHHHHUUUUUNNNNNN" + " " + allDataRetrieved.size());
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
                 Properties nextPatronData = (Properties)allDataRetrieved.elementAt(cnt);

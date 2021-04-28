@@ -77,9 +77,11 @@ public class StudentSelectionView extends View
             Vector entryList = (Vector)studentCollection.getState("StudentBorrowers");
 
             Enumeration entries = entryList.elements();
-
+            int x = 0;
             while (entries.hasMoreElements() == true)
             {
+                x++;
+                System.out.println(x);
                StudentBorrower nextStudent = (StudentBorrower) entries.nextElement();
                 Vector<String> view = nextStudent.getEntryListView();
 

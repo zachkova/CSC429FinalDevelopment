@@ -12,10 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -177,6 +174,8 @@ public class DeleteStudentBorrowerVerificationView extends View
         p1.setProperty("notes", notes);
         p1.setProperty("status", stat);
 
+        databaseRemoved();
+
         myModel.stateChangeRequest("insertStudentModification", p1);
     }
     /**
@@ -209,5 +208,15 @@ public class DeleteStudentBorrowerVerificationView extends View
     @Override
     public void updateState(String key, Object value) {
 
+    }
+
+    public void databaseRemoved(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Your request was complete!");
+        alert.setContentText("Student was set to 'Inactive' in database.");
+
+        alert.showAndWait();
     }
 }

@@ -139,7 +139,7 @@ public class DeleteBookVerificationView  extends View{
             public void handle(ActionEvent e) {
 
                 int delmod = (int) myModel.getState("delmod");
-                myModel.stateChangeRequest("BookSubmitBarcodeScreen", null);
+                myModel.stateChangeRequest("BookSubmitBarcodeScreen", delmod);
             }
         });
 

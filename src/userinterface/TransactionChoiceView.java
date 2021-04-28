@@ -280,7 +280,7 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("Change This Later", null);
+				myModel.stateChangeRequest("CheckInBook", null);
 			}
 		});
 		//checkIB.setMaxWidth(Double.MAX_VALUE);

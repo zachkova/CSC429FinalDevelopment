@@ -213,3 +213,4 @@
 [4/28/21 3:09 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'yearOfPublication' at row 1>
 [4/28/21 3:16 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'yearOfPublication' at row 1>
 [4/28/21 3:17 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'yearOfPublication' at row 1>
+[4/28/21 3:52 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'yearOfPublication' at row 1>
