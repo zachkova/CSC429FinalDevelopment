@@ -269,6 +269,26 @@ public class Librarian implements IView, IModel
             }
             createAndShowDeleteWorkerVerificationView();
         }
+        else
+        if (key.equals("BookModification") == true && delmod == 1)
+        {
+            try {
+                getWorker((String)value);
+            } catch (InvalidPrimaryKeyException e) {
+                e.printStackTrace();
+            }
+            createAndShowModifyBookView();
+        }
+        else
+        if (key.equals("BookModification") == true && delmod == 0)
+        {
+            try {
+                getWorker((String)value);
+            } catch (InvalidPrimaryKeyException e) {
+                e.printStackTrace();
+            }
+            createAndShowDeleteBookVerificationView();
+        }
         if (key.equals("insertWorkerModification") == true)
         {
             try {
@@ -374,6 +394,28 @@ public class Librarian implements IView, IModel
         }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    private void createAndShowDeleteBookVerificationView() {
+        Scene currentScene = null;
+        // create our initial view
+        View newView = ViewFactory.createView("DeleteBookVerificationView", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
+    }
+
+    private void createAndShowModifyBookView() {
+        Scene currentScene = null;
+        // create our initial view
+        View newView = ViewFactory.createView("ModifyBookView", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
     }
 
     private void createAndShowDeleteStudentVerificationView() {

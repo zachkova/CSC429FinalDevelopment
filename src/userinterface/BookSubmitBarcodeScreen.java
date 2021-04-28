@@ -166,7 +166,7 @@ public class BookSubmitBarcodeScreen extends View {
         System.out.println(bCode.getText());
         p.setProperty("barcode", bCode.getText());
 
-        myModel.stateChangeRequest("SelectBookView", p);
+        myModel.stateChangeRequest("BookModification", p);
 
         bCode.clear();
     }
