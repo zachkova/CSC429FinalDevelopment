@@ -224,7 +224,7 @@ public class Librarian implements IView, IModel
             createAndShowModifyStudentView();
         }
         else
-        if (key.equals("StudentSelected") == true && delmod == 0)
+        if (key.equals("StudentSelected") == true && delmod == 2)
         {
             try {
                 getStudent((String)value);
@@ -267,7 +267,7 @@ public class Librarian implements IView, IModel
             createAndShowModifyWorkerView();
         }
         else
-        if (key.equals("WorkerSelected") == true && delmod == 0)
+        if (key.equals("WorkerSelected") == true && delmod == 2)
         {
             try {
                 getWorker((String)value);
@@ -287,7 +287,7 @@ public class Librarian implements IView, IModel
             createAndShowModifyBookView();
         }
         else
-        if (key.equals("BookModification") == true && delmod == 0)
+        if (key.equals("BookModification") == true && delmod == 2)
         {
             try {
                 getBook((String)value);
