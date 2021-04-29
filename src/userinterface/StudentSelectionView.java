@@ -219,8 +219,13 @@ public class StudentSelectionView extends View
 
             @Override
             public void handle(ActionEvent e) {
-                int delmod = (int) myModel.getState("delmod");
-                myModel.stateChangeRequest("SearchStudent", delmod);
+                try {
+                    int delmod = (int) myModel.getState("delmod");
+                    myModel.stateChangeRequest("SearchStudent", delmod);
+                }
+                catch(Exception x){
+                    myModel.stateChangeRequest("doYourJob", null);
+                }
             }
         });
 
