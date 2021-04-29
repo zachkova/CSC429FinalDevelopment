@@ -1,6 +1,7 @@
 package model;
 
 import event.Event;
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import impresario.ISlideShow;
 import impresario.IView;
@@ -21,6 +22,9 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
     private Hashtable<String, Scene> myViews;
     private Stage myStage;
     private Properties dependencies;
+    private StudentBorrowerCollection sc;
+    private String fName = "";
+    private String lName = "";
 
     protected CheckOutTransaction(){
         myStage = MainStageContainer.getInstance();
@@ -38,6 +42,11 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
 
     @Override
     public Object getState(String key) {
+        if (key.equals("StudentBorrowerList") == true)
+        {
+            return sc;
+        }
+        else
         return null;
     }
 
@@ -56,6 +65,15 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
         if(key.equals("doYourJob")){
             createAndShowCheckOutBookView();
         }
+         else
+        if (key.equals("SelectStudentView") == true && value != null)
+        {
+            try {
+                searchStudents((Properties)value);
+            } catch (InvalidPrimaryKeyException e) {
+                e.printStackTrace();
+            }
+        }
         myRegistry.updateSubscribers(key, this);
     }
 
@@ -71,6 +89,26 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
         swapToView(currentScene);
     }
 
+    private void createAndShowStudentSelectionView()
+    {
+        Scene currentScene = null;
+
+        // create our initial view
+        View newView = ViewFactory.createView("StudentSelectionView", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
+    }
+
+    private void searchStudents(Properties z) throws InvalidPrimaryKeyException {
+        sc = new StudentBorrowerCollection();
+        sc.getFirstAndLastName(z.getProperty("firstName"), z.getProperty("lastName"));
+        createAndShowStudentSelectionView();
+        fName = z.getProperty("firstName");
+        lName = z.getProperty("lastName");
+
+    }
 
     public void swapToView(Scene newScene)
     {

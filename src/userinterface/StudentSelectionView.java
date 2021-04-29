@@ -219,8 +219,13 @@ public class StudentSelectionView extends View
 
             @Override
             public void handle(ActionEvent e) {
-                int delmod = (int) myModel.getState("delmod");
-                myModel.stateChangeRequest("SearchStudent", delmod);
+                try {
+                    int delmod = (int) myModel.getState("delmod");
+                    myModel.stateChangeRequest("SearchStudent", delmod);
+                }
+                catch(Exception x){
+                    myModel.stateChangeRequest("doYourJob", null);
+                }
             }
         });
 
@@ -247,12 +252,24 @@ public class StudentSelectionView extends View
     protected void processPatronSelected()
     {
         StudentBorrowerTableModel selectedItem = tableOfStudents.getSelectionModel().getSelectedItem();
+        try {
+            int delmod = (Integer)myModel.getState("delmod");
+            if (selectedItem != null) {
+                String selectedItemBannerId = selectedItem.getBannerId();
 
-        if(selectedItem != null)
+                myModel.stateChangeRequest("StudentSelected", selectedItemBannerId);
+            }
+        }
+        catch (Exception x)
         {
-            String selectedItemBannerId = selectedItem.getBannerId();
-
-            myModel.stateChangeRequest("StudentSelected", selectedItem.getBannerId());
+            if (selectedItem != null){
+                String selectedItemBannerId = selectedItem.getBannerId();
+                if (selectedItem.getBorrowerStatus().equals("Delinquent") || selectedItem.getStatus().equals("Inactive")){
+                    errorMessageDelInac();
+                }
+                else
+                    myModel.stateChangeRequest("StudentSelected",selectedItemBannerId);
+            }
         }
     }
 
@@ -284,6 +301,17 @@ public class StudentSelectionView extends View
         statusLog.displayMessage(message);
     }
 
+    public void errorMessageDelInac()
+    {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("There was an error selecting a student!");
+        alert.setContentText("The student is either a Delinquent or is set to Inactive.");
+
+        alert.showAndWait();
+    }
+
     /**
      * Clear error message
      */
@@ -292,7 +320,8 @@ public class StudentSelectionView extends View
     {
         statusLog.clearErrorMessage();
     }
-	/*
+
+    	/*
 	//--------------------------------------------------------------------------
 	public void mouseClicked(MouseEvent click)
 	{
