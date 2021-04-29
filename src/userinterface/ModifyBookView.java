@@ -330,29 +330,19 @@ public class ModifyBookView<pubilc> extends View{
         p2.setProperty("notes", no);
         p2.setProperty("status", sta);
 
-        if (yeaO == null || yeaO == "" || yeaO.length() == 0 || yeaO.length() > 4 ||
-                bar.length() != 6){
+        if (yeaO.length() != 4 || sugPric == null){
             databaseErrorYear();
         }else {
-            myModel.stateChangeRequest("insertBookModification", p2);
+            int check = 0;
+            for (int y = 0; y < yeaO.length(); y++){
+                if (yeaO.charAt(y) != '1' && yeaO.charAt(y) != '2' && yeaO.charAt(y) != '3' && yeaO.charAt(y) != '4' && yeaO.charAt(y) != '5' &&
+                        yeaO.charAt(y) != '6' && yeaO.charAt(y) != '7' && yeaO.charAt(y) != '8' && yeaO.charAt(y) != '9' && yeaO.charAt(y) != '0'){
+                    check++;
+                }
+            }
+            if (check == 0) myModel.stateChangeRequest("insertBookModification", p2);
+            else  databaseErrorYear();
         }
-
-        barcode.clear();
-        title.clear();
-        author1.clear();
-        author2.clear();
-        author3.clear();
-        author4.clear();
-        publisher.clear();
-        yearOfPublication.clear();
-        isbn.clear();
-        suggestedPrice.clear();
-        notes.clear();
-
-        quality.setValue("Good");
-        status.setValue("Active");
-        suggestedPrice.setText("0.00");
-
     }
 
 

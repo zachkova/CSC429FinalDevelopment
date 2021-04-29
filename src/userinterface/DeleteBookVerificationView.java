@@ -7,9 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,8 +39,7 @@ import java.util.Properties;
         import javafx.scene.Node;
         import javafx.scene.Scene;
         import javafx.scene.control.Button;
-        import javafx.scene.control.Label;
-        import javafx.scene.control.PasswordField;
+import javafx.scene.control.PasswordField;
         import javafx.scene.control.TextField;
         import javafx.scene.layout.GridPane;
         import javafx.scene.layout.HBox;
@@ -68,6 +65,10 @@ public class DeleteBookVerificationView  extends View{
     private PasswordField password;
     private Button submitButton;
     private Button back;
+    private TextField barcode;
+    private Text bcode;
+    private TextField title;
+    private Text tit;
 
     // For showing error message
     private MessageView statusLog;
@@ -123,6 +124,26 @@ public class DeleteBookVerificationView  extends View{
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
+        Text prompt = new Text("Barcode: ");
+        prompt.setWrappingWidth(80);
+        prompt.setTextAlignment(TextAlignment.CENTER);
+        prompt.setFill(Color.BLACK);
+        grid.add(prompt,0,0);
+
+        barcode = new TextField();
+        barcode.setEditable(false);
+        grid.add(barcode,1, 0);
+
+        Text prompt2 = new Text("Title: ");
+        prompt2.setWrappingWidth(80);
+        prompt2.setTextAlignment(TextAlignment.CENTER);
+        prompt2.setFill(Color.BLACK);
+        grid.add(prompt2,0, 1,3,1 );
+
+        title = new TextField();
+        title.setEditable(false);
+        grid.add(title, 1,1, 3,1);
+
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -145,12 +166,12 @@ public class DeleteBookVerificationView  extends View{
         HBox btnContainer = new HBox(10);
         btnContainer.setAlignment(Pos.BOTTOM_LEFT);
         btnContainer.getChildren().add(submitButton);
-        grid.add(btnContainer, 0, 3);
+        grid.add(btnContainer, 1, 3);
 
         HBox btnContainer2 = new HBox(10);
         btnContainer2.setAlignment(Pos.BOTTOM_LEFT);
         btnContainer2.getChildren().add(back);
-        grid.add(btnContainer2, 1, 3);
+        grid.add(btnContainer2, 2, 3);
 
         return grid;
     }
@@ -170,13 +191,16 @@ public class DeleteBookVerificationView  extends View{
     //-------------------------------------------------------------
     public void populateFields()
     {
-
+        Book wc = (Book)myModel.getState("Book");
+        barcode.setText((String)wc.getState("barcode"));
+        title.setText((String)wc.getState("title"));
     }
 
     // This method processes events generated from our GUI components.
     // Make the ActionListeners delegate to this method
     //-------------------------------------------------------------
     public void processAction(Event evt) {
+
         Book wc = (Book)myModel.getState("Book");
         String bar = (String)wc.getState("barcode");
         String tit = (String)wc.getState("title");
@@ -192,8 +216,8 @@ public class DeleteBookVerificationView  extends View{
         String sugP =(String)wc.getState("suggestedPrice");
         String stat = "Inactive";
 
-        System.out.println(yop);
         Properties p1 = new Properties();
+
         p1.setProperty("barcode", bar);
         p1.setProperty("title", tit);
         p1.setProperty("discipline", disc);
@@ -240,6 +264,16 @@ public class DeleteBookVerificationView  extends View{
     @Override
     public void updateState(String key, Object value) {
 
+    }
+
+    public void databaseError(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Please make sure the barcode is 6 digits, all numbers.");
+        alert.setContentText("Cannot find in database.");
+
+        alert.showAndWait();
     }
 }
 

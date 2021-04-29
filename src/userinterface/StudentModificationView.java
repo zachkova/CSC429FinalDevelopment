@@ -136,7 +136,6 @@ public class StudentModificationView extends View{
         last.setEditable(true);
         grid.add(last, 1, 3);
 
-
         Text wLast = new Text(" Student's Contact Phone : ");
         wLast.setFont(myFont);
         wLast.setWrappingWidth(150);

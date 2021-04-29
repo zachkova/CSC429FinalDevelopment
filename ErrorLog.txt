@@ -214,4 +214,26 @@
 [4/28/21 3:16 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'yearOfPublication' at row 1>
 [4/28/21 3:17 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'yearOfPublication' at row 1>
 [4/28/21 3:52 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'yearOfPublication' at row 1>
+[4/28/21 7:14 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
 [4/28/21 8:30 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1265: Data truncated for column 'discipline' at row 1>
+[4/29/21 5:16 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/29/21 5:27 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/29/21 5:40 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asddas' in 'where clause'>
+[4/29/21 5:40 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/29/21 5:40 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/29/21 5:40 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/29/21 5:45 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaaaa' in 'where clause'>
+[4/29/21 5:47 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaaaa' in 'where clause'>
+[4/29/21 5:47 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column '11q111' in 'where clause'>
+[4/29/21 5:49 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'qqqqqq' in 'where clause'>
+[4/29/21 5:49 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaaaa' in 'where clause'>
+[4/29/21 5:49 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/29/21 5:49 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaaaa' in 'where clause'>
+[4/29/21 5:54 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/29/21 5:54 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/29/21 6:16 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'sass' in 'field list'>
+[4/29/21 6:20 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaa' in 'field list'>
+[4/29/21 6:21 PM]|Book|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaa' in 'field list'>
+[4/29/21 6:21 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaaaa' in 'where clause'>
+[4/29/21 6:21 PM]|BookBarcodePrefix|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaa' in 'where clause'>
+[4/29/21 6:29 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaa' in 'field list'>

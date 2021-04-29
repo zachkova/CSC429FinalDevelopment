@@ -281,28 +281,29 @@ public class Librarian implements IView, IModel
         {
             try {
                 getBook((String)value);
+                createAndShowModifyBookView();
             } catch (InvalidPrimaryKeyException e) {
-                e.printStackTrace();
+                databaseError();
             }
-            createAndShowModifyBookView();
+
         }
         else
         if (key.equals("BookModification") == true && delmod == 2)
         {
             try {
                 getBook((String)value);
+                createAndShowDeleteBookVerificationView();
             } catch (InvalidPrimaryKeyException e) {
-                e.printStackTrace();
+                databaseError();
             }
-            createAndShowDeleteBookVerificationView();
         }
         if (key.equals("insertBookModification") == true)
         {
             try {
                 insertBookModification((Properties)value);
+                databaseUpdated();
             } catch (InvalidPrimaryKeyException e) {
-                System.out.println("This is being hit on delete");
-                e.printStackTrace();
+                databaseError();
             }
         }
         if (key.equals("insertWorkerModification") == true)
@@ -355,7 +356,6 @@ public class Librarian implements IView, IModel
         if (key.equals("InsertBook") == true)
         {
             try {
-                System.out.println("Hunter Thomas");
                 insertBook((Properties)value);
                 if(((Properties) value).getProperty("barcode").equals("")) {
                     databaseError();
@@ -364,7 +364,6 @@ public class Librarian implements IView, IModel
                     databaseErrorDuplicate();
             } catch (InvalidPrimaryKeyException p) {
                 try {
-                    System.out.println("Trying this Hunter");
                     String prefix = ((Properties) value).getProperty("barcode");
                     prefix = prefix.substring(0, 3);
                     BookBarcodePrefix pre = new BookBarcodePrefix(prefix);
@@ -828,8 +827,8 @@ public class Librarian implements IView, IModel
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
-        alert.setHeaderText("Ooops, there was an error adding to the database.");
-        alert.setContentText("Please try again.");
+        alert.setHeaderText("Ooops, there was an error accessing the database.");
+        alert.setContentText("Please make sure everything is filled out correctly and try again.");
 
         alert.showAndWait();
     }
@@ -846,8 +845,9 @@ public class Librarian implements IView, IModel
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Database");
         alert.setHeaderText(null);
-        alert.setHeaderText("Added to Database");
+        alert.setHeaderText("Database Updated");
 
         alert.showAndWait();
     }
+
 }
