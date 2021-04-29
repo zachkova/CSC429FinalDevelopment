@@ -60,6 +60,10 @@ public class ViewFactory {
 		{
 			return new DeleteStudentBorrowerVerificationView(model);
 		}
+		else if(viewName.equals("ModifyBookView") == true)
+		{
+			return new ModifyBookView(model);
+		}
 		else if(viewName.equals("DepositTransactionView") == true)
 		{
 			return new DepositTransactionView(model);
