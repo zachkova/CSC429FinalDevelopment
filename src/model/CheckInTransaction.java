@@ -1,6 +1,7 @@
 package model;
 
 import event.Event;
+import exception.InvalidPrimaryKeyException;
 import impresario.IModel;
 import impresario.ISlideShow;
 import impresario.IView;
@@ -21,6 +22,7 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
     private Hashtable<String, Scene> myViews;
     private Stage myStage;
     private Properties dependencies;
+    private Book b;
 
     protected CheckInTransaction(){
         myStage = MainStageContainer.getInstance();
@@ -55,6 +57,16 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("doYourJob")){
             createAndShowCheckOutBookView();
+        }else
+        if (key.equals("RentBook"))
+        {
+            try {
+                b = new Book((String)value);
+            } catch (InvalidPrimaryKeyException e) {
+                e.printStackTrace();
+            }
+            //STOPPPPPPED HERE DONT FORGET
+            createAndShowRentBook();
         }
         myRegistry.updateSubscribers(key, this);
     }
@@ -65,6 +77,18 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
 
         // create our initial view
         View newView = ViewFactory.createView("CheckInBook", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
+    }
+
+    private void createAndShowRentBook()
+    {
+        Scene currentScene = null;
+
+        // create our initial view
+        View newView = ViewFactory.createView("RentBook", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         // make the view visible by installing it into the frame

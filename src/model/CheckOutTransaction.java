@@ -23,6 +23,8 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
     private Stage myStage;
     private Properties dependencies;
     private StudentBorrowerCollection sc;
+    private StudentBorrower sB;
+    private Book b;
     private String fName = "";
     private String lName = "";
 
@@ -74,6 +76,32 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
                 e.printStackTrace();
             }
         }
+        else
+        if (key.equals("StudentSelected")){
+            try{
+                createAndShowBarcodeView();
+                sB = new StudentBorrower((String)value);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        if (key.equals("BookModification")){
+            try{
+                b = new Book((String)value);
+                createAndShowRentBook();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        if (key.equals("RentBook")){
+            try{
+                b = new Book((String)value);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         myRegistry.updateSubscribers(key, this);
     }
 
@@ -95,6 +123,30 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
 
         // create our initial view
         View newView = ViewFactory.createView("StudentSelectionView", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
+    }
+
+    private void createAndShowBarcodeView()
+    {
+        Scene currentScene = null;
+
+        // create our initial view
+        View newView = ViewFactory.createView("BarcodeSearchView", this); // USE VIEW FACTORY
+        currentScene = new Scene(newView);
+
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
+    }
+
+    private void createAndShowRentBook()
+    {
+        Scene currentScene = null;
+
+        // create our initial view
+        View newView = ViewFactory.createView("RentBook", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         // make the view visible by installing it into the frame

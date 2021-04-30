@@ -18,29 +18,18 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.Book;
-import model.Worker;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
-public class ModifyBookView<pubilc> extends View{
+public class RentedBookView<pubilc> extends View{
     // GUI components
-    protected TextField barcode;
-    protected TextField title;
-    protected TextField author1;
-    protected TextField author2;
-    protected TextField author3;
-    protected TextField author4;
-    protected TextField publisher;
-    protected TextField yearOfPublication;
-    protected TextField isbn;
-    protected TextField suggestedPrice;
-    protected TextField notes;
-
-    protected TextField discipline;
-    protected ComboBox quality;
-    protected ComboBox status;
+    protected TextField bookId;
+    protected TextField borrowerId;
+    protected TextField checkInDate;
+    protected TextField checkInWorkerId;
+    protected TextField checkOutDate;
+    protected TextField checkOutWorkerId;
+    protected TextField dueDate;
 
     protected Button cancelButton;
     protected Button submitButton;
@@ -50,9 +39,9 @@ public class ModifyBookView<pubilc> extends View{
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public ModifyBookView(IModel book)
+    public RentedBookView(IModel book)
     {
-        super(book, "AddBookView");
+        super(book, "RentBook");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -82,7 +71,7 @@ public class ModifyBookView<pubilc> extends View{
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" Modify Book ");
+        Text titleText = new Text(" Rent Book ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -104,163 +93,83 @@ public class ModifyBookView<pubilc> extends View{
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("BOOK INFORMATION");
+        Text prompt = new Text("Rental Information");
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        Text bcode = new Text(" Book's Barcode : ");
+        Text bcode = new Text(" Book's ID : ");
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
         bcode.setFont(myFont);
         bcode.setWrappingWidth(150);
         bcode.setTextAlignment(TextAlignment.RIGHT);
         grid.add(bcode, 0, 1);
 
-        barcode = new TextField();
-        barcode.setEditable(false);
-        grid.add(barcode, 1, 1);
+        bookId = new TextField();
+        bookId.setEditable(false);
+        grid.add(bookId, 1, 1);
 
-        Text tit = new Text(" Title : ");
+        Text tit = new Text(" Borrower ID : ");
         tit.setFont(myFont);
         tit.setWrappingWidth(150);
         tit.setTextAlignment(TextAlignment.RIGHT);
         grid.add(tit, 0, 2);
 
-        title = new TextField();
-        title.setEditable(true);
-        grid.add(title, 1, 2);
+        borrowerId = new TextField();
+        borrowerId.setEditable(false);
+        grid.add(borrowerId, 1, 2);
 
-        Text disc = new Text(" Discipline : ");
-        disc.setFont(myFont);
-        disc.setWrappingWidth(150);
-        disc.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(disc, 0, 3);
 
-        discipline = new TextField();
-        discipline.setEditable(false);
-        grid.add(discipline, 1, 3);
-
-        Text auth1 = new Text(" Author 1 : ");
+        Text auth1 = new Text(" Check in Date : ");
         auth1.setFont(myFont);
         auth1.setWrappingWidth(150);
         auth1.setTextAlignment(TextAlignment.RIGHT);
         grid.add(auth1, 0, 4);
 
-        author1 = new TextField();
-        author1.setEditable(true);
-        grid.add(author1, 1, 4);
+        checkInDate = new TextField();
+        checkInDate.setEditable(false);
+        grid.add(checkInDate, 1, 4);
 
-        Text auth2 = new Text(" Author 2 : ");
+        Text auth2 = new Text(" Check in Worker ID : ");
         auth2.setFont(myFont);
         auth2.setWrappingWidth(150);
         auth2.setTextAlignment(TextAlignment.RIGHT);
         grid.add(auth2, 0, 5);
 
-        author2 = new TextField();
-        author2.setEditable(true);
-        grid.add(author2, 1, 5);
+        checkInWorkerId = new TextField();
+        checkInWorkerId.setEditable(true);
+        grid.add(checkInWorkerId, 1, 5);
 
-        Text auth3 = new Text(" Author 3 : ");
+        Text auth3 = new Text(" Check Out Date : ");
         auth3.setFont(myFont);
         auth3.setWrappingWidth(150);
         auth3.setTextAlignment(TextAlignment.RIGHT);
         grid.add(auth3, 0, 6);
 
-        author3 = new TextField();
-        author3.setEditable(true);
-        grid.add(author3, 1, 6);
+        checkOutDate = new TextField();
+        checkOutDate.setEditable(true);
+        grid.add(checkOutDate, 1, 6);
 
-        Text auth4 = new Text(" Author 4 : ");
+        Text auth4 = new Text(" Check Out Worker ID : ");
         auth4.setFont(myFont);
         auth4.setWrappingWidth(150);
         auth4.setTextAlignment(TextAlignment.RIGHT);
         grid.add(auth4, 0, 7);
 
-        author4 = new TextField();
-        author4.setEditable(true);
-        grid.add(author4, 1, 7);
+        checkOutWorkerId = new TextField();
+        checkOutWorkerId.setEditable(true);
+        grid.add(checkOutWorkerId, 1, 7);
 
-        Text pub = new Text(" Publisher : ");
+        Text pub = new Text(" Due Date : ");
         pub.setFont(myFont);
         pub.setWrappingWidth(150);
         pub.setTextAlignment(TextAlignment.RIGHT);
         grid.add(pub, 0, 8);
 
-        publisher = new TextField();
-        publisher.setEditable(true);
-        grid.add(publisher, 1, 8);
-
-        Text yOf = new Text(" Year of Publication : ");
-        yOf.setFont(myFont);
-        yOf.setWrappingWidth(150);
-        yOf.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(yOf, 0, 9);
-
-        yearOfPublication = new TextField();
-        yearOfPublication.setEditable(true);
-        grid.add(yearOfPublication, 1, 9);
-
-        Text iS = new Text(" ISBN : ");
-        iS.setFont(myFont);
-        iS.setWrappingWidth(150);
-        iS.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(iS, 0, 10);
-
-        isbn = new TextField();
-        isbn.setEditable(true);
-        grid.add(isbn, 1, 10);
-
-        Text con = new Text(" Quality : ");
-        con.setFont(myFont);
-        con.setWrappingWidth(150);
-        con.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(con, 0, 11);
-
-        quality = new ComboBox();
-        quality.getItems().addAll(
-                "Good",
-                "Damaged"
-        );
-
-        quality.setValue("Good");
-        grid.add(quality, 1, 11);
-
-        Text sug = new Text(" Suggested Price : ");
-        sug.setFont(myFont);
-        sug.setWrappingWidth(150);
-        sug.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(sug, 0, 12);
-
-        suggestedPrice = new TextField();
-        suggestedPrice.setText("0.00");
-        suggestedPrice.setEditable(true);
-        grid.add(suggestedPrice, 1, 12);
-
-        Text not = new Text(" Notes : ");
-        not.setFont(myFont);
-        not.setWrappingWidth(150);
-        not.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(not, 0, 13);
-
-        notes = new TextField();
-        notes.setEditable(true);
-        grid.add(notes, 1, 13);
-
-        Text bStatus = new Text(" Book's Status : ");
-        bStatus.setFont(myFont);
-        bStatus.setWrappingWidth(150);
-        bStatus.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(bStatus, 0, 14);
-
-        status = new ComboBox();
-        status.getItems().addAll(
-                "Active",
-                "Inactive"
-        );
-
-        status.setValue("Active");
-        grid.add(status, 1, 14);
+        dueDate = new TextField();
+        dueDate.setEditable(true);
+        grid.add(dueDate, 1, 8);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -274,8 +183,7 @@ public class ModifyBookView<pubilc> extends View{
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-
-                myModel.stateChangeRequest("BarcodeSearchView", myModel.getState("delmod"));
+                myModel.stateChangeRequest("CancelTransaction", null);
             }
         });
         // consider using GridPane.setHgap(10); instead of label space
@@ -295,11 +203,12 @@ public class ModifyBookView<pubilc> extends View{
 
     private void processAction(ActionEvent e) {
 
+        /*
         clearErrorMessage();
 
         String bar = barcode.getText();
         String titl = title.getText();
-        String disi = discipline.getText();
+        String disi = " ";
         String au1 = author1.getText();
         String au2 = author2.getText();
         String au3 = author3.getText();
@@ -329,19 +238,29 @@ public class ModifyBookView<pubilc> extends View{
         p2.setProperty("notes", no);
         p2.setProperty("status", sta);
 
-        if (yeaO.length() != 4 || sugPric == null){
+        if (yeaO == null || yeaO == "" || yeaO.length() == 0 || yeaO.length() > 4 ||
+                bar.length() != 6){
             databaseErrorYear();
         }else {
-            int check = 0;
-            for (int y = 0; y < yeaO.length(); y++){
-                if (yeaO.charAt(y) != '1' && yeaO.charAt(y) != '2' && yeaO.charAt(y) != '3' && yeaO.charAt(y) != '4' && yeaO.charAt(y) != '5' &&
-                        yeaO.charAt(y) != '6' && yeaO.charAt(y) != '7' && yeaO.charAt(y) != '8' && yeaO.charAt(y) != '9' && yeaO.charAt(y) != '0'){
-                    check++;
-                }
-            }
-            if (check == 0) myModel.stateChangeRequest("insertBookModification", p2);
-            else  databaseErrorYear();
+            myModel.stateChangeRequest("InsertBook", p2);
         }
+
+        barcode.clear();
+        title.clear();
+        author1.clear();
+        author2.clear();
+        author3.clear();
+        author4.clear();
+        publisher.clear();
+        yearOfPublication.clear();
+        isbn.clear();
+        suggestedPrice.clear();
+        notes.clear();
+
+        quality.setValue("Good");
+        status.setValue("Active");
+        suggestedPrice.setText("0.00");
+        */
     }
 
 
@@ -357,23 +276,12 @@ public class ModifyBookView<pubilc> extends View{
     //-------------------------------------------------------------
     public void populateFields()
     {
-        Book w = (Book)myModel.getState("Book");
+       /* accountNumber.setText((String)myModel.getState("AccountNumber"));
+        acctType.setText((String)myModel.getState("Type"));
+        balance.setText((String)myModel.getState("Balance"));
+        serviceCharge.setText((String)myModel.getState("ServiceCharge"));
 
-        barcode.setText((String)w.getState("barcode"));
-        title.setText((String)w.getState("title"));
-        discipline.setText((String)w.getState("discipline"));
-        author1.setText((String)w.getState("author1"));
-        author2.setText((String)w.getState("author2"));
-        author3.setText((String)w.getState("author3"));
-        author4.setText((String)w.getState("author4"));
-        publisher.setText((String)w.getState("publisher"));
-        yearOfPublication.setText((String)w.getState("yearOfPublication"));
-        isbn.setText((String)w.getState("isbn"));
-        suggestedPrice.setText((String)w.getState("suggestedPrice"));
-        notes.setText((String)w.getState("notes"));
-        status.setValue((String)w.getState("status"));
-        //dOLC.setText((String)w.getState("dateOfLatestCredentialsStatus"));
-
+        */
     }
 
     /**

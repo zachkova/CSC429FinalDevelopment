@@ -163,7 +163,6 @@ public class BookSubmitBarcodeScreen extends View {
 
         clearErrorMessage();
 
-
         System.out.println(bCode.getText());
         String bar = bCode.getText();
 
