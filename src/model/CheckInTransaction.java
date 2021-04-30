@@ -22,7 +22,8 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
     private Hashtable<String, Scene> myViews;
     private Stage myStage;
     private Properties dependencies;
-    private Book b;
+    private Rental b;
+    private Worker w;
 
     protected CheckInTransaction(){
         myStage = MainStageContainer.getInstance();
@@ -40,6 +41,15 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
 
     @Override
     public Object getState(String key) {
+        if (key.equals("worker"))
+        {
+            return w;
+        }
+        else if (key.equals(("rental")))
+        {
+            return b;
+        }
+        else
         return null;
     }
 
@@ -56,12 +66,14 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
     @Override
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("doYourJob")){
+            w = (Worker)value;
             createAndShowCheckOutBookView();
-        }else
+        }
+        else
         if (key.equals("BookModification"))
         {
             try {
-                b = new Book((String)value);
+                b = new Rental((String)value);
                 createAndShowRentBook();
             } catch (InvalidPrimaryKeyException e) {
                 e.printStackTrace();
@@ -69,7 +81,19 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
             //STOPPPPPPED HERE DONT FORGET
 
         }
+        else
+        if (key.equals("InsertRental"))
+        {
+            updateRental((Properties)value);
+            //STOPPPPPPED HERE DONT FORGET
+        }
         myRegistry.updateSubscribers(key, this);
+    }
+
+    private void updateRental(Properties value) {
+        Rental rental = new Rental(value);
+        rental.setExistsTrue();
+        rental.update();
     }
 
     private void createAndShowCheckOutBookView()

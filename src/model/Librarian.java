@@ -425,7 +425,7 @@ public class Librarian implements IView, IModel
 
             cIT = new CheckInTransaction();
             cIT.subscribe("CancelTransaction", this);
-            cIT.stateChangeRequest("doYourJob", "");
+            cIT.stateChangeRequest("doYourJob", worker);
 
         }
         else
