@@ -135,6 +135,11 @@ public class Librarian implements IView, IModel
             return workerSearch;
         }
         else
+        if (key.equals("getWorker") == true)
+        {
+            return worker;
+        }
+        else
         if (key.equals("StudentBorrowerList") == true)
         {
             return sc;
@@ -412,7 +417,7 @@ public class Librarian implements IView, IModel
 
             cOT = new CheckOutTransaction();
             cOT.subscribe("CancelTransaction", this);
-            cOT.stateChangeRequest("doYourJob", "");
+            cOT.stateChangeRequest("doYourJob", worker);
 
         }
         else

@@ -58,15 +58,16 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
         if(key.equals("doYourJob")){
             createAndShowCheckOutBookView();
         }else
-        if (key.equals("RentBook"))
+        if (key.equals("BookModification"))
         {
             try {
                 b = new Book((String)value);
+                createAndShowRentBook();
             } catch (InvalidPrimaryKeyException e) {
                 e.printStackTrace();
             }
             //STOPPPPPPED HERE DONT FORGET
-            createAndShowRentBook();
+
         }
         myRegistry.updateSubscribers(key, this);
     }
@@ -76,7 +77,7 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
         Scene currentScene = null;
 
         // create our initial view
-        View newView = ViewFactory.createView("CheckInBook", this); // USE VIEW FACTORY
+        View newView = ViewFactory.createView("BarcodeSearchView", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         // make the view visible by installing it into the frame

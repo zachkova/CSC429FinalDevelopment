@@ -18,7 +18,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.Book;
+import model.StudentBorrower;
+import model.Worker;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 public class RentedBookView<pubilc> extends View{
@@ -203,64 +207,35 @@ public class RentedBookView<pubilc> extends View{
 
     private void processAction(ActionEvent e) {
 
-        /*
+
         clearErrorMessage();
 
-        String bar = barcode.getText();
-        String titl = title.getText();
-        String disi = " ";
-        String au1 = author1.getText();
-        String au2 = author2.getText();
-        String au3 = author3.getText();
-        String au4 = author4.getText();
-        String publi = publisher.getText();
-        String yeaO = yearOfPublication.getText();
-        String isb = isbn.getText();
-        String condi = (String) quality.getValue();
-        String sugPric = suggestedPrice.getText();
-        String no = notes.getText();
-        String sta = (String) status.getValue();
+        String bid = bookId.getText();
+        String borid = borrowerId.getText();
+        String cod = checkOutDate.getText();
+        String cow = checkOutWorkerId.getText();
+        String dD = dueDate.getText();
+        String cID = checkInDate.getText();
+        String ciw = checkInWorkerId.getText();
+
 
         Properties p2 = new Properties();
 
-        p2.setProperty("barcode", bar);
-        p2.setProperty("title", titl);
-        p2.setProperty("discipline", disi);
-        p2.setProperty("author1", au1);
-        p2.setProperty("author2", au2);
-        p2.setProperty("author3", au3);
-        p2.setProperty("author4", au4);
-        p2.setProperty("publisher", publi);
-        p2.setProperty("yearOfPublication", yeaO);
-        p2.setProperty("isbn", isb);
-        p2.setProperty("quality", condi);
-        p2.setProperty("suggestedPrice", sugPric);
-        p2.setProperty("notes", no);
-        p2.setProperty("status", sta);
+        p2.setProperty("bookId", bid);
+        p2.setProperty("borrowerId", borid);
 
-        if (yeaO == null || yeaO == "" || yeaO.length() == 0 || yeaO.length() > 4 ||
-                bar.length() != 6){
-            databaseErrorYear();
-        }else {
-            myModel.stateChangeRequest("InsertBook", p2);
-        }
+        p2.setProperty("checkOutDate", cod);
+        p2.setProperty("checkOutWorkerId", cow);
+        p2.setProperty("dueDate", dD);
 
-        barcode.clear();
-        title.clear();
-        author1.clear();
-        author2.clear();
-        author3.clear();
-        author4.clear();
-        publisher.clear();
-        yearOfPublication.clear();
-        isbn.clear();
-        suggestedPrice.clear();
-        notes.clear();
+        p2.setProperty("checkinWorkerId", ciw);
 
-        quality.setValue("Good");
-        status.setValue("Active");
-        suggestedPrice.setText("0.00");
-        */
+
+            myModel.stateChangeRequest("InsertRental", p2);
+
+
+
+
     }
 
 
@@ -276,12 +251,23 @@ public class RentedBookView<pubilc> extends View{
     //-------------------------------------------------------------
     public void populateFields()
     {
-       /* accountNumber.setText((String)myModel.getState("AccountNumber"));
-        acctType.setText((String)myModel.getState("Type"));
-        balance.setText((String)myModel.getState("Balance"));
-        serviceCharge.setText((String)myModel.getState("ServiceCharge"));
+        Book b = (Book)myModel.getState("book");
+        StudentBorrower sb = (StudentBorrower)myModel.getState("student");
+        Worker w = (Worker)myModel.getState("worker");
+        bookId.setText((String)b.getState("barcode"));
+        borrowerId.setText((String)sb.getState("bannerId"));
+        checkInDate.setText("");
+        checkInWorkerId.setText((String)w.getState("bannerId"));
 
-        */
+        //date object
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime ret = now.plusDays(14);
+
+        checkOutDate.setText(dtf.format(now));
+        //checkOutWorkerId.;
+        dueDate.setText(dtf.format(ret));
+
     }
 
     /**
