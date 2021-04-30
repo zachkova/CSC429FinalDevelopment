@@ -18,6 +18,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.Book;
+import model.Rental;
 import model.StudentBorrower;
 import model.Worker;
 
@@ -207,31 +208,61 @@ public class RentedBookView<pubilc> extends View{
 
     private void processAction(ActionEvent e) {
 
+        try {
 
-        clearErrorMessage();
+            myModel.getState("student");
+            clearErrorMessage();
 
-        String bid = bookId.getText();
-        String borid = borrowerId.getText();
-        String cod = checkOutDate.getText();
-        String cow = checkOutWorkerId.getText();
-        String dD = dueDate.getText();
-        String cID = checkInDate.getText();
-        String ciw = checkInWorkerId.getText();
+            String bid = bookId.getText();
+            String borid = borrowerId.getText();
+            String cod = checkOutDate.getText();
+            String cow = checkOutWorkerId.getText();
+            String dD = dueDate.getText();
+            String ciw = checkInWorkerId.getText();
 
 
-        Properties p2 = new Properties();
+            Properties p2 = new Properties();
 
-        p2.setProperty("bookId", bid);
-        p2.setProperty("borrowerId", borid);
+            p2.setProperty("bookId", bid);
+            p2.setProperty("borrowerId", borid);
+            p2.setProperty("checkOutDate", cod);
+            p2.setProperty("checkOutWorkerId", cow);
+            p2.setProperty("dueDate", dD);
 
-        p2.setProperty("checkOutDate", cod);
-        p2.setProperty("checkOutWorkerId", cow);
-        p2.setProperty("dueDate", dD);
-
-        p2.setProperty("checkinWorkerId", ciw);
+            p2.setProperty("checkinWorkerId", ciw);
 
 
             myModel.stateChangeRequest("InsertRental", p2);
+        }
+        catch (Exception x)
+        {
+            clearErrorMessage();
+            Rental rent =(Rental) myModel.getState("rental");
+            String bid = bookId.getText();
+            String borid = borrowerId.getText();
+            String cod = checkOutDate.getText();
+            String cow = checkOutWorkerId.getText();
+            String cID = checkInDate.getText();
+            String dD = dueDate.getText();
+            String ciw = checkInWorkerId.getText();
+
+
+            Properties p2 = new Properties();
+
+            p2.setProperty("id", (String)rent.getState("id"));
+            p2.setProperty("bookId", bid);
+            p2.setProperty("borrowerId", borid);
+            p2.setProperty("checkinDate", cID);
+            p2.setProperty("checkOutDate", cod);
+            p2.setProperty("checkOutWorkerId", cow);
+            p2.setProperty("dueDate", dD);
+
+            p2.setProperty("checkinWorkerId", ciw);
+
+
+            myModel.stateChangeRequest("InsertRental", p2);
+
+        }
 
 
 
@@ -251,22 +282,44 @@ public class RentedBookView<pubilc> extends View{
     //-------------------------------------------------------------
     public void populateFields()
     {
-        Book b = (Book)myModel.getState("book");
-        StudentBorrower sb = (StudentBorrower)myModel.getState("student");
-        Worker w = (Worker)myModel.getState("worker");
-        bookId.setText((String)b.getState("barcode"));
-        borrowerId.setText((String)sb.getState("bannerId"));
-        checkInDate.setText("");
-        checkInWorkerId.setText((String)w.getState("bannerId"));
+        try {
+            Book b = (Book) myModel.getState("book");
+            StudentBorrower sb = (StudentBorrower) myModel.getState("student");
+            Worker w = (Worker) myModel.getState("worker");
+            bookId.setText((String) b.getState("barcode"));
+            borrowerId.setText((String) sb.getState("bannerId"));
+            checkInDate.setText("NULL");
+            checkInWorkerId.setText("");
+            checkOutWorkerId.setText((String) w.getState("bannerId"));
 
-        //date object
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime ret = now.plusDays(14);
+            //date object
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime ret = now.plusDays(14);
 
-        checkOutDate.setText(dtf.format(now));
-        //checkOutWorkerId.;
-        dueDate.setText(dtf.format(ret));
+            checkOutDate.setText(dtf.format(now));
+            //checkOutWorkerId.;
+            dueDate.setText(dtf.format(ret));
+        }
+        catch (Exception z)
+        {
+            //date object
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+
+            Worker w = (Worker)myModel.getState("worker");
+            Rental r = (Rental)myModel.getState("rental");
+
+            bookId.setText((String) r.getState("bookId"));
+            borrowerId.setText((String) r.getState("borrowerId"));
+            checkInDate.setText(dtf.format(now));
+            checkInWorkerId.setText((String) w.getState("bannerId"));
+            checkOutWorkerId.setText((String)r.getState("checkOutWorkerId"));
+            dueDate.setText((String)r.getState("dueDate"));
+            checkOutDate.setText((String)r.getState("checkOutDate"));
+
+
+        }
 
     }
 
