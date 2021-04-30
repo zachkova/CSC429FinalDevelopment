@@ -68,10 +68,8 @@ public class WorkerSelectionView extends View
     {
 
         ObservableList<WorkerTableModel> tableData = FXCollections.observableArrayList();
-        System.out.println("TTTTTTTTTTHHHHHHHHHOOOOOOMMMMMMMMAAAAAAAASSSSSSSSSSSS");
         try
         {
-            System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUNNNNNNNNNNNNNNNNNNNNNNNNTTTTTTTTTTTTTTTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRR");
             WorkerCollection workerCollection = (WorkerCollection)myModel.getState("WorkerList");
 
             Vector entryList = (Vector)workerCollection.getState("Workers");
