@@ -7,6 +7,7 @@ import impresario.ISlideShow;
 import impresario.IView;
 import impresario.ModelRegistry;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import userinterface.MainStageContainer;
 import userinterface.View;
@@ -76,10 +77,8 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
                 b = new Rental((String)value);
                 createAndShowRentBook();
             } catch (InvalidPrimaryKeyException e) {
-                e.printStackTrace();
+                databaseError();
             }
-            //STOPPPPPPED HERE DONT FORGET
-
         }
         else
         if (key.equals("InsertRental"))
@@ -94,6 +93,7 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
         Rental rental = new Rental(value);
         rental.setExistsTrue();
         rental.update();
+        databaseUpdated();
     }
 
     private void createAndShowCheckOutBookView()
@@ -150,5 +150,22 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
     @Override
     public void swapToView(IView viewName) {
 
+    }
+    public void databaseUpdated(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Book Check In Successful ");
+
+        alert.showAndWait();
+    }
+    public void databaseError(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Ooops, there was an error accessing the database.");
+        alert.setContentText("Please make sure everything is filled out correctly and try again.");
+
+        alert.showAndWait();
     }
 }
