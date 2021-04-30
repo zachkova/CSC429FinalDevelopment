@@ -15,11 +15,14 @@ public class Rental extends EntityBase {
     public Rental(String barcode) throws InvalidPrimaryKeyException {
         super(myTableName);
         this.setDependencies();
-        String query = "SELECT * FROM " + myTableName + " WHERE bookId = " + barcode + " and checkInDate = null";
+        String query = "SELECT * FROM " + myTableName + " WHERE bookId = " + barcode + " and checkinDate IS NULL";
         Vector allDataFromDB = this.getSelectQueryResult(query);
+        System.out.println("This didnt fail yet 1");
         if (allDataFromDB != null) {
+            System.out.println("This didn't fail yet 2");
             int dataLen = allDataFromDB.size();
             if (dataLen != 1) {
+                System.out.println("This failed 4: " + dataLen);
                 throw new InvalidPrimaryKeyException("Multiple rentals matching id : " + barcode + " found.");
             } else {
                 Properties bookData = (Properties) allDataFromDB.elementAt(0);
@@ -35,6 +38,10 @@ public class Rental extends EntityBase {
                 }
 
             }
+        }
+        else {
+            System.out.println("This failed here 3");
+            throw new InvalidPrimaryKeyException("No Books matching: " + barcode + " found.");
         }
         exists = true;
     }
@@ -106,7 +113,7 @@ public class Rental extends EntityBase {
             if (exists == true)
             {
                 Properties whereClause = new Properties();
-                whereClause.setProperty("barcode", persistentState.getProperty("barcode"));
+                whereClause.setProperty("id", persistentState.getProperty("id"));
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Book data for book barcode number : " + persistentState.getProperty("barcode") + " updated successfully in database!";
             }

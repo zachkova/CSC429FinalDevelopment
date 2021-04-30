@@ -33,9 +33,9 @@ public class Book extends EntityBase {
                         this.persistentState.setProperty(nextKey, nextValue);
                     }
                 }
-
             }
         }
+        else throw new InvalidPrimaryKeyException("No books matching barcode");
         exists = true;
     }
 

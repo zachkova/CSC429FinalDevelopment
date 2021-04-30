@@ -32,7 +32,6 @@ public class StudentBorrowerTableModel{
         dateOfRegistration =  new SimpleStringProperty(bookData.elementAt(7));
         notes =  new SimpleStringProperty(bookData.elementAt(8));
         status =  new SimpleStringProperty(bookData.elementAt(9));
-        System.out.println("It is hitting here and I want you to see this: "+bannerId + " " + firstName + " " + email);
     }
 
     //----------------------------------------------------------------------------

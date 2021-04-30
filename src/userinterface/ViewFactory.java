@@ -112,6 +112,10 @@ public class ViewFactory {
 		{
 			return new CheckInBookScreenStudentSearchView(model);
 		}
+		else if(viewName.equals("RentBook") == true)
+		{
+			return new RentedBookView(model);
+		}
 
 		else
 			return null;
