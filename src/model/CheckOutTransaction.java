@@ -106,8 +106,8 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
                 b = new Book((String)value);
                 createRental();
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (InvalidPrimaryKeyException e) {
+                databaseError();
             }
         }
         else
@@ -132,6 +132,7 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
     private void insertRental(Properties p) {
         Rental r = new Rental(p);
         r.update();
+        databaseUpdated();
     }
 
     private void createRental() {
@@ -239,5 +240,24 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
     @Override
     public void swapToView(IView viewName) {
 
+    }
+
+    public void databaseUpdated(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Book Check Out Successful ");
+
+        alert.showAndWait();
+    }
+
+    public void databaseError(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Ooops, there was an error accessing the database.");
+        alert.setContentText("Please make sure everything is filled out correctly and try again.");
+
+        alert.showAndWait();
     }
 }
