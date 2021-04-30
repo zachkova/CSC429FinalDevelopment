@@ -238,3 +238,7 @@
 [4/29/21 6:21 PM]|BookBarcodePrefix|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaa' in 'where clause'>
 [4/29/21 6:29 PM]|Book|updatePersistentState|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aaaa' in 'field list'>
 [4/30/21 1:17 PM]|Rental|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect date value: '' for column 'checkinDate' at row 1>
+[4/30/21 1:38 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/30/21 1:38 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[4/30/21 1:38 PM]|Book|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column '123asd' in 'where clause'>
+[4/30/21 2:40 PM]|Rental|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect date value: 'NULL' for column 'checkinDate' at row 1>

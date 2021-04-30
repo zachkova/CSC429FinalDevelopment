@@ -113,7 +113,7 @@ public class Rental extends EntityBase {
             if (exists == true)
             {
                 Properties whereClause = new Properties();
-                whereClause.setProperty("barcode", persistentState.getProperty("barcode"));
+                whereClause.setProperty("id", persistentState.getProperty("id"));
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Book data for book barcode number : " + persistentState.getProperty("barcode") + " updated successfully in database!";
             }
