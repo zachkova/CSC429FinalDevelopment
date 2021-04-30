@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -162,13 +163,26 @@ public class BookSubmitBarcodeScreen extends View {
 
         clearErrorMessage();
 
-
         System.out.println(bCode.getText());
         String bar = bCode.getText();
 
-        myModel.stateChangeRequest("BookModification", bar);
-
+        if (bar == null || bar == "" || bar.length() == 0 || bar.length() > 6 ||
+                bar.length() != 6){
+            databaseError();
+        }else {
+            myModel.stateChangeRequest("BookModification", bar);
+        }
         bCode.clear();
+    }
+
+    public void databaseError(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Please make sure the barcode is 6 digits, all numbers, no letters.");
+        alert.setContentText("Cannot find in database.");
+
+        alert.showAndWait();
     }
 
 }
