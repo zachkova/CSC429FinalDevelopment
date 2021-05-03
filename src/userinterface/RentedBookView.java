@@ -76,7 +76,7 @@ public class RentedBookView<pubilc> extends View{
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" Rent Book ");
+        Text titleText = new Text(" Rental Verification: ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -233,6 +233,7 @@ public class RentedBookView<pubilc> extends View{
 
 
             myModel.stateChangeRequest("InsertRental", p2);
+            myModel.stateChangeRequest("CancelTransaction", null);
         }
         catch (Exception x)
         {
@@ -261,6 +262,7 @@ public class RentedBookView<pubilc> extends View{
 
 
             myModel.stateChangeRequest("InsertRental", p2);
+            myModel.stateChangeRequest("CancelTransaction", null);
 
         }
     }
