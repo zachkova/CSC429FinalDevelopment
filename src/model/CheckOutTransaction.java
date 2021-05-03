@@ -104,7 +104,11 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
         if (key.equals("BookModification")){
             try{
                 b = new Book((String)value);
+                String status = (String) b.getState("status");
+                if (status.equals("Active"))
                 createRental();
+                else
+                    databaseError();
 
             } catch (InvalidPrimaryKeyException e) {
                 databaseError();

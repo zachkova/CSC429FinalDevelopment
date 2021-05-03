@@ -113,7 +113,7 @@ public class CheckInTransaction implements IView, IModel, ISlideShow {
         Scene currentScene = null;
 
         // create our initial view
-        View newView = ViewFactory.createView("RentBook", this); // USE VIEW FACTORY
+        View newView = ViewFactory.createView("CheckInRentalView", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         // make the view visible by installing it into the frame
