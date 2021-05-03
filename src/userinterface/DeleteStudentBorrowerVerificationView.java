@@ -39,6 +39,9 @@ public class DeleteStudentBorrowerVerificationView extends View
     private Button submitButton;
     private Button back;
 
+    private TextField nameT;
+    private TextField banT;
+
     // For showing error message
     private MessageView statusLog;
 
@@ -93,6 +96,28 @@ public class DeleteStudentBorrowerVerificationView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
+        Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
+
+        Text name = new Text(" Name : ");
+        name.setFont(myFont);
+        name.setWrappingWidth(80);
+        name.setTextAlignment(TextAlignment.CENTER);
+        grid.add(name, 0, 0);
+
+        nameT = new TextField();
+        nameT.setEditable(false);
+        grid.add(nameT, 1, 0);
+
+        Text ban = new Text(" Banner ID : ");
+        ban.setFont(myFont);
+        ban.setWrappingWidth(80);
+        ban.setTextAlignment(TextAlignment.CENTER);
+        grid.add(ban, 0, 2);
+
+        banT = new TextField();
+        banT.setEditable(false);
+        grid.add(banT, 1, 2);
+
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -114,14 +139,14 @@ public class DeleteStudentBorrowerVerificationView extends View
         });
 
         HBox btnContainer = new HBox(10);
-        btnContainer.setAlignment(Pos.BOTTOM_LEFT);
+        btnContainer.setAlignment(Pos.CENTER);
         btnContainer.getChildren().add(submitButton);
-        grid.add(btnContainer, 0, 3);
+        grid.add(btnContainer, 0, 4);
 
         HBox btnContainer2 = new HBox(10);
-        btnContainer2.setAlignment(Pos.BOTTOM_LEFT);
+        btnContainer2.setAlignment(Pos.CENTER);
         btnContainer2.getChildren().add(back);
-        grid.add(btnContainer2, 1, 3);
+        grid.add(btnContainer2, 1, 4);
 
         return grid;
     }
@@ -141,6 +166,13 @@ public class DeleteStudentBorrowerVerificationView extends View
     //-------------------------------------------------------------
     public void populateFields()
     {
+        StudentBorrower wc = (StudentBorrower)myModel.getState("Student");
+        String ban = (String)wc.getState("bannerId");
+        String fName = (String)wc.getState("firstName");
+        String lName = (String)wc.getState("lastName");
+
+        banT.setText(ban);
+        nameT.setText(fName + " " +lName);
 
     }
 

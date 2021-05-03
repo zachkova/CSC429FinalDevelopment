@@ -121,7 +121,7 @@ public class ModifyWorkerView extends View{
         workerPass.setTextAlignment(TextAlignment.RIGHT);
         grid.add(workerPass, 0, 2);
 
-        password = new TextField();
+        password = new PasswordField();
         password.setEditable(true);
         grid.add(password, 1, 2);
 
@@ -201,28 +201,11 @@ public class ModifyWorkerView extends View{
         doh.setEditable(true);
         grid.add(doh, 1, 9);
 
-        Text wStatus = new Text(" Worker's Status : ");
-        wStatus.setFont(myFont);
-        wStatus.setWrappingWidth(150);
-        wStatus.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(wStatus, 0, 10);
-
-        status = new ComboBox();
-        status.getItems().addAll(
-                "Active",
-                "Inactive"
-        );
-
-        status.setValue("Active");
-        grid.add(status, 1, 10);
-
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-
                 processAction(e);
-
             }
         });
 
@@ -273,7 +256,7 @@ public class ModifyWorkerView extends View{
         p1.setProperty("credentials", credentials);
         p1.setProperty("dateOfLatestCredentialsStatus", latestCred);
         p1.setProperty("dateOfHire", dateHire);
-        p1.setProperty("status", stat);
+        //p1.setProperty("status", stat);
 
         databaseEdited();
 
@@ -327,7 +310,7 @@ public class ModifyWorkerView extends View{
         doh.setText((String)w.getState("dateOfHire"));
         doh.setEditable(false);
 
-        status.setValue((String)w.getState("status"));
+        //status.setValue((String)w.getState("status"));
     }
 
     /**
