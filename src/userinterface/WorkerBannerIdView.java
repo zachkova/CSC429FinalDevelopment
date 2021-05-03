@@ -78,7 +78,6 @@ public class WorkerBannerIdView extends View {
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0);
 
-
         fName = new TextField();
         fName.setEditable(true);
         grid.add(fName,1,0);
