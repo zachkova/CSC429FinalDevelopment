@@ -256,25 +256,11 @@ public class ModifyWorkerView extends View{
         p1.setProperty("credentials", credentials);
         p1.setProperty("dateOfLatestCredentialsStatus", latestCred);
         p1.setProperty("dateOfHire", dateHire);
-        //p1.setProperty("status", stat);
+        p1.setProperty("status", stat);
 
         databaseEdited();
 
         myModel.stateChangeRequest("insertWorkerModification", p1);
-/*
-        bannerId.clear();
-        password.clear();
-        first.clear();
-        last.clear();
-        phone.clear();
-        email.clear();
-        dOLC.clear();
-        doh.clear();
-
- */
-
-
-
     }
 
 
