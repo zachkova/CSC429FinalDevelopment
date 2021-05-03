@@ -244,7 +244,8 @@ public class ModifyWorkerView extends View{
         String credentials = (String)cred.getValue();
         String latestCred = dOLC.getText();
         String dateHire = doh.getText();
-        String stat = (String)status.getValue();
+        Worker w = (Worker)myModel.getState("Worker");
+        String stat = (String)w.getState("status");
 
         Properties p1 = new Properties();
         p1.setProperty("bannerId", ban);
@@ -261,6 +262,21 @@ public class ModifyWorkerView extends View{
         databaseEdited();
 
         myModel.stateChangeRequest("insertWorkerModification", p1);
+        myModel.stateChangeRequest("done", null);
+/*
+        bannerId.clear();
+        password.clear();
+        first.clear();
+        last.clear();
+        phone.clear();
+        email.clear();
+        dOLC.clear();
+        doh.clear();
+
+ */
+
+
+
     }
 
 
