@@ -26,10 +26,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
-public class RentedBookView<pubilc> extends View{
+public class CheckInRentalView<pubilc> extends View{
     // GUI components
     protected TextField bookId;
-    protected TextField dueDate;
+    protected TextField checkInDate;
 
     protected Button cancelButton;
     protected Button submitButton;
@@ -39,7 +39,7 @@ public class RentedBookView<pubilc> extends View{
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public RentedBookView(IModel book)
+    public CheckInRentalView(IModel book)
     {
         super(book, "RentBook");
 
@@ -71,7 +71,7 @@ public class RentedBookView<pubilc> extends View{
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" Rental Verification: ");
+        Text titleText = new Text(" Rental Check In Verification: ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -110,15 +110,15 @@ public class RentedBookView<pubilc> extends View{
         bookId.setEditable(false);
         grid.add(bookId, 1, 1);
 
-        Text pub = new Text(" Due Date : ");
-        pub.setFont(myFont);
-        pub.setWrappingWidth(150);
-        pub.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(pub, 0, 2);
+        Text cIn = new Text(" Book's Checkin date : ");
+        cIn.setFont(myFont);
+        cIn.setWrappingWidth(150);
+        cIn.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(cIn, 0, 2);
 
-        dueDate = new TextField();
-        dueDate.setEditable(false);
-        grid.add(dueDate, 1, 2);
+        checkInDate = new TextField();
+        checkInDate.setEditable(false);
+        grid.add(checkInDate, 1, 2);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -153,26 +153,24 @@ public class RentedBookView<pubilc> extends View{
     private void processAction(ActionEvent e) {
 
 
-
-            StudentBorrower s = (StudentBorrower) myModel.getState("student");
-            Worker w = (Worker) myModel.getState("worker");
             clearErrorMessage();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDateTime now = LocalDateTime.now();
-            LocalDateTime ret = now.plusDays(14);
-
+            Worker w = (Worker)myModel.getState("worker");
+            Rental rent =(Rental) myModel.getState("rental");
             String bid = bookId.getText();
-            String borid = (String)s.getState("bannerId");
-            String cod = dtf.format(now);
-            String cow = (String)w.getState("bannerId");
-            String dD = dueDate.getText();
-            String ciw = "";
+            String borid = (String)rent.getState("borrowerId");
+            String cod = (String)rent.getState("checkOutDate");
+            String cow = (String)rent.getState("checkOutWorkerId");
+            String cID = checkInDate.getText();
+            String dD = (String)rent.getState("dueDate");
+            String ciw = (String)w.getState("bannerId");
 
 
             Properties p2 = new Properties();
 
+            p2.setProperty("id", (String)rent.getState("id"));
             p2.setProperty("bookId", bid);
             p2.setProperty("borrowerId", borid);
+            p2.setProperty("checkinDate", cID);
             p2.setProperty("checkOutDate", cod);
             p2.setProperty("checkOutWorkerId", cow);
             p2.setProperty("dueDate", dD);
@@ -182,6 +180,7 @@ public class RentedBookView<pubilc> extends View{
 
             myModel.stateChangeRequest("InsertRental", p2);
             myModel.stateChangeRequest("CancelTransaction", null);
+
 
     }
 
@@ -196,20 +195,21 @@ public class RentedBookView<pubilc> extends View{
     }
 
     //-------------------------------------------------------------
-    public void populateFields() {
+    public void populateFields()
+    {
 
-        Book b = (Book) myModel.getState("book");
-        StudentBorrower sb = (StudentBorrower) myModel.getState("student");
-        Worker w = (Worker) myModel.getState("worker");
-        bookId.setText((String) b.getState("barcode"));
+            //date object
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
 
 
-        //date object
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime ret = now.plusDays(14);
+            Rental r = (Rental)myModel.getState("rental");
 
-        dueDate.setText(dtf.format(ret));
+            bookId.setText((String) r.getState("bookId"));
+            checkInDate.setText(dtf.format(now));
+
+
+
     }
 
     /**
