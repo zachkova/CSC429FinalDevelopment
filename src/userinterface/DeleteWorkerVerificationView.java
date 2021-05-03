@@ -246,7 +246,7 @@ public class DeleteWorkerVerificationView extends View
 
     public void databaseRemoved(){
 
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Database");
         alert.setHeaderText("Your request was complete!");
         alert.setContentText("Worker was set to 'Inactive' in database.");
