@@ -189,6 +189,11 @@ public class Librarian implements IView, IModel
             }
         }
         else
+        if (key.equals("done"))
+        {
+            createAndShowTransactionChoiceView();
+        }
+        else
         if (key.equals("SelectWorkerView") == true && value != null)
         {
             try {

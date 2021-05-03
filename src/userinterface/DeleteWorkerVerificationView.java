@@ -210,6 +210,7 @@ public class DeleteWorkerVerificationView extends View
         databaseRemoved();
 
         myModel.stateChangeRequest("insertWorkerModification", p1);
+        myModel.stateChangeRequest("done", null);
     }
     /**
      * Process userid and pwd supplied when Submit button is hit.
