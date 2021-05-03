@@ -143,7 +143,7 @@ public class RentedBookView<pubilc> extends View{
         grid.add(auth2, 0, 5);
 
         checkInWorkerId = new TextField();
-        checkInWorkerId.setEditable(true);
+        checkInWorkerId.setEditable(false);
         grid.add(checkInWorkerId, 1, 5);
 
         Text auth3 = new Text(" Check Out Date : ");
@@ -153,7 +153,7 @@ public class RentedBookView<pubilc> extends View{
         grid.add(auth3, 0, 6);
 
         checkOutDate = new TextField();
-        checkOutDate.setEditable(true);
+        checkOutDate.setEditable(false);
         grid.add(checkOutDate, 1, 6);
 
         Text auth4 = new Text(" Check Out Worker ID : ");
@@ -163,7 +163,7 @@ public class RentedBookView<pubilc> extends View{
         grid.add(auth4, 0, 7);
 
         checkOutWorkerId = new TextField();
-        checkOutWorkerId.setEditable(true);
+        checkOutWorkerId.setEditable(false);
         grid.add(checkOutWorkerId, 1, 7);
 
         Text pub = new Text(" Due Date : ");
@@ -173,7 +173,7 @@ public class RentedBookView<pubilc> extends View{
         grid.add(pub, 0, 8);
 
         dueDate = new TextField();
-        dueDate.setEditable(true);
+        dueDate.setEditable(false);
         grid.add(dueDate, 1, 8);
 
         submitButton = new Button("Submit");
@@ -263,10 +263,6 @@ public class RentedBookView<pubilc> extends View{
             myModel.stateChangeRequest("InsertRental", p2);
 
         }
-
-
-
-
     }
 
 
@@ -317,8 +313,6 @@ public class RentedBookView<pubilc> extends View{
             checkOutWorkerId.setText((String)r.getState("checkOutWorkerId"));
             dueDate.setText((String)r.getState("dueDate"));
             checkOutDate.setText((String)r.getState("checkOutDate"));
-
-
         }
 
     }
