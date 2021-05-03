@@ -244,7 +244,7 @@ public class CheckOutTransaction implements IView, IModel, ISlideShow {
 
     public void databaseUpdated(){
 
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Database");
         alert.setHeaderText("Book Check Out Successful ");
 
