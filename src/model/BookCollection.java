@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 // project imports
 import exception.InvalidPrimaryKeyException;
 import event.Event;
-import database.*;
 
 import impresario.IView;
 
@@ -16,9 +15,9 @@ import userinterface.View;
 import userinterface.ViewFactory;
 public class BookCollection   extends EntityBase implements IView
 {
-    private static final String myTableName = "Worker";
+    private static final String myTableName = "Book";
 
-    private Vector<Worker> workers;
+    private Vector<Book> books;
     // GUI Components
 
     // constructor for this class
@@ -26,57 +25,57 @@ public class BookCollection   extends EntityBase implements IView
 
     public BookCollection(){
         super(myTableName);
-        workers = new Vector<Worker>();
+        books = new Vector<Book>();
     }
 
-    public BookCollection( Worker worker) throws
+    public BookCollection( Book book) throws
             Exception
     {
         super(myTableName);
 
-        if (worker == null)
+        if (book == null)
         {
             new Event(Event.getLeafLevelClassName(this), "<init>",
-                    "Missing worker information", Event.FATAL);
+                    "Missing book information", Event.FATAL);
             throw new Exception
-                    ("UNEXPECTED ERROR: WorkerCollection.<init>: worker information is null");
+                    ("UNEXPECTED ERROR: BookCollection.<init>: book information is null");
         }
 
-        String workerId = (String)worker.getState("bannerId");
+        String bookId = (String)book.getState("bannerId");
 
-        if (workerId == null)
+        if (bookId == null)
         {
             new Event(Event.getLeafLevelClassName(this), "<init>",
-                    "Data corrupted: Worker has no id in database", Event.FATAL);
+                    "Data corrupted: Book has no id in database", Event.FATAL);
             throw new Exception
-                    ("UNEXPECTED ERROR: WorkerCollection.<init>: Data corrupted: Worker has no id in repository");
+                    ("UNEXPECTED ERROR: BookCollection.<init>: Data corrupted: Worker has no id in repository");
         }
 
-        String query = "SELECT * FROM " + myTableName + " WHERE (bannerId = " + workerId + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (bannerId = " + bookId + ")";
 
         Vector allDataRetrieved = getSelectQueryResult(query);
 
         if (allDataRetrieved != null)
         {
-            workers = new Vector<Worker>();
+            books = new Vector<Book>();
 
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
-                Properties nextWorkerData = (Properties)allDataRetrieved.elementAt(cnt);
+                Properties nextBookData = (Properties)allDataRetrieved.elementAt(cnt);
 
-                Worker worker1 = new Worker(nextWorkerData);
+                Book book1 = new Book(nextBookData);
 
-                if (worker1 != null)
+                if (book1 != null)
                 {
-                    addWorker(worker1);
+                    addBook(book1);
                 }
             }
 
         }
         else
         {
-            throw new InvalidPrimaryKeyException("No bannerId for worker : "
-                    + workerId + ". Name : " + worker.getState("firstName"));
+            throw new InvalidPrimaryKeyException("No bannerId for book : "
+                    + bookId + ". Title : " + book.getState("title"));
         }
 
     }
@@ -104,18 +103,18 @@ public class BookCollection   extends EntityBase implements IView
         if (allDataRetrieved.isEmpty() == false)
         {
             System.out.println("query is getting results");
-            workers = new Vector<Worker>();
+            books = new Vector<Book>();
 
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
                 Properties nextPatronData = (Properties)allDataRetrieved.elementAt(cnt);
                 System.out.println(nextPatronData);
 
-                Worker worker = new Worker(nextPatronData);
+                Book book = new Book(nextPatronData);
 
-                if (worker != null)
+                if (book != null)
                 {
-                    addWorker(worker);
+                    addBook(book);
                 }
             }
 
@@ -129,28 +128,28 @@ public class BookCollection   extends EntityBase implements IView
 
 
     //----------------------------------------------------------------------------------
-    private void addWorker(Worker a)
+    private void addBook(Book a)
     {
         //accounts.add(a);
         int index = findIndexToAdd(a);
-        workers.insertElementAt(a,index); // To build up a collection sorted on some key
+        books.insertElementAt(a,index); // To build up a collection sorted on some key
     }
 
     //----------------------------------------------------------------------------------
-    private int findIndexToAdd(Worker a)
+    private int findIndexToAdd(Book a)
     {
         //users.add(u);
         int low=0;
-        int high = workers.size()-1;
+        int high = books.size()-1;
         int middle;
 
         while (low <=high)
         {
             middle = (low+high)/2;
 
-            Worker midSession = workers.elementAt(middle);
+            Book midSession = books.elementAt(middle);
 
-            int result = Worker.compare(a,midSession);
+            int result = Book.compare(a,midSession);
 
             if (result ==0)
             {
@@ -177,11 +176,11 @@ public class BookCollection   extends EntityBase implements IView
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("Workers")) {
-            return workers;
+        if (key.equals("Books")) {
+            return books;
         }
         else
-        if (key.equals("WorkerList"))
+        if (key.equals("BookList"))
             return this;
         return null;
     }
@@ -193,16 +192,16 @@ public class BookCollection   extends EntityBase implements IView
     }
 
     //----------------------------------------------------------
-    public Worker retrieve(String accountNumber)
+    public Book retrieve(String accountNumber)
     {
-        Worker retValue = null;
-        for (int cnt = 0; cnt < workers.size(); cnt++)
+        Book retValue = null;
+        for (int cnt = 0; cnt < books.size(); cnt++)
         {
-            Worker nextWorker = workers.elementAt(cnt);
-            String nextWorkerId = (String)nextWorker.getState("bannerId");
-            if (nextWorkerId.equals(accountNumber) == true)
+            Book nextBook= books.elementAt(cnt);
+            String nextBookID = (String)nextBook.getState("barcode");
+            if (nextBookID.equals(accountNumber) == true)
             {
-                retValue = nextWorker;
+                retValue = nextBook;
                 return retValue; // we should say 'break;' here
             }
         }

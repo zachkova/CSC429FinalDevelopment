@@ -27,9 +27,9 @@ import java.util.Vector;
         import userinterface.ViewFactory;
 public class RentalCollection   extends EntityBase implements IView
 {
-    private static final String myTableName = "Worker";
+    private static final String myTableName = "Rental";
 
-    private Vector<Worker> workers;
+    private Vector<Rental> rentals;
     // GUI Components
 
     // constructor for this class
@@ -37,57 +37,57 @@ public class RentalCollection   extends EntityBase implements IView
 
     public RentalCollection(){
         super(myTableName);
-        workers = new Vector<Worker>();
+        rentals = new Vector<Rental>();
     }
 
-    public RentalCollection( Worker worker) throws
+    public RentalCollection( Rental rental) throws
             Exception
     {
         super(myTableName);
 
-        if (worker == null)
+        if (rental == null)
         {
             new Event(Event.getLeafLevelClassName(this), "<init>",
-                    "Missing worker information", Event.FATAL);
+                    "Missing rental information", Event.FATAL);
             throw new Exception
-                    ("UNEXPECTED ERROR: WorkerCollection.<init>: worker information is null");
+                    ("UNEXPECTED ERROR: RentalCollection.<init>: renatl information is null");
         }
 
-        String workerId = (String)worker.getState("bannerId");
+        String id = (String)rental.getState("id");
 
-        if (workerId == null)
+        if (id == null)
         {
             new Event(Event.getLeafLevelClassName(this), "<init>",
-                    "Data corrupted: Worker has no id in database", Event.FATAL);
+                    "Data corrupted: Rental has no id in database", Event.FATAL);
             throw new Exception
-                    ("UNEXPECTED ERROR: WorkerCollection.<init>: Data corrupted: Worker has no id in repository");
+                    ("UNEXPECTED ERROR: RentalCollection.<init>: Data corrupted: Rental has no id in repository");
         }
 
-        String query = "SELECT * FROM " + myTableName + " WHERE (bannerId = " + workerId + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (rentalId = " + id + ")";
 
         Vector allDataRetrieved = getSelectQueryResult(query);
 
         if (allDataRetrieved != null)
         {
-            workers = new Vector<Worker>();
+            rentals = new Vector<Rental>();
 
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
-                Properties nextWorkerData = (Properties)allDataRetrieved.elementAt(cnt);
+                Properties nextRentalData = (Properties)allDataRetrieved.elementAt(cnt);
 
-                Worker worker1 = new Worker(nextWorkerData);
+                Rental rental1 = new Rental(nextRentalData);
 
-                if (worker1 != null)
+                if (rental1 != null)
                 {
-                    addWorker(worker1);
+                    addRental(rental1);
                 }
             }
 
         }
         else
         {
-            throw new InvalidPrimaryKeyException("No bannerId for worker : "
-                    + workerId + ". Name : " + worker.getState("firstName"));
+            throw new InvalidPrimaryKeyException("No id for rental : "
+                    + id + ". BorrowerID : " + rental.getState("borrowerId"));
         }
 
     }
@@ -115,18 +115,18 @@ public class RentalCollection   extends EntityBase implements IView
         if (allDataRetrieved.isEmpty() == false)
         {
             System.out.println("query is getting results");
-            workers = new Vector<Worker>();
+            rentals = new Vector<Rental>();
 
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
                 Properties nextPatronData = (Properties)allDataRetrieved.elementAt(cnt);
                 System.out.println(nextPatronData);
 
-                Worker worker = new Worker(nextPatronData);
+                Rental rental = new Rental(nextPatronData);
 
-                if (worker != null)
+                if (rental != null)
                 {
-                    addWorker(worker);
+                    addRental(rental);
                 }
             }
 
@@ -134,34 +134,34 @@ public class RentalCollection   extends EntityBase implements IView
         else
         {
             System.out.println("It is not getting results");
-            throw new InvalidPrimaryKeyException("No books that match criteria");
+            throw new InvalidPrimaryKeyException("No rentals that match criteria");
         }
     }
 
 
     //----------------------------------------------------------------------------------
-    private void addWorker(Worker a)
+    private void addRental(Rental a)
     {
         //accounts.add(a);
         int index = findIndexToAdd(a);
-        workers.insertElementAt(a,index); // To build up a collection sorted on some key
+        rentals.insertElementAt(a,index); // To build up a collection sorted on some key
     }
 
     //----------------------------------------------------------------------------------
-    private int findIndexToAdd(Worker a)
+    private int findIndexToAdd(Rental a)
     {
         //users.add(u);
         int low=0;
-        int high = workers.size()-1;
+        int high = rentals.size()-1;
         int middle;
 
         while (low <=high)
         {
             middle = (low+high)/2;
 
-            Worker midSession = workers.elementAt(middle);
+            Rental midSession = rentals.elementAt(middle);
 
-            int result = Worker.compare(a,midSession);
+            int result = Rental.compare(a,midSession);
 
             if (result ==0)
             {
@@ -188,11 +188,11 @@ public class RentalCollection   extends EntityBase implements IView
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("Workers")) {
-            return workers;
+        if (key.equals("Rentals")) {
+            return rentals;
         }
         else
-        if (key.equals("WorkerList"))
+        if (key.equals("RentalList"))
             return this;
         return null;
     }
@@ -204,16 +204,16 @@ public class RentalCollection   extends EntityBase implements IView
     }
 
     //----------------------------------------------------------
-    public Worker retrieve(String accountNumber)
+    public Rental retrieve(String accountNumber)
     {
-        Worker retValue = null;
-        for (int cnt = 0; cnt < workers.size(); cnt++)
+        Rental retValue = null;
+        for (int cnt = 0; cnt < rentals.size(); cnt++)
         {
-            Worker nextWorker = workers.elementAt(cnt);
-            String nextWorkerId = (String)nextWorker.getState("bannerId");
-            if (nextWorkerId.equals(accountNumber) == true)
+            Rental nextRental = rentals.elementAt(cnt);
+            String nextRentalId = (String)nextRental.getState("bannerId");
+            if (nextRentalId.equals(accountNumber) == true)
             {
-                retValue = nextWorker;
+                retValue = nextRental;
                 return retValue; // we should say 'break;' here
             }
         }
