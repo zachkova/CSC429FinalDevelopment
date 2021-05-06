@@ -96,11 +96,6 @@ public class RentalCollection   extends EntityBase implements IView
 
     public void getDelinquencyCheck() {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-
-        String date =  dtf.format(now);
-
         String query = "SELECT * FROM " + myTableName + " WHERE dueDate < " + "CURRENT_DATE()" + " AND checkinDate IS " + "NULL";
         System.out.println(query);
 
@@ -112,23 +107,18 @@ public class RentalCollection   extends EntityBase implements IView
     }
 
 
-    public void getFirstAndLastName(String fName, String lName) {
-        String query = "SELECT * FROM " + myTableName + " WHERE firstName LIKE '%" + fName + "%' AND lastName LIKE '%" + lName + "%'";
+    public void getNonCheckedOutRentals () {
+
+        String query = "SELECT * FROM " + myTableName + " WHERE checkinDate IS " + "NULL";
         System.out.println(query);
+
         try {
             queryer(query);
         } catch (Exception x) {
             System.out.println("Error: " + x);
         }
     }
-    public void getBannerId(String stZip) {
-        String query = "SELECT * FROM " + myTableName + " WHERE (bannerId LIKE "+ stZip + ")";
-        try {
-            queryer(query);
-        } catch (Exception x) {
-            System.out.println("Error: " + x);
-        }
-    }
+
 
     public void queryer(String d) throws InvalidPrimaryKeyException {
         Vector allDataRetrieved = getSelectQueryResult(d);
