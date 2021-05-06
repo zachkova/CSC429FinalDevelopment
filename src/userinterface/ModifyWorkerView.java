@@ -358,7 +358,7 @@ public class ModifyWorkerView extends View{
 
     public void databaseEdited(){
 
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Database");
         alert.setHeaderText("Your request was complete!");
         alert.setContentText("Your changes were saved and sent to the database.");
