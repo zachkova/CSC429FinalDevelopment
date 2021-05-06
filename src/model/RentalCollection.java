@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import userinterface.View;
 import userinterface.ViewFactory;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -50,7 +52,7 @@ public class RentalCollection   extends EntityBase implements IView
             new Event(Event.getLeafLevelClassName(this), "<init>",
                     "Missing rental information", Event.FATAL);
             throw new Exception
-                    ("UNEXPECTED ERROR: RentalCollection.<init>: renatl information is null");
+                    ("UNEXPECTED ERROR: RentalCollection.<init>: rental information is null");
         }
 
         String id = (String)rental.getState("id");
@@ -91,6 +93,25 @@ public class RentalCollection   extends EntityBase implements IView
         }
 
     }
+
+    public void getDelinquencyCheck() {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+
+        String date =  dtf.format(now);
+
+        String query = "SELECT * FROM " + myTableName + " WHERE dueDate < " + "CURRENT_DATE()" + " AND checkinDate IS " + "NULL";
+        System.out.println(query);
+
+        try {
+            queryer(query);
+        } catch (Exception x) {
+            System.out.println("Error: " + x);
+        }
+    }
+
+
     public void getFirstAndLastName(String fName, String lName) {
         String query = "SELECT * FROM " + myTableName + " WHERE firstName LIKE '%" + fName + "%' AND lastName LIKE '%" + lName + "%'";
         System.out.println(query);

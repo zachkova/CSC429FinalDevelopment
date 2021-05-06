@@ -59,6 +59,7 @@ public class Librarian implements IView, IModel
 
     private CheckOutTransaction cOT;
     private CheckInTransaction cIT;
+    private DelinquencyCheckTransaction DCT;
 
 
 
@@ -431,6 +432,14 @@ public class Librarian implements IView, IModel
             cIT = new CheckInTransaction();
             cIT.subscribe("CancelTransaction", this);
             cIT.stateChangeRequest("doYourJob", worker);
+
+        }
+        else
+        if(key.equals("DelCheck")){
+
+            DCT = new DelinquencyCheckTransaction();
+            DCT.subscribe("CancelTransaction", this);
+            DCT.stateChangeRequest("doYourJob", null);
 
         }
         else

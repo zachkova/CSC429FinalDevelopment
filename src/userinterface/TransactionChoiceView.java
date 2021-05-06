@@ -294,9 +294,10 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("Change This Later", null);
+				myModel.stateChangeRequest("DelCheck", null);
 			}
 		});
+
 		grid.setHalignment(delCheck, HPos.CENTER);
 		//delCheck.setMaxWidth(Double.MAX_VALUE);
 		grid.add(delCheck,0,3);
