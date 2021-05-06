@@ -132,7 +132,7 @@ public class RentalCollection   extends EntityBase implements IView
 
     public void queryer(String d) throws InvalidPrimaryKeyException {
         Vector allDataRetrieved = getSelectQueryResult(d);
-
+        System.out.println(allDataRetrieved.size() + " is the length of the rental vector");
         if (allDataRetrieved.isEmpty() == false)
         {
             System.out.println("query is getting results");

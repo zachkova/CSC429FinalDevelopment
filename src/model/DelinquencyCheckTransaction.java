@@ -102,19 +102,7 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
         for (int i = 0; i < col.size(); i++){
             try {
                 StudentBorrower s = new StudentBorrower((String)col.elementAt(i).getState("borrowerId"));
-                Properties p = new Properties();
-                p.setProperty("bannerId", (String)s.getState("bannerId"));
-                p.setProperty("firstName", (String)s.getState("firstName"));
-                p.setProperty("lastName", (String)s.getState("lastName"));
-                p.setProperty("contactPhone", (String)s.getState("contactPhone"));
-                p.setProperty("email", (String)s.getState("email"));
-                p.setProperty("borrowerStatus", "Delinquent");
-                p.setProperty("dateOfLatestBorrowerStatus", (String)s.getState("dateOfLatestBorrowerStatus"));
-                p.setProperty("dateOfRegistration", (String)s.getState("dateOfRegistration"));
-                p.setProperty("notes", (String)s.getState("notes"));
-                p.setProperty("status", (String)s.getState("status"));
-                s = new StudentBorrower(p);
-                s.setExistsTrue();
+                s.stateChangeRequest("borrowerStatus", "Delinquent");
                 s.update();
 
             } catch (InvalidPrimaryKeyException e) {

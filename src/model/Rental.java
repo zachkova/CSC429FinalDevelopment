@@ -92,8 +92,8 @@ public class Rental extends EntityBase {
     }
 
     public static int compare(Rental a, Rental b) {
-        String ba = (String)a.getState("title");
-        String bb = (String)b.getState("title");
+        String ba = (String)a.getState("id");
+        String bb = (String)b.getState("id");
         return ba.compareTo(bb);
     }
 
