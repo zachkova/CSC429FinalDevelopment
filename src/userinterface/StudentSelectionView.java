@@ -193,7 +193,7 @@ public class StudentSelectionView extends View
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processWorkerSelected();
+                    processPatronSelected();
                 }
             }
         });
