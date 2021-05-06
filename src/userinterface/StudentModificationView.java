@@ -35,7 +35,6 @@ public class StudentModificationView extends View{
     protected TextField dOLBS;
     protected TextField dOR;
     protected TextField notes;
-    protected ComboBox status;
 
     protected Button cancelButton;
     protected Button submitButton;
@@ -201,26 +200,16 @@ public class StudentModificationView extends View{
         notes.setEditable(true);
         grid.add(notes, 1, 9);
 
-        Text wStatus = new Text(" Student's Status : ");
-        wStatus.setFont(myFont);
-        wStatus.setWrappingWidth(150);
-        wStatus.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(wStatus, 0, 10);
-
-        status = new ComboBox();
-        status.getItems().addAll(
-                "Active",
-                "Inactive"
-        );
-
-        status.setValue("Active");
-        grid.add(status, 1, 10);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                processAction(e);
+                try {
+                    processAction(e);
+                } catch (InvalidPrimaryKeyException invalidPrimaryKeyException) {
+                    invalidPrimaryKeyException.printStackTrace();
+                }
             }
         });
 
@@ -246,9 +235,11 @@ public class StudentModificationView extends View{
         return vbox;
     }
 
-    private void processAction(ActionEvent e) {
+    private void processAction(ActionEvent e) throws InvalidPrimaryKeyException {
 
         clearErrorMessage();
+
+        StudentBorrower s = new StudentBorrower((String)bannerId.getText());
 
         String ban = bannerId.getText();
         String fName = first.getText();
@@ -259,7 +250,7 @@ public class StudentModificationView extends View{
         String latestCred = dOLBS.getText();
         String dateHire = dOR.getText();
         String not = notes.getText();
-        String stat = (String)status.getValue();
+        String stat = (String)s.getState("status");
 
         Properties p1 = new Properties();
         p1.setProperty("bannerId", ban);
@@ -276,19 +267,6 @@ public class StudentModificationView extends View{
         databaseEdited();
 
         myModel.stateChangeRequest("insertStudentModification", p1);
-/*
-        bannerId.clear();
-        password.clear();
-        first.clear();
-        last.clear();
-        phone.clear();
-        email.clear();
-        dOLC.clear();
-        doh.clear();
-
- */
-
-
 
     }
 
@@ -325,8 +303,6 @@ public class StudentModificationView extends View{
         dOR.setEditable(false);
 
         notes.setText((String)w.getState("notes"));
-        status.setValue((String)w.getState("status"));
-
 
     }
 
@@ -373,7 +349,7 @@ public class StudentModificationView extends View{
 
     public void databaseEdited(){
 
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Database");
         alert.setHeaderText("Your request was complete!");
         alert.setContentText("Your changes were saved and sent to the database.");

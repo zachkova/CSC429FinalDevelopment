@@ -75,6 +75,7 @@ public class StudentBorrower extends EntityBase {
 
     @Override
     public void stateChangeRequest(String key, Object value) {
+        persistentState.setProperty(key, (String)value);
 
     }
 

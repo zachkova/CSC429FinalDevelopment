@@ -120,6 +120,10 @@ public class ViewFactory {
 		{
 			return new CheckInRentalView<>(model);
 		}
+		else if(viewName.equals("DelCheck") == true)
+		{
+			return new DelinquencyCheckCompleteView(model);
+		}
 
 		else
 			return null;
