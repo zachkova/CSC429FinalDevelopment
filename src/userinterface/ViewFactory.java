@@ -124,6 +124,10 @@ public class ViewFactory {
 		{
 			return new DelinquencyCheckCompleteView(model);
 		}
+		else if(viewName.equals("BookCollectionView") == true)
+		{
+			return new BookCollectionView(model);
+		}
 
 		else
 			return null;

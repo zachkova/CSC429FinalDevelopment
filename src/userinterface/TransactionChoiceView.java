@@ -308,7 +308,7 @@ public class TransactionChoiceView extends View
 
 			@Override
 			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("Change This Later", null);
+				myModel.stateChangeRequest("CheckedOutBooks", null);
 			}
 		});
 		grid.setHalignment(listCheckBooks, HPos.CENTER);

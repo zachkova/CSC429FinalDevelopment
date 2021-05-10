@@ -135,6 +135,13 @@ public class BookCollection   extends EntityBase implements IView
         books.insertElementAt(a,index); // To build up a collection sorted on some key
     }
 
+    protected void insertBook(Book a)
+    {
+        //accounts.add(a);
+        int index = findIndexToAdd(a);
+        books.insertElementAt(a,index); // To build up a collection sorted on some key
+    }
+
     //----------------------------------------------------------------------------------
     private int findIndexToAdd(Book a)
     {
