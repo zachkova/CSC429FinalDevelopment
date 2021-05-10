@@ -22,7 +22,7 @@ import userinterface.View;
 import userinterface.ViewFactory;
 import userinterface.WindowPosition;
 import model.StudentBorrower;
-import model.CheckOutTransaction;
+
 
 /** The class containing the Teller  for the ATM application */
 //==============================================================
@@ -60,6 +60,7 @@ public class Librarian implements IView, IModel
     private CheckOutTransaction cOT;
     private CheckInTransaction cIT;
     private DelinquencyCheckTransaction DCT;
+    private GetCheckedOutBooksTransaction COBT;
 
 
 
@@ -435,11 +436,21 @@ public class Librarian implements IView, IModel
 
         }
         else
-        if(key.equals("DelCheck")){
+        if(key.equals("DelCheck"))
+        {
 
             DCT = new DelinquencyCheckTransaction();
             DCT.subscribe("CancelTransaction", this);
             DCT.stateChangeRequest("doYourJob", null);
+
+        }
+        else
+        if(key.equals("CheckedOutBooks"))
+        {
+
+            COBT = new GetCheckedOutBooksTransaction();
+            COBT.subscribe("CancelTransaction", this);
+            COBT.stateChangeRequest("doYourJob", null);
 
         }
         else

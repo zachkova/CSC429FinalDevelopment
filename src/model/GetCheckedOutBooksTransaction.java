@@ -18,13 +18,13 @@ import java.util.Hashtable;
 import java.util.Properties;
 import java.util.Vector;
 
-public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
+public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow {
 
     private ModelRegistry myRegistry;
     private Hashtable<String, Scene> myViews;
     private Stage myStage;
     private Properties dependencies;
-    private RentalCollection rc;
+    private BookCollection bc;
     private Rental r;
     private String id = "";
     private String bCode = "";
@@ -32,10 +32,10 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
     private int check;
 
 
-    protected DelinquencyCheckTransaction(){
+    protected GetCheckedOutBooksTransaction(){
         myStage = MainStageContainer.getInstance();
         myViews = new Hashtable<String, Scene>();
-        myRegistry = new ModelRegistry("DelinquencyCheckTransaction");
+        myRegistry = new ModelRegistry("GetCheckedOutBooksTransaction");
 
         setDependencies();
     }
@@ -48,9 +48,9 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
 
     @Override
     public Object getState(String key) {
-        if (key.equals("RentalList") == true)
+        if (key.equals("BookList") == true)
         {
-            return rc;
+            return bc;
         }
         else if (key.equals("rental") == true)
         {
@@ -73,18 +73,40 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
     @Override
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("doYourJob")) {
-
-            check = runDelinquency();
-            System.out.println(check);
+           int check = getBooksFromRentals();
             if (check == 1) {
                 databaseDelCheckError();
             } else {
-                createAndShowDelinquencyCheckTransaction();
+                createAndShowBookCollectionView();
             }
         }
         else
 
-        myRegistry.updateSubscribers(key, this);
+            myRegistry.updateSubscribers(key, this);
+    }
+
+    private int getBooksFromRentals() {
+        int run;
+        RentalCollection r = new RentalCollection();
+        r.getNonCheckedOutRentals();
+        Vector<Rental> check = (Vector)r.getState("Rentals");
+        if(check.isEmpty() == true)
+        {
+            run = 1;
+        }
+        else
+            run = 0;
+        bc = new BookCollection();
+        Vector<Rental> col = (Vector)r.getState("Rentals");
+        for (int i = 0; i < col.size(); i++){
+            try {
+                Book b = new Book((String)col.elementAt(i).getState("bookId"));
+                bc.insertBook(b);
+            } catch (InvalidPrimaryKeyException e) {
+                e.printStackTrace();
+            }
+        }
+        return run;
     }
 
     private int runDelinquency() {
@@ -121,12 +143,12 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
         alert.showAndWait();
     }
 
-    private void createAndShowDelinquencyCheckTransaction()
+    private void createAndShowBookCollectionView()
     {
         Scene currentScene = null;
 
         // create our initial view
-        View newView = ViewFactory.createView("DelCheck", this); // USE VIEW FACTORY
+        View newView = ViewFactory.createView("BookCollectionView", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         // make the view visible by installing it into the frame
@@ -168,7 +190,6 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
         // make the view visible by installing it into the frame
         swapToView(currentScene);
     }
-
 
     public void swapToView(Scene newScene)
     {
@@ -230,3 +251,4 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
         alert.showAndWait();
     }
 }
+
