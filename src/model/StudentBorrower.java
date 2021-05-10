@@ -90,6 +90,12 @@ public class StudentBorrower extends EntityBase {
         return ba.compareTo(bb);
     }
 
+    public static int compareBanner(StudentBorrower a, StudentBorrower b) {
+        String banid = (String)a.getState("bannerId");
+        String banid2 = (String)b.getState("bannerId");
+        return banid.compareTo(banid2);
+    }
+
     //-----------------------------------------------------------------------------------
     public void update()
     {
