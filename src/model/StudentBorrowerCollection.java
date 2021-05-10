@@ -122,7 +122,7 @@ public class StudentBorrowerCollection   extends EntityBase implements IView
 
 
     //----------------------------------------------------------------------------------
-    private void addStudent(StudentBorrower a)
+    protected void addStudent(StudentBorrower a)
     {
         //accounts.add(a);
         int index = findIndexToAdd(a);
