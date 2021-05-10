@@ -128,6 +128,10 @@ public class ViewFactory {
 		{
 			return new BookCollectionView(model);
 		}
+		else if(viewName.equals("StudentCollectionView") == true)
+		{
+			return new StudentCollectionView(model);
+		}
 
 		else
 			return null;
