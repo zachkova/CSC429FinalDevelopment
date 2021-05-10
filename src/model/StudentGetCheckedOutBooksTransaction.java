@@ -267,7 +267,7 @@ public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISli
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
         alert.setHeaderText("Ooops, there was an issue comleting your request.");
-        alert.setContentText("There are no students eligible for delinquency status.");
+        alert.setContentText("There are no students with books checked out currently.");
 
         alert.showAndWait();
     }
