@@ -96,17 +96,18 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
         {
             run = 1;
         }
-        else
+        else {
             run = 0;
-        Vector<Rental> col = (Vector)r.getState("Rentals");
-        for (int i = 0; i < col.size(); i++){
-            try {
-                StudentBorrower s = new StudentBorrower((String)col.elementAt(i).getState("borrowerId"));
-                s.stateChangeRequest("borrowerStatus", "Delinquent");
-                s.update();
+            Vector<Rental> col = (Vector) r.getState("Rentals");
+            for (int i = 0; i < col.size(); i++) {
+                try {
+                    StudentBorrower s = new StudentBorrower((String) col.elementAt(i).getState("borrowerId"));
+                    s.stateChangeRequest("borrowerStatus", "Delinquent");
+                    s.update();
 
-            } catch (InvalidPrimaryKeyException e) {
-                e.printStackTrace();
+                } catch (InvalidPrimaryKeyException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return run;
