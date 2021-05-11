@@ -315,18 +315,6 @@ public class TransactionChoiceView extends View
 		//listCheckBooks.setMaxWidth(Double.MAX_VALUE);
 		grid.add(listCheckBooks,1,5);
 
-		listAvailableBooks = new Button("List All Available Books");
-		listAvailableBooks.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-		listAvailableBooks.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent e) {
-				myModel.stateChangeRequest("Change This Later", null);
-			}
-		});
-		grid.setHalignment(listAvailableBooks, HPos.CENTER);
-		//listAvailableBooks.setMaxWidth(Double.MAX_VALUE);
-		grid.add(listAvailableBooks,1,6);
 
 		listStudentBooksCheckedOut = new Button("List Students with \nBook Checked Out");
 		listStudentBooksCheckedOut.setFont(Font.font("Arial", FontWeight.BOLD, 14));
