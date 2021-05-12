@@ -73,74 +73,40 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
     @Override
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("doYourJob")) {
-           int check = getBooksFromRentals();
-            if (check == 1) {
-                databaseDelCheckError();
+           boolean check = getBooksFromRentals();
+            if (check == false) {
+                databaseCheckedOutError();
             } else {
                 createAndShowBookCollectionView();
             }
         }
         else
-
             myRegistry.updateSubscribers(key, this);
     }
 
-    private int getBooksFromRentals() {
-        int run;
+    private boolean getBooksFromRentals() {
+        boolean run;
         RentalCollection r = new RentalCollection();
-        r.getNonCheckedOutRentals();
+        r.getCheckedOutRentals();
         Vector<Rental> check = (Vector)r.getState("Rentals");
         if(check.isEmpty() == true)
         {
-            run = 1;
+            run = false;
         }
-        else
-            run = 0;
-        bc = new BookCollection();
-        Vector<Rental> col = (Vector)r.getState("Rentals");
-        for (int i = 0; i < col.size(); i++){
-            try {
-                Book b = new Book((String)col.elementAt(i).getState("bookId"));
-                bc.insertBook(b);
-            } catch (InvalidPrimaryKeyException e) {
-                e.printStackTrace();
+        else {
+            run = true;
+            bc = new BookCollection();
+            Vector<Rental> col = (Vector) r.getState("Rentals");
+            for (int i = 0; i < col.size(); i++) {
+                try {
+                    Book b = new Book((String) col.elementAt(i).getState("bookId"));
+                    bc.insertBook(b);
+                } catch (InvalidPrimaryKeyException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return run;
-    }
-
-    private int runDelinquency() {
-        int run;
-        RentalCollection r = new RentalCollection();
-        r.getDelinquencyCheck();
-        Vector<Rental> check = (Vector)r.getState("Rentals");
-        if(check.isEmpty() == true)
-        {
-            run = 1;
-        }
-        else
-            run = 0;
-        Vector<Rental> col = (Vector)r.getState("Rentals");
-        for (int i = 0; i < col.size(); i++){
-            try {
-                StudentBorrower s = new StudentBorrower((String)col.elementAt(i).getState("borrowerId"));
-                s.stateChangeRequest("borrowerStatus", "Delinquent");
-                s.update();
-
-            } catch (InvalidPrimaryKeyException e) {
-                e.printStackTrace();
-            }
-        }
-        return run;
-    }
-
-    private void errorBookIserted() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Book is unavailable to rent at the moment!");
-        alert.setContentText("Please checkout a different book.");
-
-        alert.showAndWait();
     }
 
     private void createAndShowBookCollectionView()
@@ -149,42 +115,6 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
 
         // create our initial view
         View newView = ViewFactory.createView("BookCollectionView", this); // USE VIEW FACTORY
-        currentScene = new Scene(newView);
-
-        // make the view visible by installing it into the frame
-        swapToView(currentScene);
-    }
-
-    private void createAndShowStudentSelectionView()
-    {
-        Scene currentScene = null;
-
-        // create our initial view
-        View newView = ViewFactory.createView("StudentSelectionView", this); // USE VIEW FACTORY
-        currentScene = new Scene(newView);
-
-        // make the view visible by installing it into the frame
-        swapToView(currentScene);
-    }
-
-    private void createAndShowBarcodeView()
-    {
-        Scene currentScene = null;
-
-        // create our initial view
-        View newView = ViewFactory.createView("BarcodeSearchView", this); // USE VIEW FACTORY
-        currentScene = new Scene(newView);
-
-        // make the view visible by installing it into the frame
-        swapToView(currentScene);
-    }
-
-    private void createAndShowRentBook()
-    {
-        Scene currentScene = null;
-
-        // create our initial view
-        View newView = ViewFactory.createView("RentBook", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         // make the view visible by installing it into the frame
@@ -206,7 +136,6 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
         myStage.setScene(newScene);
         myStage.sizeToScene();
 
-
         //Place in center
         WindowPosition.placeCenter(myStage);
 
@@ -222,31 +151,12 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
 
     }
 
-    public void databaseUpdated(){
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Database");
-        alert.setHeaderText("Book Check Out Successful ");
-
-        alert.showAndWait();
-    }
-
-    public void databaseError(){
+    public void databaseCheckedOutError(){
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
-        alert.setHeaderText("Ooops, there was an error accessing the database.");
-        alert.setContentText("Please make sure everything is filled out correctly and try again.");
-
-        alert.showAndWait();
-    }
-
-    public void databaseDelCheckError(){
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Database");
-        alert.setHeaderText("Ooops, there was an issue comleting your request.");
-        alert.setContentText("There are no students eligible for delinquency status.");
+        alert.setHeaderText("Ooops, there was an issue completing your request.");
+        alert.setContentText("There are no books that are checked out.");
 
         alert.showAndWait();
     }
