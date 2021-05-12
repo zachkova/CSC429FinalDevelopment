@@ -29,7 +29,7 @@ public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISli
     private String id = "";
     private String bCode = "";
     private String lName = " ";
-    private int check;
+    private boolean check;
 
 
     protected StudentGetCheckedOutBooksTransaction(){
@@ -74,6 +74,7 @@ public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISli
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("doYourJob")) {
             boolean check = getStudentsFromRentals();
+            System.out.println("IIIIIIIIIIIIIIITTTTTTTTTTTTTTTTTTTT HIIIIIIIIIIIIIIIIIITTTTTTTTTTTTTT" + check);
             if (check == false) {
                 databaseDelCheckError();
             } else {
@@ -107,17 +108,19 @@ public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISli
 
                     else {
                         Vector<StudentBorrower> v1 = ((Vector) sc.getState("StudentBorrowers"));
+                        int checker = 0;
                         for (int y = 0; y < v1.size(); y++) {
+                            System.out.println("IIIIIIIIIIIIIIITTTTTTTTTTTTTTTTTTTT HIIIIIIIIIIIIIIIIIITTTTTTTTTTTTTT" + y);
                             StudentBorrower ccs = (StudentBorrower) v1.elementAt(y);
                             String banId = (String) s.getState("bannerId");
                             String nameCheck = (String) ccs.getState("bannerId");
                             if (banId.equals(nameCheck)) {
-                                System.out.println("Duplicate Student Removed. Multiple Books Checked out by the same person.");
-                            } else {
-                                sc.addStudent(s);
+                                checker++;
                             }
 
                         }
+                        if (checker == 0)
+                            sc.addStudent(s);
                     }
                 } catch (InvalidPrimaryKeyException e) {
                     e.printStackTrace();

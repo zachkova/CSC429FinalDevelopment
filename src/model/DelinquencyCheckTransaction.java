@@ -96,7 +96,7 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
         {
             run = false;
         }
-        else {
+        else
             run = true;
             Vector<Rental> col = (Vector) r.getState("Rentals");
             for (int i = 0; i < col.size(); i++) {
@@ -109,7 +109,6 @@ public class DelinquencyCheckTransaction implements IView, IModel, ISlideShow {
                     e.printStackTrace();
                 }
             }
-        }
         return run;
     }
 
