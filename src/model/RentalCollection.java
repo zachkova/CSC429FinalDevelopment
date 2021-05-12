@@ -106,7 +106,7 @@ public class RentalCollection   extends EntityBase implements IView
         }
     }
 
-    public void getNonCheckedOutRentals () {
+    public void getCheckedOutRentals () {
 
         String query = "SELECT * FROM " + myTableName + " WHERE checkinDate IS " + "NULL";
         System.out.println(query);

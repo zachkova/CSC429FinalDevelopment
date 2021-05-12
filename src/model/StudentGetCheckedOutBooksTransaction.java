@@ -29,7 +29,7 @@ public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISli
     private String id = "";
     private String bCode = "";
     private String lName = " ";
-    private int check;
+    private boolean check;
 
 
     protected StudentGetCheckedOutBooksTransaction(){
@@ -73,8 +73,9 @@ public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISli
     @Override
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("doYourJob")) {
-            int check = getStudentsFromRentals();
-            if (check == 1) {
+            boolean check = getStudentsFromRentals();
+            System.out.println("IIIIIIIIIIIIIIITTTTTTTTTTTTTTTTTTTT HIIIIIIIIIIIIIIIIIITTTTTTTTTTTTTT" + check);
+            if (check == false) {
                 databaseDelCheckError();
             } else {
                 createAndShowStudentCollectionView();
@@ -85,95 +86,48 @@ public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISli
             myRegistry.updateSubscribers(key, this);
     }
 
-    private int getStudentsFromRentals() {
-        int run;
+    private boolean getStudentsFromRentals() {
+        boolean run;
         RentalCollection r = new RentalCollection();
-        r.getNonCheckedOutRentals();
+        r.getCheckedOutRentals();
         Vector<Rental> check = (Vector)r.getState("Rentals");
         if(check.isEmpty() == true)
         {
-            run = 1;
+            run = false;
         }
-        else
-            run = 0;
-        sc = new StudentBorrowerCollection();
-        Vector<Rental> col = (Vector)r.getState("Rentals");
-        for (int i = 0; i < col.size(); i++){
-            try {
-                System.out.println("here " + i);
-                //StudentBorrower s = new StudentBorrower((String)col.elementAt(i).getState("borrowerId"));
-                //sc.addStudent(s);
+        else {
+            run = true;
+            sc = new StudentBorrowerCollection();
+            Vector<Rental> col = (Vector) r.getState("Rentals");
+            for (int i = 0; i < col.size(); i++) {
+                try {
+                    StudentBorrower s = new StudentBorrower((String) col.elementAt(i).getState("borrowerId"));
 
-                StudentBorrower s = new StudentBorrower((String)col.elementAt(i).getState("borrowerId"));
+                    if (i == 0)
+                        sc.addStudent(s);
 
-                if (i == 0)
-                    sc.addStudent(s);
+                    else {
+                        Vector<StudentBorrower> v1 = ((Vector) sc.getState("StudentBorrowers"));
+                        int checker = 0;
+                        for (int y = 0; y < v1.size(); y++) {
+                            System.out.println("IIIIIIIIIIIIIIITTTTTTTTTTTTTTTTTTTT HIIIIIIIIIIIIIIIIIITTTTTTTTTTTTTT" + y);
+                            StudentBorrower ccs = (StudentBorrower) v1.elementAt(y);
+                            String banId = (String) s.getState("bannerId");
+                            String nameCheck = (String) ccs.getState("bannerId");
+                            if (banId.equals(nameCheck)) {
+                                checker++;
+                            }
 
-                else{
-                    Vector<StudentBorrower> v1 = ((Vector)sc.getState("StudentBorrowers"));
-                    for (int y = 0; y < v1.size(); y++){
-                        StudentBorrower ccs = (StudentBorrower)v1.elementAt(y);
-                        String banId = (String)s.getState("bannerId");
-                        String nameCheck = (String)ccs.getState("bannerId");
-                        if (banId.equals(nameCheck)) {
-                            System.out.println("Duplicate Student Removed. Multiple Books Checked out by the same person.");
-                        }else{
-                            sc.addStudent(s);
                         }
-
+                        if (checker == 0)
+                            sc.addStudent(s);
                     }
+                } catch (InvalidPrimaryKeyException e) {
+                    e.printStackTrace();
                 }
-            } catch (InvalidPrimaryKeyException e) {
-                e.printStackTrace();
             }
         }
         return run;
-    }
-
-    private int runDelinquency() {
-        int run;
-        RentalCollection r = new RentalCollection();
-        r.getDelinquencyCheck();
-        Vector<Rental> check = (Vector)r.getState("Rentals");
-        if(check.isEmpty() == true)
-        {
-            run = 1;
-        }
-        else
-            run = 0;
-        Vector<Rental> col = (Vector)r.getState("Rentals");
-        for (int i = 0; i < col.size(); i++){
-            try {
-                StudentBorrower s = new StudentBorrower((String)col.elementAt(i).getState("borrowerId"));
-                s.stateChangeRequest("borrowerStatus", "Delinquent");
-                s.update();
-
-            } catch (InvalidPrimaryKeyException e) {
-                e.printStackTrace();
-            }
-        }
-        return run;
-    }
-
-    private void errorBookIserted() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Book is unavailable to rent at the moment!");
-        alert.setContentText("Please checkout a different book.");
-
-        alert.showAndWait();
-    }
-
-    private void createAndShowBookCollectionView()
-    {
-        Scene currentScene = null;
-
-        // create our initial view
-        View newView = ViewFactory.createView("BookCollectionView", this); // USE VIEW FACTORY
-        currentScene = new Scene(newView);
-
-        // make the view visible by installing it into the frame
-        swapToView(currentScene);
     }
 
     private void createAndShowStudentCollectionView()
@@ -182,30 +136,6 @@ public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISli
 
         // create our initial view
         View newView = ViewFactory.createView("StudentCollectionView", this); // USE VIEW FACTORY
-        currentScene = new Scene(newView);
-
-        // make the view visible by installing it into the frame
-        swapToView(currentScene);
-    }
-
-    private void createAndShowBarcodeView()
-    {
-        Scene currentScene = null;
-
-        // create our initial view
-        View newView = ViewFactory.createView("BarcodeSearchView", this); // USE VIEW FACTORY
-        currentScene = new Scene(newView);
-
-        // make the view visible by installing it into the frame
-        swapToView(currentScene);
-    }
-
-    private void createAndShowRentBook()
-    {
-        Scene currentScene = null;
-
-        // create our initial view
-        View newView = ViewFactory.createView("RentBook", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         // make the view visible by installing it into the frame
