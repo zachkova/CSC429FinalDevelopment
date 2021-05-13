@@ -61,6 +61,7 @@ public class Librarian implements IView, IModel
     private CheckInTransaction cIT;
     private DelinquencyCheckTransaction DCT;
     private GetCheckedOutBooksTransaction COBT;
+    private StudentGetCheckedOutBooksTransaction SCOBT;
 
 
 
@@ -451,6 +452,14 @@ public class Librarian implements IView, IModel
             COBT = new GetCheckedOutBooksTransaction();
             COBT.subscribe("CancelTransaction", this);
             COBT.stateChangeRequest("doYourJob", null);
+
+        }
+        if(key.equals("StudentCheckedOutBooks"))
+        {
+
+            SCOBT = new StudentGetCheckedOutBooksTransaction();
+            SCOBT.subscribe("CancelTransaction", this);
+            SCOBT.stateChangeRequest("doYourJob", null);
 
         }
         else

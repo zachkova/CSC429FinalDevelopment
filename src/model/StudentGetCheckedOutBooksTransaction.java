@@ -18,24 +18,24 @@ import java.util.Hashtable;
 import java.util.Properties;
 import java.util.Vector;
 
-public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow {
+public class StudentGetCheckedOutBooksTransaction implements IView, IModel, ISlideShow {
 
     private ModelRegistry myRegistry;
     private Hashtable<String, Scene> myViews;
     private Stage myStage;
     private Properties dependencies;
-    private BookCollection bc;
+    private StudentBorrowerCollection sc;
     private Rental r;
     private String id = "";
     private String bCode = "";
     private String lName = " ";
-    private int check;
+    private boolean check;
 
 
-    protected GetCheckedOutBooksTransaction(){
+    protected StudentGetCheckedOutBooksTransaction(){
         myStage = MainStageContainer.getInstance();
         myViews = new Hashtable<String, Scene>();
-        myRegistry = new ModelRegistry("GetCheckedOutBooksTransaction");
+        myRegistry = new ModelRegistry("StudentsCheckedOutBooks");
 
         setDependencies();
     }
@@ -48,9 +48,9 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
 
     @Override
     public Object getState(String key) {
-        if (key.equals("BookList") == true)
+        if (key.equals("StudentBorrowerList") == true)
         {
-            return bc;
+            return sc;
         }
         else if (key.equals("rental") == true)
         {
@@ -73,18 +73,20 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
     @Override
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("doYourJob")) {
-           boolean check = getBooksFromRentals();
+            boolean check = getStudentsFromRentals();
+            System.out.println("IIIIIIIIIIIIIIITTTTTTTTTTTTTTTTTTTT HIIIIIIIIIIIIIIIIIITTTTTTTTTTTTTT" + check);
             if (check == false) {
-                databaseCheckedOutError();
+                databaseDelCheckError();
             } else {
-                createAndShowBookCollectionView();
+                createAndShowStudentCollectionView();
             }
         }
         else
+
             myRegistry.updateSubscribers(key, this);
     }
 
-    private boolean getBooksFromRentals() {
+    private boolean getStudentsFromRentals() {
         boolean run;
         RentalCollection r = new RentalCollection();
         r.getCheckedOutRentals();
@@ -95,12 +97,31 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
         }
         else {
             run = true;
-            bc = new BookCollection();
+            sc = new StudentBorrowerCollection();
             Vector<Rental> col = (Vector) r.getState("Rentals");
             for (int i = 0; i < col.size(); i++) {
                 try {
-                    Book b = new Book((String) col.elementAt(i).getState("bookId"));
-                    bc.insertBook(b);
+                    StudentBorrower s = new StudentBorrower((String) col.elementAt(i).getState("borrowerId"));
+
+                    if (i == 0)
+                        sc.addStudent(s);
+
+                    else {
+                        Vector<StudentBorrower> v1 = ((Vector) sc.getState("StudentBorrowers"));
+                        int checker = 0;
+                        for (int y = 0; y < v1.size(); y++) {
+                            System.out.println("IIIIIIIIIIIIIIITTTTTTTTTTTTTTTTTTTT HIIIIIIIIIIIIIIIIIITTTTTTTTTTTTTT" + y);
+                            StudentBorrower ccs = (StudentBorrower) v1.elementAt(y);
+                            String banId = (String) s.getState("bannerId");
+                            String nameCheck = (String) ccs.getState("bannerId");
+                            if (banId.equals(nameCheck)) {
+                                checker++;
+                            }
+
+                        }
+                        if (checker == 0)
+                            sc.addStudent(s);
+                    }
                 } catch (InvalidPrimaryKeyException e) {
                     e.printStackTrace();
                 }
@@ -109,12 +130,12 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
         return run;
     }
 
-    private void createAndShowBookCollectionView()
+    private void createAndShowStudentCollectionView()
     {
         Scene currentScene = null;
 
         // create our initial view
-        View newView = ViewFactory.createView("BookCollectionView", this); // USE VIEW FACTORY
+        View newView = ViewFactory.createView("StudentCollectionView", this); // USE VIEW FACTORY
         currentScene = new Scene(newView);
 
         // make the view visible by installing it into the frame
@@ -136,6 +157,7 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
         myStage.setScene(newScene);
         myStage.sizeToScene();
 
+
         //Place in center
         WindowPosition.placeCenter(myStage);
 
@@ -151,12 +173,31 @@ public class GetCheckedOutBooksTransaction implements IView, IModel, ISlideShow 
 
     }
 
-    public void databaseCheckedOutError(){
+    public void databaseUpdated(){
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Database");
+        alert.setHeaderText("Book Check Out Successful ");
+
+        alert.showAndWait();
+    }
+
+    public void databaseError(){
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database");
-        alert.setHeaderText("Ooops, there was an issue completing your request.");
-        alert.setContentText("There are no books that are checked out.");
+        alert.setHeaderText("Ooops, there was an error accessing the database.");
+        alert.setContentText("Please make sure everything is filled out correctly and try again.");
+
+        alert.showAndWait();
+    }
+
+    public void databaseDelCheckError(){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Ooops, there was an issue comleting your request.");
+        alert.setContentText("There are no students with books checked out currently.");
 
         alert.showAndWait();
     }

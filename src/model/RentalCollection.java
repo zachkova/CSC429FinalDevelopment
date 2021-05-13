@@ -106,8 +106,7 @@ public class RentalCollection   extends EntityBase implements IView
         }
     }
 
-
-    public void getNonCheckedOutRentals () {
+    public void getCheckedOutRentals () {
 
         String query = "SELECT * FROM " + myTableName + " WHERE checkinDate IS " + "NULL";
         System.out.println(query);
@@ -118,7 +117,6 @@ public class RentalCollection   extends EntityBase implements IView
             System.out.println("Error: " + x);
         }
     }
-
 
     public void queryer(String d) throws InvalidPrimaryKeyException {
         Vector allDataRetrieved = getSelectQueryResult(d);
