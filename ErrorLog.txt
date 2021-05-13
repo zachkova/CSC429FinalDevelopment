@@ -252,3 +252,4 @@
 [4/30/21 3:44 PM]|Rental|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
 [4/30/21 3:46 PM]|Rental|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
 [4/30/21 3:46 PM]|Rental|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdasd' in 'where clause'>
+[5/13/21 12:47 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'aa' in 'where clause'>

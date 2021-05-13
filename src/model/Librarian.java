@@ -189,6 +189,8 @@ public class Librarian implements IView, IModel
                 {
                     createAndShowTransactionChoiceView();
                 }
+                else
+                    databaseLoginError();
             }
         }
         else
@@ -533,7 +535,10 @@ public class Librarian implements IView, IModel
             worker = new Worker(username, password);
 
             System.out.println("Account Holder: " + worker.getState("firstName") + " successfully logged in");
-            return true;
+            if (((String)worker.getState("status")).equals("Inactive") == true)
+            return false;
+            else
+                return true;
         }
         catch (InvalidPrimaryKeyException ex)
         {
@@ -889,4 +894,12 @@ public class Librarian implements IView, IModel
         alert.showAndWait();
     }
 
+    private void databaseLoginError() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database");
+        alert.setHeaderText("Worker is set to inactive.");
+        alert.setContentText("Please try again.");
+
+        alert.showAndWait();
+    }
 }
